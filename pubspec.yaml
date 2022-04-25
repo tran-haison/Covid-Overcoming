@@ -20,53 +20,135 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.16.1 <3.0.0"
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+  # Rxdart
+  # https://pub.dev/packages/rxdart
+  rxdart: ^0.27.1
+
+  # Network
+  # https://pub.dev/packages/dio
+  dio: ^4.0.4
+
+  # https://pub.dev/packages/pretty_dio_logger
+  pretty_dio_logger: ^1.2.0-beta-1
+
+  # https://pub.dev/packages/retrofit
+  retrofit: '>=3.0.0 <4.0.0'
+  logger: any
+
+  # https://pub.dev/packages/json_annotation
+  json_annotation: ^4.4.0
+
+  # DI
+  # https://pub.dev/packages/get_it
+  get_it: ^7.2.0
+
+  # https://pub.dev/packages/injectable
+  injectable: ^1.5.3
+
+  # State management
+  # https://pub.dev/packages/flutter_bloc/install
+  flutter_bloc: ^8.0.1
+
+  # https://pub.dev/packages/equatable
+  equatable: ^2.0.0
+
+  # Support manager route for Flutter.
+  # https://pub.dev/packages/fluro
+  fluro: ^2.0.3
+
+  # https://pub.dev/packages/modal_bottom_sheet
+  modal_bottom_sheet: ^2.0.0
+
+  # https://pub.dev/packages/oktoast
+  oktoast: ^3.1.5
+
+  # https://pub.dev/packages/infinite_scroll_pagination
+  infinite_scroll_pagination: ^3.1.0
+
+  # Utils
+  # https://pub.dev/packages/permission_handler
+  permission_handler: ^8.3.0
+
+  # https://pub.dev/packages/either_dart
+  either_dart: ^0.1.4
+
+  # https://pub.dev/packages/flutter_screenutil
+  flutter_screenutil: ^5.0.3
+
+  # https://pub.dev/packages/keyboard_actions
+  keyboard_actions: ^3.4.6
+
+  # https://pub.dev/packages/shared_preferences
+  shared_preferences: ^2.0.13
+
+  # https://pub.dev/packages/lint
+  lint: ^1.5.3
+
+  # https://pub.dev/packages/image_picker
+  image_picker: ^0.8.4+4
+
+  # https://pub.dev/packages/cached_network_image
+  cached_network_image: ^3.2.0
+
+  # https://pub.dev/packages/flutter_native_splash
+  flutter_native_splash: ^2.0.5
+
+  # https://pub.dev/packages/sprintf
+  sprintf: ^6.0.0
+
+  # Support multi languages
+  # https://pub.dev/packages/intl
+  intl: ^0.17.0
+
+  # https://pub.dev/packages/url_launcher
+  url_launcher: ^6.0.18
+
+  # https://github.com/Sky24n/sp_util
+  sp_util: ^2.0.3
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+  # https://pub.dev/packages/build_runner
+  build_runner:
+
+  # Support generate for retrofit
+  # https://pub.dev/packages/json_serializable
+  retrofit_generator:
+  json_serializable: '>4.4.0'
+
+  # Support generate for injectable_generator
+  # https://pub.dev/packages/injectable_generator
+  injectable_generator:
+
+  # https://pub.dev/packages/flutter_local_notifications/
+  flutter_local_notifications: ^9.3.2
+
+  # https://pub.dev/packages/path_provider
+  path_provider: ^2.0.9
+
 
 # The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
