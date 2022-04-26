@@ -115,6 +115,9 @@ dependencies:
   # https://github.com/Sky24n/sp_util
   sp_util: ^2.0.3
 
+  # https://pub.dev/packages/freezed_annotation
+  freezed_annotation: ^2.0.1
+
 
 dev_dependencies:
   flutter_test:
@@ -140,6 +143,8 @@ dev_dependencies:
   # https://pub.dev/packages/path_provider
   path_provider: ^2.0.9
 
+  # https://pub.dev/packages/freezed
+  freezed: ^2.0.2
 
 # The following section is specific to Flutter.
 flutter:
