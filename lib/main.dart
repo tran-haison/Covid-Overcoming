@@ -14,7 +14,7 @@ Future<void> main() async {
   // Init routes
   configureRoutes();
 
-  // Init other instances
+  // Init instances
   configureInstances();
 
   runApp(const App());
