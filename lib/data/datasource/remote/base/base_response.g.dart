@@ -11,7 +11,7 @@ ApiResponse<T> _$ApiResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     ApiResponse<T>(
-      responseType: $enumDecode(_$ResponseTypeEnumMap, json['response']),
+      status: $enumDecode(_$StatusEnumMap, json['status']),
       message: json['message'] as String,
       code: json['code'] as int,
       results: BaseConverter<T?>().fromJson(json['results']),
@@ -22,13 +22,13 @@ Map<String, dynamic> _$ApiResponseToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'response': _$ResponseTypeEnumMap[instance.responseType],
+      'status': _$StatusEnumMap[instance.status],
       'message': instance.message,
       'code': instance.code,
       'results': BaseConverter<T?>().toJson(instance.results),
     };
 
-const _$ResponseTypeEnumMap = {
-  ResponseType.success: 'success',
-  ResponseType.error: 'error',
+const _$StatusEnumMap = {
+  Status.success: 'success',
+  Status.error: 'error',
 };

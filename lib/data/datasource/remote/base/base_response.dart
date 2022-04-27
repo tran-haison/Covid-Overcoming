@@ -5,19 +5,19 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'base_response.g.dart';
 
-enum ResponseType { success, error }
+enum Status { success, error }
 
 @JsonSerializable(genericArgumentFactories: true)
 class ApiResponse<T> {
   ApiResponse({
-    required this.responseType,
+    required this.status,
     required this.message,
     required this.code,
     this.results,
   });
 
-  @JsonKey(name: 'response')
-  final ResponseType responseType;
+  @JsonKey(name: 'status')
+  final Status status;
 
   @JsonKey(name: 'message')
   final String message;
@@ -43,21 +43,21 @@ class ApiResponse<T> {
 
 extension ApiResponseExtension<T> on ApiResponse<T> {
   Either<Error, T> get response {
-    if (responseType == ResponseType.success && results != null) {
+    if (status == Status.success && results != null) {
       return Right(results!);
     }
     return Left(ServerError(message, code));
   }
 
   Either<Error, T?> get responseNullable {
-    if (responseType == ResponseType.success) {
+    if (status == Status.success) {
       return Right(results);
     }
     return Left(ServerError(message, code));
   }
 
   Either<Error, bool> get responseTrue {
-    if (responseType == ResponseType.success) {
+    if (status == Status.success) {
       return const Right(true);
     }
     return Left(ServerError(message, code));
