@@ -35,4 +35,5 @@ class Dimens {
   static const double fontSize20 = 20;
   static const double fontSize22 = 22;
   static const double fontSize25 = 25;
+  static const double fontSize40 = 40;
 }
