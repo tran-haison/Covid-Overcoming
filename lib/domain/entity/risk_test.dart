@@ -1,5 +1,4 @@
 import 'package:floor/floor.dart';
-import 'package:flutter/cupertino.dart';
 
 @Entity(tableName: 'risk_test')
 class RiskTest {
