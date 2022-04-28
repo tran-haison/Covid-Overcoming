@@ -1,6 +1,7 @@
+import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'mental_problem')
+@Entity(tableName: kTableMentalProblem)
 class MentalProblem {
   const MentalProblem({
     required this.id,

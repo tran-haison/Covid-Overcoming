@@ -160,6 +160,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/raws/
+    - assets/db/
 
   fonts:
     - family: Poppins

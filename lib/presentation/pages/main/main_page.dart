@@ -17,6 +17,7 @@ class _MainPageState extends State<MainPage> {
 
   var _currentIndex = 0;
 
+  // TODO: change page
   List<Widget> pages = [
     const HomePage(),
     const Text(Strings.test, style: textStyle),

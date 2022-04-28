@@ -1,6 +1,7 @@
+import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'borg_breathlessness_scale')
+@Entity(tableName: kTableBorgBreathlessnessScale)
 class BorgBreathlessnessScale {
   const BorgBreathlessnessScale({
     required this.id,

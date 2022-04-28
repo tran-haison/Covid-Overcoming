@@ -1,6 +1,7 @@
+import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:floor/floor.dart';
 
-@Entity(tableName: 'risk')
+@Entity(tableName: kTableRisk)
 class Risk {
   const Risk({
     required this.id,

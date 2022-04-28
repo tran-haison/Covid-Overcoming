@@ -1,3 +1,5 @@
+import 'package:covid_overcoming/data/datasource/local/db/app_database.dart';
+import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -10,4 +12,14 @@ final getIt = GetIt.instance;
   preferRelativeImports: true, // default
   asExtension: false, // default
 )
-GetIt configureDependencies() => $initGetIt(getIt);
+Future<GetIt> configureDependencies() => $initGetIt(getIt);
+
+@module
+abstract class AppModule {
+
+  @lazySingleton
+  @preResolve
+  Future<AppDatabase> get appDatabase {
+    return $FloorAppDatabase.databaseBuilder(kDatabaseName).build();
+  }
+}

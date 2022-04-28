@@ -9,7 +9,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Init di
-  configureDependencies();
+  await configureDependencies();
 
   // Init routes
   configureRoutes();
