@@ -31,6 +31,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
     return data as T;
   }
 
+  /// Convert from json to type
   T _fromJsonAsT (dynamic json) {
     final type = T.toString();
     if (json is List && type.contains('List<')) {
@@ -46,7 +47,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
     return _fromJsonSingle(T.toString(), json) as T;
   }
 
-  /// Convert json to model based on type
+  /// Convert json to single model based on type
   dynamic _fromJsonSingle(String type, dynamic json) {
     final jsonMap = json as Map<String, dynamic>;
     switch (type) {
@@ -59,7 +60,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
     return null;
   }
 
-  /// Empty list is returned by type
+  /// Return empty list by type
   List? _getListFromType(String type) {
     switch (type) {
       // TODO(son): return list of type

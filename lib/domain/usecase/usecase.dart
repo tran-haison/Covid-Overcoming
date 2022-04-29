@@ -1,10 +1,10 @@
 import 'package:covid_overcoming/core/error/error.dart';
 import 'package:either_dart/either.dart';
 
-abstract class UseCase<T, Params> {
-  Future<Either<Error, T>> execute(Params params);
+abstract class UseCase<T, P> {
+  Future<Either<Error, T>> call(P params);
 }
 
 abstract class UseCaseNoParam<T> {
-  Future<Either<Error, T>> execute();
+  Future<Either<Error, T>> call();
 }

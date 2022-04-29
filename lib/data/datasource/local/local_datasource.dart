@@ -1,5 +1,5 @@
 import 'package:covid_overcoming/data/datasource/local/db/app_database.dart';
-import 'package:covid_overcoming/domain/entity/stage.dart';
+import 'package:covid_overcoming/domain/entity/local/stage.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class LocalDatasource {
