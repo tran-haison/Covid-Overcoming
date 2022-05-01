@@ -121,6 +121,12 @@ dependencies:
   # https://pub.dev/packages/floor
   floor: ^1.2.0
 
+  # https://pub.dev/packages/sqflite
+  sqflite: ^2.0.2+1
+
+  # https://pub.dev/packages/path
+  path: ^1.8.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -160,7 +166,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/raws/
-    - assets/db/
+    - assets/db/app.db
 
   fonts:
     - family: Poppins

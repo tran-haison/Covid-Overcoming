@@ -12,7 +12,7 @@ class Strings {
 }
 
 /// Database
-const kDatabaseName = 'covid_overcoming.db';
+const kDatabaseName = 'app.db';
 const kTableBorgBreathlessnessScale = 'borg_breathlessness_scale';
 const kTableMentalProblem = 'mental_problem';
 const kTablePhysicalProblem = 'physical_problem';

@@ -104,13 +104,13 @@ class _MainPageState extends State<MainPage> {
             label: Strings.home,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.monitor_heart),
-            icon: Icon(Icons.monitor_heart_outlined),
+            selectedIcon: Icon(Icons.eco),
+            icon: Icon(Icons.eco_outlined),
             label: Strings.test,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.directions_run),
-            icon: Icon(Icons.directions_run_outlined),
+            selectedIcon: Icon(Icons.work),
+            icon: Icon(Icons.analytics_outlined),
             label: Strings.exercise,
           ),
           NavigationDestination(
