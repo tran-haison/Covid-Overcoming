@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/config/route/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -15,11 +16,12 @@ Future<void> main() async {
   configureRoutes();
 
   // Init instances
-  configureInstances();
+  await configureInstances();
 
   runApp(const App());
 }
 
-void configureInstances() {
+Future<void> configureInstances() async {
   SpUtil.getInstance();
+  await Firebase.initializeApp();
 }
