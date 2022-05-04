@@ -109,7 +109,7 @@ class _MainPageState extends State<MainPage> {
             label: Strings.test,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.work),
+            selectedIcon: Icon(Icons.analytics),
             icon: Icon(Icons.analytics_outlined),
             label: Strings.exercise,
           ),
