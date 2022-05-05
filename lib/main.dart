@@ -23,5 +23,5 @@ Future<void> main() async {
 
 Future<void> configureInstances() async {
   SpUtil.getInstance();
-  await Firebase.initializeApp();
+  Firebase.initializeApp();
 }

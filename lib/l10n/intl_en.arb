@@ -1,4 +1,7 @@
 {
   "app_name": "Covid Overcoming",
-  "page_not_found": "Page not found"
+  "page_not_found": "Page not found",
+  "welcome": "Welcome,",
+  "welcome_description": "We believe that everyone who used to be infected with Coronavirus and is suffering from post-Covid effects can recover and return to normal life, by listening to advices, tracking body stats and maintaining a healthy life",
+  "Continue": "Continue"
 }

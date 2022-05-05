@@ -1,3 +1,5 @@
+import 'package:covid_overcoming/config/route/router/landing_router.dart';
+import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
@@ -35,15 +37,13 @@ class WelcomePage extends StatelessWidget {
                       ),
                       vGap10,
                       const Text(Strings.appName),
-                      const Text(
-                        // TODO: add i10n
-                        'Welcome,',
+                      Text(
+                        S.current.welcome,
                         style: textStyle40Bold,
                       ),
                       vGap10,
-                      const Text(
-                        // TODO: add i10n
-                        'We believe that everyone who used to be infected with Coronavirus and is suffering from post-Covid effects can recover and return to normal life, by listening to advice, tracking stats and living a healthy life',
+                      Text(
+                        S.current.welcome_description,
                         style: textStyle12Gray,
                         textAlign: TextAlign.center,
                       ),
@@ -52,11 +52,8 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
               CommonElevatedButton(
-                // TODO: add i10n
-                text: 'Continue',
-                onPressed: () {
-                  // TODO: go on boarding
-                },
+                text: S.current.Continue,
+                onPressed: () => LandingRouter.goOnBoarding(context),
               ),
             ],
           ),
