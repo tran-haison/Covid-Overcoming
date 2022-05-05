@@ -4,7 +4,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class NavigatorUtils {
-
   static Future<dynamic> push(
     BuildContext context,
     String path, {
@@ -20,9 +19,8 @@ class NavigatorUtils {
       replace: replace,
       clearStack: clearStack,
       transition: transition,
-      routeSettings: sendData != null
-          ? RouteSettings(arguments: sendData)
-          : null,
+      routeSettings:
+          sendData != null ? RouteSettings(arguments: sendData) : null,
     );
   }
 
@@ -41,6 +39,22 @@ class NavigatorUtils {
     );
   }
 
+  static void pushReplacement(
+    BuildContext context,
+    String path, {
+    Object? sendData,
+    TransitionType transition = TransitionType.native,
+  }) {
+    push(
+      context,
+      path,
+      replace: true,
+      clearStack: true,
+      sendData: sendData,
+      transition: transition,
+    );
+  }
+
   static void pushResult(
     BuildContext context,
     String path,
@@ -51,18 +65,27 @@ class NavigatorUtils {
     Object? sendData,
   }) {
     unFocus();
-    router.navigateTo(
-      context,
-      path,
-      replace: replace,
-      clearStack: clearStack,
-      transition: transition,
-      routeSettings: sendData != null
-          ? RouteSettings(arguments: sendData)
-          : null,
-    )
+    router
+        .navigateTo(
+          context,
+          path,
+          replace: replace,
+          clearStack: clearStack,
+          transition: transition,
+          routeSettings:
+              sendData != null ? RouteSettings(arguments: sendData) : null,
+        )
         .then<dynamic>((Object? result) => onResult.call(result))
-        .catchError((dynamic error) => logger.e('$error'));
+        .catchError((dynamic error) => logger.e(error.toString()));
+  }
+
+  static Future<dynamic> pushWidget(
+      BuildContext context,
+      WidgetBuilder builder,
+      ) {
+    return Navigator.of(context).push<dynamic>(
+      MaterialPageRoute<dynamic>(builder: builder),
+    );
   }
 
   static void goBack(BuildContext context) {
@@ -73,15 +96,6 @@ class NavigatorUtils {
   static void goBackWithParams(BuildContext context, Object result) {
     unFocus();
     router.pop(context, result);
-  }
-
-  static Future<dynamic> pushWidget(
-      BuildContext context,
-      WidgetBuilder builder,
-      ) {
-    return Navigator.of(context).push<dynamic>(
-      MaterialPageRoute<dynamic>(builder: builder),
-    );
   }
 
   static void popRoot(BuildContext context, {Object? result}) {

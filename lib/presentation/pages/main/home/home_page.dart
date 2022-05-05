@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildTextTitle(String text) {
     return Text(
       text,
-      style: textStyleTitle,
+      style: textStyle18Medium,
     );
   }
 

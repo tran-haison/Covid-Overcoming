@@ -159,7 +159,7 @@ class AuthImpl implements Auth {
 
   @override
   Future<void> signOut() async {
-    // TODO: implement signOut
-    throw UnimplementedError();
+    // TODO: sign out for other provider
+    await _firebaseAuth.signOut();
   }
 }

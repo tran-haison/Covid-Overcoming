@@ -20,9 +20,9 @@ class _MainPageState extends State<MainPage> {
   // TODO: change page
   List<Widget> pages = [
     const HomePage(),
-    const Text(Strings.test, style: textStyle),
-    const Text(Strings.exercise, style: textStyle),
-    const Text(Strings.profile, style: textStyle),
+    const Text(Strings.test, style: textStyle40ItalicBold),
+    const Text(Strings.exercise, style: textStyle40ItalicBold),
+    const Text(Strings.profile, style: textStyle40ItalicBold),
   ];
 
   List<String> titles = [
