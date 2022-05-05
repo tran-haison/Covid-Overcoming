@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
@@ -32,8 +33,7 @@ class OnBoardingPage extends StatelessWidget {
                 ),
               ),
               CommonElevatedButton(
-                // TODO: add i10n
-                text: 'Start',
+                text: S.current.start,
                 onPressed: () {},
               ),
             ],

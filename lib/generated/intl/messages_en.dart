@@ -23,6 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_name": MessageLookupByLibrary.simpleMessage("Covid Overcoming"),
-        "page_not_found": MessageLookupByLibrary.simpleMessage("Page not found")
+        "continue_": MessageLookupByLibrary.simpleMessage("Continue"),
+        "page_not_found":
+            MessageLookupByLibrary.simpleMessage("Page not found"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "welcome": MessageLookupByLibrary.simpleMessage("Welcome,"),
+        "welcome_description": MessageLookupByLibrary.simpleMessage(
+            "We believe that everyone who used to be infected with Coronavirus and is suffering from post-Covid effects can recover and return to normal life, by listening to advices, tracking body stats and maintaining a healthy life")
       };
 }

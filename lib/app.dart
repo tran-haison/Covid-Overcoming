@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/config/route/routes.dart';
 import 'package:covid_overcoming/config/route/utils/navigator_paths.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/landing/welcome_page.dart';
 import 'package:covid_overcoming/values/res/fonts.dart';
 import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class App extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        initialRoute: NavigatorPaths.welcome,
+        home: const WelcomePage(),
       ),
     );
   }

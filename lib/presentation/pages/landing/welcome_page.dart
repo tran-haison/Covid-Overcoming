@@ -52,7 +52,7 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
               CommonElevatedButton(
-                text: S.current.Continue,
+                text: S.current.continue_,
                 onPressed: () => LandingRouter.goOnBoarding(context),
               ),
             ],
