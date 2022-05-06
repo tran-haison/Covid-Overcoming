@@ -18,3 +18,17 @@ const colorDarkGray1 = Color(0xFF545454);
 
 /// Text colors
 const colorTextGray = Color(0xFFB3B3B3);
+
+/// Map color primary
+const mapColorPrimary = {
+  50: Color.fromRGBO(71, 131, 221, .1),
+  100: Color.fromRGBO(71, 131, 221, .2),
+  200: Color.fromRGBO(71, 131, 221, .3),
+  300: Color.fromRGBO(71, 131, 221, .4),
+  400: Color.fromRGBO(71, 131, 221, .5),
+  500: Color.fromRGBO(71, 131, 221, .6),
+  600: Color.fromRGBO(71, 131, 221, .7),
+  700: Color.fromRGBO(71, 131, 221, .8),
+  800: Color.fromRGBO(71, 131, 221, .9),
+  900: Color.fromRGBO(71, 131, 221, 1),
+};

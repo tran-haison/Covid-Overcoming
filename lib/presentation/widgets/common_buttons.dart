@@ -1,4 +1,6 @@
+import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
+import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:covid_overcoming/values/res/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -6,21 +8,21 @@ class CommonElevatedButton extends StatelessWidget {
   const CommonElevatedButton({
     Key? key,
     required this.text,
-    this.onPressed,
-    this.radius,
+    required this.onPressed,
+    this.radius = Dimens.radius8,
     this.width,
     this.height,
-    this.padding,
+    this.padding = const EdgeInsets.symmetric(vertical: Dimens.dimen12),
     this.textColor = colorWhite,
     this.buttonColor = colorPrimary,
   }) : super(key: key);
 
   final String text;
-  final VoidCallback? onPressed;
-  final double? radius;
+  final VoidCallback onPressed;
+  final double radius;
   final double? width;
   final double? height;
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry padding;
   final Color textColor;
   final Color buttonColor;
 
@@ -42,14 +44,14 @@ class CommonElevatedButton extends StatelessWidget {
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 8),
+            borderRadius: BorderRadius.circular(radius),
           ),
         ),
       ),
       child: Container(
         width: width,
         height: height,
-        padding: padding ?? const EdgeInsets.symmetric(vertical: 12),
+        padding: padding,
         child: Center(
           child: Text(
             text,
@@ -60,6 +62,34 @@ class CommonElevatedButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CommonSocialButton extends StatelessWidget {
+  const CommonSocialButton({
+    Key? key,
+    required this.onPressed,
+    required this.iconPath,
+    this.height = 40,
+    this.width = 40,
+  }) : super(key: key);
+
+  final Function() onPressed;
+  final String iconPath;
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      splashColor: Colors.transparent,
+      onTap: onPressed,
+      child: CommonAssetIcon(
+        iconPath: iconPath,
+        width: width,
+        height: height,
       ),
     );
   }

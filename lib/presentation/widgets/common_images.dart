@@ -31,3 +31,26 @@ class CommonAssetImage extends StatelessWidget {
     );
   }
 }
+
+class CommonAssetIcon extends StatelessWidget {
+  const CommonAssetIcon({
+    Key? key,
+    required this.iconPath,
+    this.height = 24,
+    this.width = 24,
+  }) : super(key: key);
+
+  final String iconPath;
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonAssetImage(
+      imagePath: iconPath,
+      height: height,
+      width: width,
+      fit: BoxFit.fill,
+    );
+  }
+}

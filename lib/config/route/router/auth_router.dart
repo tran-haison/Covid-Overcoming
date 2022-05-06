@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class AuthRouter implements IRouterProvider {
 
   static void goSignIn(BuildContext context) {
-    NavigatorUtils.replace(context, NavigatorPaths.signIn);
+    NavigatorUtils.push(context, NavigatorPaths.signIn);
   }
 
   static void goSignUp(BuildContext context) {

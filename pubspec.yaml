@@ -71,9 +71,6 @@ dependencies:
   # https://pub.dev/packages/oktoast
   oktoast: ^3.1.5
 
-  # https://pub.dev/packages/infinite_scroll_pagination
-  infinite_scroll_pagination: ^3.1.0
-
   # Utils
   # https://pub.dev/packages/permission_handler
   permission_handler: ^8.3.0
@@ -132,6 +129,9 @@ dependencies:
 
   # https://pub.dev/packages/firebase_auth
   firebase_auth: ^3.3.17
+
+  # https://pub.dev/packages/google_fonts
+  google_fonts: ^2.3.2
 
 dev_dependencies:
   flutter_test:

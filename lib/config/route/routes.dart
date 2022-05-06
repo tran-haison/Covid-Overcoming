@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/config/logger/logger.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/config/route/router/landing_router.dart';
+import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/config/route/ui/page_not_found.dart';
 import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:fluro/fluro.dart';
@@ -17,5 +18,5 @@ void configureRoutes() {
   // Init routers and define routes
   AuthRouter().defineRoutes(router);
   LandingRouter().defineRoutes(router);
-
+  MainRouter().defineRoutes(router);
 }

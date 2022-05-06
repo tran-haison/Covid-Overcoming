@@ -22,11 +22,51 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "already_have_an_account_sign_in": MessageLookupByLibrary.simpleMessage(
+            "Already have an account? Sign in"),
         "app_name": MessageLookupByLibrary.simpleMessage("Covid Overcoming"),
+        "begin_your_journey_with_us_from_today":
+            MessageLookupByLibrary.simpleMessage(
+                "Begin your journey with us from today"),
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "confirm_password":
+            MessageLookupByLibrary.simpleMessage("Confirm password"),
         "continue_": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
+        "dont_have_an_account_sign_up": MessageLookupByLibrary.simpleMessage(
+            "Don\'t have an account? Sign up"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enter_email_and_password_to_get_started":
+            MessageLookupByLibrary.simpleMessage(
+                "Enter email and password to get started"),
+        "exercise_provider":
+            MessageLookupByLibrary.simpleMessage("Exercise provider"),
+        "exercise_provider_description": MessageLookupByLibrary.simpleMessage(
+            "Provide exercises to help recover, from simple to advanced"),
+        "expert_connection":
+            MessageLookupByLibrary.simpleMessage("Expert connection"),
+        "expert_connection_description": MessageLookupByLibrary.simpleMessage(
+            "Talk to expert and follow advice for best recovery"),
+        "features": MessageLookupByLibrary.simpleMessage("Chức năng"),
+        "features_description": MessageLookupByLibrary.simpleMessage(
+            "We continuously improve our product to bring more value to people"),
+        "forgot_password":
+            MessageLookupByLibrary.simpleMessage("Forgot password"),
         "page_not_found":
             MessageLookupByLibrary.simpleMessage("Trang không tìm thấy"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "recovery_tracking":
+            MessageLookupByLibrary.simpleMessage("Recovery tracking"),
+        "recovery_tracking_description": MessageLookupByLibrary.simpleMessage(
+            "Monitor the stage of recovery to get full insight of heath status"),
+        "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "start": MessageLookupByLibrary.simpleMessage("Bắt đầu"),
+        "test_system": MessageLookupByLibrary.simpleMessage("Test system"),
+        "test_system_description": MessageLookupByLibrary.simpleMessage(
+            "Various tests to quickly find out any problem with body system"),
+        "we_will_send_a_link_to_your_email_to_reset_password":
+            MessageLookupByLibrary.simpleMessage(
+                "We will send a link to your email to reset password"),
         "welcome": MessageLookupByLibrary.simpleMessage("Chào mừng,"),
         "welcome_description": MessageLookupByLibrary.simpleMessage(
             "Chúng tôi tin rằng những ai từng nhiễm virus Corona và đang trải qua những ảnh hưởng hậu Covid hoàn toàn có thể hồi phục và trở lại cuộc sống ban đầu, bằng cách lắng nghe ý kiến của chuyên gia, theo dõi các chỉ số và duy trì lối sống lành mạnh")

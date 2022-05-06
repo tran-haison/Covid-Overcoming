@@ -7,4 +7,7 @@ class NavigatorPaths {
   /// Landing route
   static const welcome = '/welcome';
   static const onBoarding = '/on-boarding';
+
+  /// Main route
+  static const main = '/main';
 }

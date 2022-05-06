@@ -3,6 +3,7 @@ class Dimens {
   static const double dimen5 = 5;
   static const double dimen8 = 8;
   static const double dimen10 = 10;
+  static const double dimen12 = 12;
   static const double dimen15 = 15;
   static const double dimen20 = 20;
   static const double dimen25 = 25;
@@ -16,6 +17,7 @@ class Dimens {
 
   /// Border radius
   static const double radius5 = 5;
+  static const double radius8 = 8;
   static const double radius10 = 10;
 
   /// Line height
