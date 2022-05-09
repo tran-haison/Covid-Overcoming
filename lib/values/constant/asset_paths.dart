@@ -6,6 +6,9 @@ class AssetPaths {
   static const imgWelcome = 'assets/images/img_welcome.png';
   static const imgHacker = 'assets/images/img_hacker.png';
   static const imgTrackHistory = 'assets/images/img_track_history.png';
+  static const imgPhysicalProblem = 'assets/images/img_physical_problem.png';
+  static const imgMentalProblem = 'assets/images/img_mental_problem.png';
+  static const imgChakra = 'assets/images/img_chakra.png';
 
   /// Icons
   static const icContact = 'assets/icons/ic_contact.png';

@@ -23,6 +23,8 @@ class HomePage extends StatelessWidget {
             _buildHeader(),
             vGap30,
             _buildCardCurrentStage(),
+            vGap20,
+            _buildCardProblems(),
             vGap30,
             _buildHealthStatus(),
             vGap30,
@@ -76,7 +78,7 @@ class HomePage extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimens.radius10),
-          color: colorPrimary,
+          color: colorLightGrayBackground,
         ),
         child: Padding(
           padding: const EdgeInsets.all(Dimens.dimen15),
@@ -84,7 +86,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const CommonAssetImage(
-                imagePath: AssetPaths.imgTrackHistory,
+                imagePath: AssetPaths.imgChakra,
                 height: 40,
                 width: 40,
               ),
@@ -93,19 +95,15 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                  children: const <Widget>[
                     Text(
                       // TODO: get stage
                       'STAGE 3',
-                      style: textStyle16Bold.copyWith(
-                        color: colorWhite,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: textStyle18Bold,
                     ),
-                    const Text(
+                    Text(
                       // TODO: get compliment
                       'Keep up the good work!',
-                      style: textStyle12LightGray,
                     ),
                   ],
                 ),
@@ -113,12 +111,48 @@ class HomePage extends StatelessWidget {
               hGap15,
               const Icon(
                 Icons.arrow_right_alt,
-                color: colorWhite,
+                color: colorBlack,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCardProblems() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Card(
+          color: colorLightGrayBackground,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimens.radius10),
+          ),
+          child: SizedBox(
+            width: 140,
+            height: 140,
+            child: Padding(
+              padding: const EdgeInsets.all(Dimens.dimen10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const CommonAssetIcon(
+                    iconPath: AssetPaths.imgPhysicalProblem,
+                  ),
+                  Text(
+                    'Physical Problem',
+                    textAlign: TextAlign.center,
+                    style: textStyle18Medium.copyWith(color: colorOrange1),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
