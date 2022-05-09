@@ -14,7 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   var _currentIndex = 0;
 
   // TODO: change page
@@ -37,7 +36,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: colorWhite,
-      appBar: _buildAppbar(),
+      //appBar: _buildAppbar(),
       body: _buildBody(),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -73,7 +72,9 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildBody() {
-    return pages[_currentIndex];
+    return SafeArea(
+      child: pages[_currentIndex],
+    );
   }
 
   Widget _buildBottomNavigationBar() {
@@ -89,6 +90,7 @@ class _MainPageState extends State<MainPage> {
       ),
       child: NavigationBar(
         height: 60,
+        backgroundColor: Colors.grey[100],
         animationDuration: const Duration(seconds: 1),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         selectedIndex: _currentIndex,

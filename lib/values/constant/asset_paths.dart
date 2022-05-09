@@ -4,6 +4,8 @@ class AssetPaths {
 
   /// Images
   static const imgWelcome = 'assets/images/img_welcome.png';
+  static const imgHacker = 'assets/images/img_hacker.png';
+  static const imgTrackHistory = 'assets/images/img_track_history.png';
 
   /// Icons
   static const icContact = 'assets/icons/ic_contact.png';

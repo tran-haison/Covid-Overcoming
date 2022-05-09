@@ -1,33 +1,29 @@
+import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
+import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
+import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: Dimens.dimen10,
-          horizontal: Dimens.dimen15,
-        ),
+        padding: const EdgeInsets.all(Dimens.dimen20),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildTextGreeting(),
-            _buildTextDate(),
-            vGap10,
+            _buildHeader(),
+            vGap20,
+            _buildCardHistory(),
+            vGap20,
             _buildTextTitle('Stages'),
             vGap10,
             _buildStages(),
@@ -38,26 +34,86 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildTextGreeting() {
-    return const Align(
-      alignment: Alignment.center,
-      child: Text(
-        'Good afternoon',
-        style: TextStyle(
-          fontSize: Dimens.fontSize22,
-          fontWeight: FontWeight.w600,
+  Widget _buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                // TODO: implement greeting
+                'Good afternoon,',
+                style: textStyle14Gray.copyWith(height: 1),
+              ),
+              vGap5,
+              Text(
+                // TODO: get user name
+                'Tran Hai Son',
+                style: textStyle30Bold.copyWith(height: 1),
+              ),
+            ],
+          ),
         ),
-      ),
+        const CommonAssetImage(
+          imagePath: AssetPaths.imgHacker,
+          height: Dimens.dimen40,
+          width: Dimens.dimen40,
+        ),
+      ],
     );
   }
 
-  Widget _buildTextDate() {
-    return const Align(
-      alignment: Alignment.center,
-      child: Text(
-        'Wednesday, April 27th 2022',
-        style: TextStyle(
-          color: colorTextGray,
+  Widget _buildCardHistory() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Dimens.radius10),
+        color: colorPrimary,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(Dimens.dimen15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const CommonAssetImage(
+              imagePath: AssetPaths.imgTrackHistory,
+              height: 90,
+              width: 90,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'STAGE 3',
+                    style: textStyle16Medium.copyWith(color: colorWhite),
+                  ),
+                  Text(
+                    'Keep up the good work!',
+                    style: textStyle12LightGray,
+                  ),
+                  vGap10,
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: CommonElevatedButton(
+                      text: S.current.continue_,
+                      textColor: colorPrimary,
+                      buttonColor: colorWhite,
+                      width: 120,
+                      radius: 30,
+                      padding: const EdgeInsets.symmetric(vertical: Dimens.dimen5),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

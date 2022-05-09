@@ -12,6 +12,12 @@ const textStyle40Bold = TextStyle(
   color: Colors.black87,
 );
 
+const textStyle30Bold = TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.bold,
+  color: Colors.black87,
+);
+
 const textStyle18Medium = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w500,
@@ -51,3 +57,9 @@ const textStyle12Gray = TextStyle(
   fontSize: 12,
   color: Color(0xFFB3B3B3),
 );
+
+const textStyle12LightGray = TextStyle(
+  fontSize: 12,
+  color: Color(0xFFE5E5E5),
+);
+

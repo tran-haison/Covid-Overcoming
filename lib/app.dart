@@ -18,6 +18,7 @@ class App extends StatelessWidget {
         title: Strings.appName,
         theme: ThemeData(
           primarySwatch: const MaterialColor(0xFF4783DD, mapColorPrimary),
+          scaffoldBackgroundColor: Colors.white,
           fontFamily: Fonts.poppins,
         ),
         debugShowCheckedModeBanner: false,
