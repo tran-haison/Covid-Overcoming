@@ -6,7 +6,9 @@ import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
+import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatelessWidget {
@@ -93,7 +95,7 @@ class SignInPage extends StatelessWidget {
     return CommonElevatedButton(
       text: S.current.sign_in,
       onPressed: () {
-        // TODO: implement click sign in
+        // TODO: implement sign in
         MainRouter.goMain(context);
       },
     );
@@ -122,9 +124,22 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildSignUpTextButton(BuildContext context) {
-    return TextButton(
-      onPressed: () => AuthRouter.goSignUp(context),
-      child: Text(S.current.dont_have_an_account_sign_up),
+    return RichText(
+      text: TextSpan(
+        text: S.current.dont_have_an_account,
+        style: textStyle14Gray,
+        children: <TextSpan>[
+          const TextSpan(text: ' '),
+          TextSpan(
+            text: S.current.sign_up,
+            style: textStyle14Gray.copyWith(color: colorPrimary),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                AuthRouter.goSignUp(context);
+              },
+          ),
+        ],
+      ),
     );
   }
 }

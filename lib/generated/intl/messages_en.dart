@@ -22,8 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "already_have_an_account_sign_in": MessageLookupByLibrary.simpleMessage(
-            "Already have an account? Sign in"),
+        "already_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "app_name": MessageLookupByLibrary.simpleMessage("Covid Overcoming"),
         "appointment": MessageLookupByLibrary.simpleMessage("Appointment"),
         "begin_your_journey_with_us_from_today":
@@ -33,8 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "continue_": MessageLookupByLibrary.simpleMessage("Continue"),
-        "dont_have_an_account_sign_up": MessageLookupByLibrary.simpleMessage(
-            "Don\'t have an account? Sign up"),
+        "dont_have_an_account":
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enter_email_and_password_to_get_started":
             MessageLookupByLibrary.simpleMessage(

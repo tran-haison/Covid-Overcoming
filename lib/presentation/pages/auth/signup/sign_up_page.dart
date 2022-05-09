@@ -4,7 +4,9 @@ import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
+import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -95,9 +97,22 @@ class SignUpPage extends StatelessWidget {
   }
 
   Widget _buildSignInTextButton(BuildContext context) {
-    return TextButton(
-      onPressed: () => NavigatorUtils.goBack(context),
-      child: Text(S.current.already_have_an_account_sign_in),
+    return RichText(
+      text: TextSpan(
+        text: S.current.already_have_an_account,
+        style: textStyle14Gray,
+        children: <TextSpan>[
+          const TextSpan(text: ' '),
+          TextSpan(
+            text: S.current.sign_in,
+            style: textStyle14Gray.copyWith(color: colorPrimary),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                NavigatorUtils.goBack(context);
+              },
+          ),
+        ],
+      ),
     );
   }
 }

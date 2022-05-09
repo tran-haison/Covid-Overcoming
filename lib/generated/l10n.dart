@@ -210,11 +210,11 @@ class S {
     );
   }
 
-  /// `Don't have an account? Sign up`
-  String get dont_have_an_account_sign_up {
+  /// `Don't have an account?`
+  String get dont_have_an_account {
     return Intl.message(
-      'Don\'t have an account? Sign up',
-      name: 'dont_have_an_account_sign_up',
+      'Don\'t have an account?',
+      name: 'dont_have_an_account',
       desc: '',
       args: [],
     );
@@ -300,11 +300,11 @@ class S {
     );
   }
 
-  /// `Already have an account? Sign in`
-  String get already_have_an_account_sign_in {
+  /// `Already have an account?`
+  String get already_have_an_account {
     return Intl.message(
-      'Already have an account? Sign in',
-      name: 'already_have_an_account_sign_in',
+      'Already have an account?',
+      name: 'already_have_an_account',
       desc: '',
       args: [],
     );
