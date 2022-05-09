@@ -7,7 +7,7 @@ class Strings {
   /// Bottom navbar item
   static const home = 'home';
   static const test = 'test';
-  static const exercise = 'exercise';
+  static const schedule = 'schedule';
   static const profile = 'profile';
 }
 

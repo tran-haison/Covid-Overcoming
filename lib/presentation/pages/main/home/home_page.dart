@@ -1,5 +1,5 @@
 import 'package:covid_overcoming/generated/l10n.dart';
-import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
+import 'package:covid_overcoming/presentation/widgets/common_chips.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
@@ -21,13 +21,13 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _buildHeader(),
-            vGap20,
-            _buildCardHistory(),
-            vGap20,
-            _buildTextTitle('Stages'),
-            vGap10,
+            vGap30,
+            _buildCardCurrentStage(),
+            vGap30,
+            _buildHealthStatus(),
+            vGap30,
             _buildStages(),
-            vGap10,
+            vGap20,
           ],
         ),
       ),
@@ -44,16 +44,16 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 // TODO: implement greeting
                 'Good afternoon,',
-                style: textStyle14Gray.copyWith(height: 1),
+                style: textStyle14Gray,
               ),
               vGap5,
               Text(
                 // TODO: get user name
                 'Tran Hai Son',
-                style: textStyle30Bold.copyWith(height: 1),
+                style: textStyle26Medium.copyWith(height: 1),
               ),
             ],
           ),
@@ -67,88 +67,115 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildCardHistory() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.radius10),
-        color: colorPrimary,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(Dimens.dimen15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const CommonAssetImage(
-              imagePath: AssetPaths.imgTrackHistory,
-              height: 90,
-              width: 90,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'STAGE 3',
-                    style: textStyle16Medium.copyWith(color: colorWhite),
-                  ),
-                  Text(
-                    'Keep up the good work!',
-                    style: textStyle12LightGray,
-                  ),
-                  vGap10,
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: CommonElevatedButton(
-                      text: S.current.continue_,
-                      textColor: colorPrimary,
-                      buttonColor: colorWhite,
-                      width: 120,
-                      radius: 30,
-                      padding: const EdgeInsets.symmetric(vertical: Dimens.dimen5),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
+  Widget _buildCardCurrentStage() {
+    return InkWell(
+      onTap: () {
+        // TODO: implement onTap
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimens.radius10),
+          color: colorPrimary,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(Dimens.dimen15),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const CommonAssetImage(
+                imagePath: AssetPaths.imgTrackHistory,
+                height: 40,
+                width: 40,
               ),
-            ),
-          ],
+              hGap15,
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      // TODO: get stage
+                      'STAGE 3',
+                      style: textStyle16Bold.copyWith(
+                        color: colorWhite,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const Text(
+                      // TODO: get compliment
+                      'Keep up the good work!',
+                      style: textStyle12LightGray,
+                    ),
+                  ],
+                ),
+              ),
+              hGap15,
+              const Icon(
+                Icons.arrow_right_alt,
+                color: colorWhite,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildTextTitle(String text) {
-    return Text(
-      text,
-      style: textStyle18Medium,
+  Widget _buildHealthStatus() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          S.current.how_do_you_feel_today,
+          style: textStyle18Medium,
+        ),
+        vGap10,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const <Widget>[
+            CommonFilterChip(label: 'Normal'),
+            hGap10,
+            CommonFilterChip(label: 'Headache'),
+          ],
+        ),
+      ],
     );
   }
 
   Widget _buildStages() {
-    return SizedBox(
-      height: 100,
-      child: ListView.separated(
-        physics: const ClampingScrollPhysics(),
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (_, index) {
-          return Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: colorLightGray2,
-            ),
-            child: Center(
-              child: Text('$index'),
-            ),
-          );
-        },
-        separatorBuilder: (_, index) => hGap10,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          S.current.stages,
+          style: textStyle18Medium,
+        ),
+        vGap10,
+        SizedBox(
+          height: 100,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder: (_, index) {
+              return Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimens.radius10),
+                  color: colorLightGray1,
+                ),
+                child: Center(
+                  child: Text('Stage $index'),
+                ),
+              );
+            },
+            separatorBuilder: (_, index) {
+              return hGap10;
+            },
+          ),
+        ),
+      ],
     );
   }
 }

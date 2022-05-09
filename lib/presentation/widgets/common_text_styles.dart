@@ -18,6 +18,24 @@ const textStyle30Bold = TextStyle(
   color: Colors.black87,
 );
 
+const textStyle30Medium = TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.w500,
+  color: Colors.black87,
+);
+
+const textStyle30Normal = TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.normal,
+  color: Colors.black87,
+);
+
+const textStyle26Medium = TextStyle(
+  fontSize: 26,
+  fontWeight: FontWeight.w500,
+  color: Colors.black87,
+);
+
 const textStyle18Medium = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w500,

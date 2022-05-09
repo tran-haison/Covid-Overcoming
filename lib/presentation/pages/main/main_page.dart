@@ -1,10 +1,10 @@
 import 'package:covid_overcoming/presentation/pages/main/home/home_page.dart';
+import 'package:covid_overcoming/presentation/pages/main/schedule/schedule_page.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -20,15 +20,8 @@ class _MainPageState extends State<MainPage> {
   List<Widget> pages = [
     const HomePage(),
     const Text(Strings.test, style: textStyle40ItalicBold),
-    const Text(Strings.exercise, style: textStyle40ItalicBold),
+    const SchedulePage(),
     const Text(Strings.profile, style: textStyle40ItalicBold),
-  ];
-
-  List<String> titles = [
-    Strings.home,
-    Strings.test,
-    Strings.exercise,
-    Strings.profile,
   ];
 
   @override
@@ -36,38 +29,8 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: colorWhite,
-      //appBar: _buildAppbar(),
       body: _buildBody(),
       bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
-
-  PreferredSizeWidget _buildAppbar() {
-    return AppBar(
-      centerTitle: false,
-      automaticallyImplyLeading: false,
-      elevation: Dimens.elevation0_5,
-      backgroundColor: colorWhite,
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: colorLightGray2,
-      ),
-      title: Text(titles[_currentIndex]),
-      titleTextStyle: const TextStyle(
-        fontSize: Dimens.fontSize22,
-        fontWeight: FontWeight.w700,
-        fontStyle: FontStyle.italic,
-        color: colorLightBlack,
-        letterSpacing: 1.2,
-      ),
-      actions: <Widget>[
-        IconButton(
-          color: colorLightBlack,
-          onPressed: () {
-            // TODO: open settings
-          },
-          icon: const Icon(Icons.settings),
-        ),
-      ],
     );
   }
 
@@ -111,9 +74,9 @@ class _MainPageState extends State<MainPage> {
             label: Strings.test,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.analytics),
-            icon: Icon(Icons.analytics_outlined),
-            label: Strings.exercise,
+            selectedIcon: Icon(Icons.contactless),
+            icon: Icon(Icons.contactless_outlined),
+            label: Strings.schedule,
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.person),

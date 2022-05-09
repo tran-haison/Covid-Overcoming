@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account_sign_in": MessageLookupByLibrary.simpleMessage(
             "Already have an account? Sign in"),
         "app_name": MessageLookupByLibrary.simpleMessage("Covid Overcoming"),
+        "appointment": MessageLookupByLibrary.simpleMessage("Appointment"),
         "begin_your_journey_with_us_from_today":
             MessageLookupByLibrary.simpleMessage(
                 "Begin your journey with us from today"),
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Exercise provider"),
         "exercise_provider_description": MessageLookupByLibrary.simpleMessage(
             "Provide exercises to help recover, from simple to advanced"),
+        "expert": MessageLookupByLibrary.simpleMessage("Expert"),
         "expert_connection":
             MessageLookupByLibrary.simpleMessage("Expert connection"),
         "expert_connection_description": MessageLookupByLibrary.simpleMessage(
@@ -51,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "We continuously improve our product to bring more value to people"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
+        "how_do_you_feel_today":
+            MessageLookupByLibrary.simpleMessage("How do you feel today?"),
         "page_not_found":
             MessageLookupByLibrary.simpleMessage("Trang không tìm thấy"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -58,12 +62,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Recovery tracking"),
         "recovery_tracking_description": MessageLookupByLibrary.simpleMessage(
             "Monitor the stage of recovery to get full insight of heath status"),
+        "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "stages": MessageLookupByLibrary.simpleMessage("Stages"),
         "start": MessageLookupByLibrary.simpleMessage("Bắt đầu"),
         "test_system": MessageLookupByLibrary.simpleMessage("Test system"),
         "test_system_description": MessageLookupByLibrary.simpleMessage(
             "Various tests to quickly find out any problem with body system"),
+        "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "we_will_send_a_link_to_your_email_to_reset_password":
             MessageLookupByLibrary.simpleMessage(
                 "We will send a link to your email to reset password"),

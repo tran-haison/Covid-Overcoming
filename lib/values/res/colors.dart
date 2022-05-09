@@ -19,6 +19,12 @@ const colorDarkGray1 = Color(0xFF545454);
 /// Text colors
 const colorTextGray = Color(0xFFB3B3B3);
 
+/// Blue colors
+const colorPrimary1 = Color(0xFF659DEC);
+const colorPrimary2 = Color(0xFF567AAD);
+const colorPrimary3 = Color(0xFF1D447B);
+const colorPrimary4 = Color(0xFF051E40);
+
 /// Map color primary
 const mapColorPrimary = {
   50: Color.fromRGBO(71, 131, 221, .1),
