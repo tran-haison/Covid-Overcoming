@@ -16,41 +16,63 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(Dimens.dimen25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Dimens.dimen12,
+              ),
+              child: _buildIconButtonBack(context),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(Dimens.dimen25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      S.current.sign_up,
-                      style: textStyle40Bold,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            S.current.sign_up,
+                            style: textStyle40Bold,
+                          ),
+                          Text(
+                            S.current.begin_your_journey_with_us_from_today,
+                            style: textStyle14Gray,
+                          ),
+                          vGap20,
+                          _buildEmailTextFormField(),
+                          vGap10,
+                          _buildPasswordTextFormField(),
+                          vGap10,
+                          _buildConfirmPasswordTextFormField(),
+                          vGap20,
+                          _buildSignUpButton(context),
+                        ],
+                      ),
                     ),
-                    Text(
-                      S.current.begin_your_journey_with_us_from_today,
-                      style: textStyle14Gray,
-                    ),
-                    vGap20,
-                    _buildEmailTextFormField(),
-                    vGap10,
-                    _buildPasswordTextFormField(),
-                    vGap10,
-                    _buildConfirmPasswordTextFormField(),
-                    vGap20,
-                    _buildSignUpButton(context),
+                    _buildSignInTextButton(context),
                   ],
                 ),
               ),
-              _buildSignInTextButton(context),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildIconButtonBack(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        NavigatorUtils.goBack(context);
+      },
+      icon: const Icon(Icons.arrow_back),
     );
   }
 

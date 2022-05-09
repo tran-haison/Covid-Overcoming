@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/config/route/utils/navigator_utils.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
@@ -13,38 +14,59 @@ class ForgotPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(Dimens.dimen25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Dimens.dimen12,
+              ),
+              child: _buildIconButtonBack(context),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(Dimens.dimen25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      S.current.forgot_password,
-                      style: textStyle40Bold.copyWith(
-                        height: 1,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            S.current.forgot_password,
+                            style: textStyle40Bold.copyWith(height: 1),
+                          ),
+                          vGap10,
+                          Text(
+                            S.current
+                                .we_will_send_a_link_to_your_email_to_reset_password,
+                            style: textStyle14Gray,
+                          ),
+                          vGap20,
+                          _buildEmailTextFormField(),
+                        ],
                       ),
                     ),
-                    vGap10,
-                    Text(
-                      S.current.we_will_send_a_link_to_your_email_to_reset_password,
-                      style: textStyle14Gray,
-                    ),
-                    vGap20,
-                    _buildEmailTextFormField(),
+                    _buildConfirmButton(context),
                   ],
                 ),
               ),
-              _buildConfirmButton(context),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildIconButtonBack(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        NavigatorUtils.goBack(context);
+      },
+      icon: const Icon(Icons.arrow_back),
     );
   }
 
