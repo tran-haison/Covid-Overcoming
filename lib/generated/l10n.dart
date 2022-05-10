@@ -389,6 +389,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Physical`
+  String get physical {
+    return Intl.message(
+      'Physical',
+      name: 'physical',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Physical problems`
+  String get physical_problems {
+    return Intl.message(
+      'Physical problems',
+      name: 'physical_problems',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mental`
+  String get mental {
+    return Intl.message(
+      'Mental',
+      name: 'mental',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mental problems`
+  String get mental_problems {
+    return Intl.message(
+      'Mental problems',
+      name: 'mental_problems',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

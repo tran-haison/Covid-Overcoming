@@ -20,6 +20,7 @@ class Dimens {
   static const double radius5 = 5;
   static const double radius8 = 8;
   static const double radius10 = 10;
+  static const double radius30 = 30;
 
   /// Line height
   static const double lineHeight1 = 1;

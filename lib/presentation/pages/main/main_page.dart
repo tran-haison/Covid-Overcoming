@@ -28,7 +28,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: colorWhite,
       body: _buildBody(),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -43,7 +42,8 @@ class _MainPageState extends State<MainPage> {
   Widget _buildBottomNavigationBar() {
     return NavigationBarTheme(
       data: NavigationBarThemeData(
-        indicatorColor: colorPrimary.withOpacity(0.4),
+        indicatorColor: colorPrimary.withOpacity(0.5),
+        backgroundColor: Colors.grey[100],
         labelTextStyle: MaterialStateProperty.all(
           const TextStyle(
             fontSize: Dimens.fontSize12,
@@ -53,7 +53,6 @@ class _MainPageState extends State<MainPage> {
       ),
       child: NavigationBar(
         height: 60,
-        backgroundColor: Colors.grey[100],
         animationDuration: const Duration(seconds: 1),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         selectedIndex: _currentIndex,

@@ -19,7 +19,8 @@ class ForgotPasswordPage extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: Dimens.dimen12,
+                horizontal: Dimens.dimen10,
+                vertical: Dimens.dimen5,
               ),
               child: _buildIconButtonBack(context),
             ),

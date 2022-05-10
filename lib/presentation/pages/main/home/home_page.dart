@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/main/home/home_widgets.dart';
 import 'package:covid_overcoming/presentation/widgets/common_chips.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
@@ -60,26 +61,35 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        const CommonAssetImage(
-          imagePath: AssetPaths.imgHacker,
-          height: Dimens.dimen40,
-          width: Dimens.dimen40,
+        InkWell(
+          onTap: () {
+            // TODO: implement avatar click
+          },
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          child: const CommonAssetImage(
+            imagePath: AssetPaths.imgHacker,
+            height: Dimens.dimen40,
+            width: Dimens.dimen40,
+          ),
         ),
       ],
     );
   }
 
   Widget _buildCardCurrentStage() {
-    return InkWell(
-      onTap: () {
-        // TODO: implement onTap
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimens.radius10),
-          color: colorLightGrayBackground,
-        ),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Dimens.radius10),
+        color: colorLightGrayBackground,
+      ),
+      child: InkWell(
+        onTap: () {
+          // TODO: implement stage click
+        },
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.all(Dimens.dimen15),
           child: Row(
@@ -99,7 +109,7 @@ class HomePage extends StatelessWidget {
                     Text(
                       // TODO: get stage
                       'STAGE 3',
-                      style: textStyle18Bold,
+                      style: textStyle16Bold,
                     ),
                     Text(
                       // TODO: get compliment
@@ -123,34 +133,33 @@ class HomePage extends StatelessWidget {
   Widget _buildCardProblems() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Card(
-          color: colorLightGrayBackground,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimens.radius10),
-          ),
-          child: SizedBox(
-            width: 140,
-            height: 140,
-            child: Padding(
-              padding: const EdgeInsets.all(Dimens.dimen10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const CommonAssetIcon(
-                    iconPath: AssetPaths.imgPhysicalProblem,
-                  ),
-                  Text(
-                    'Physical Problem',
-                    textAlign: TextAlign.center,
-                    style: textStyle18Medium.copyWith(color: colorOrange1),
-                  )
-                ],
-              ),
-            ),
-          ),
+        HomeCardProblem(
+          title: S.current.physical,
+          content: S.current.physical_problems,
+          iconPath: AssetPaths.imgPhysicalProblem,
+          cardColor: colorPrimary,
+          iconBackgroundColor: colorWhite,
+          titleColor: colorWhite,
+          contentColor: colorLightGray1,
+          elevation: 3,
+          onTap: () {
+            // TODO: implement physical problem click
+          },
+        ),
+        HomeCardProblem(
+          title: S.current.mental,
+          content: S.current.mental_problems,
+          iconPath: AssetPaths.imgMentalProblem,
+          cardColor: colorWhite,
+          iconBackgroundColor: colorBlue1,
+          titleColor: colorPrimary,
+          contentColor: colorTextGray,
+          elevation: 3,
+          onTap: () {
+            // TODO: implement mental problem click
+          },
         ),
       ],
     );

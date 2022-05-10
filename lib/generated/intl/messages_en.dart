@@ -55,9 +55,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "how_do_you_feel_today":
             MessageLookupByLibrary.simpleMessage("How do you feel today?"),
+        "mental": MessageLookupByLibrary.simpleMessage("Mental"),
+        "mental_problems":
+            MessageLookupByLibrary.simpleMessage("Mental problems"),
         "page_not_found":
             MessageLookupByLibrary.simpleMessage("Page not found"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "physical": MessageLookupByLibrary.simpleMessage("Physical"),
+        "physical_problems":
+            MessageLookupByLibrary.simpleMessage("Physical problems"),
         "recovery_tracking":
             MessageLookupByLibrary.simpleMessage("Recovery tracking"),
         "recovery_tracking_description": MessageLookupByLibrary.simpleMessage(

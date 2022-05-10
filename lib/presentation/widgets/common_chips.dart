@@ -29,7 +29,7 @@ class _CommonFilterChipState extends State<CommonFilterChip> {
           selected = value;
         });
       },
-      selectedColor: colorPrimary.withOpacity(0.4),
+      selectedColor: colorBlue1,
       showCheckmark: true,
       backgroundColor: Colors.white,
       selectedShadowColor: Colors.transparent,

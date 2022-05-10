@@ -8,6 +8,7 @@ import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
+import 'package:covid_overcoming/values/res/fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -127,12 +128,15 @@ class SignInPage extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: S.current.dont_have_an_account,
-        style: textStyle14Gray,
+        style: textStyle14Gray.copyWith(fontFamily: Fonts.poppins),
         children: <TextSpan>[
           const TextSpan(text: ' '),
           TextSpan(
             text: S.current.sign_up,
-            style: textStyle14Gray.copyWith(color: colorPrimary),
+            style: textStyle14Gray.copyWith(
+              color: colorPrimary,
+              fontWeight: FontWeight.w500,
+            ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 AuthRouter.goSignUp(context);

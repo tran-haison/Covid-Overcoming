@@ -18,4 +18,12 @@ class AssetPaths {
   static const icTest = 'assets/icons/ic_test.png';
   static const icGoogle = 'assets/icons/ic_google.png';
   static const icFacebook = 'assets/icons/ic_facebook.png';
+  static const icDumbbells = 'assets/icons/ic_dumbbells.png';
+  static const icDumbbellsOutlined = 'assets/icons/ic_dumbbells_outlined.png';
+  static const icHome = 'assets/icons/ic_home.png';
+  static const icHomeOutlined = 'assets/icons/ic_home_outlined.png';
+  static const icPhoneCall = 'assets/icons/ic_phone_call.png';
+  static const icPhoneCallOutlined = 'assets/icons/ic_phone_call_outlined.png';
+  static const icUser = 'assets/icons/ic_user.png';
+  static const icUserOutlined = 'assets/icons/ic_user_outlined.png';
 }

@@ -32,5 +32,9 @@
   "upcoming": "Upcoming",
   "appointment": "Appointment",
   "stages": "Stages",
-  "how_do_you_feel_today": "How do you feel today?"
+  "how_do_you_feel_today": "How do you feel today?",
+  "physical": "Physical",
+  "physical_problems": "Physical problems",
+  "mental": "Mental",
+  "mental_problems": "Mental problems"
 }

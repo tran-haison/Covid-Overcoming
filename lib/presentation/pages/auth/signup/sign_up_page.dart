@@ -6,6 +6,7 @@ import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dar
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
+import 'package:covid_overcoming/values/res/fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,8 @@ class SignUpPage extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: Dimens.dimen12,
+                horizontal: Dimens.dimen10,
+                vertical: Dimens.dimen5,
               ),
               child: _buildIconButtonBack(context),
             ),
@@ -122,12 +124,15 @@ class SignUpPage extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: S.current.already_have_an_account,
-        style: textStyle14Gray,
+        style: textStyle14Gray.copyWith(fontFamily: Fonts.poppins),
         children: <TextSpan>[
           const TextSpan(text: ' '),
           TextSpan(
             text: S.current.sign_in,
-            style: textStyle14Gray.copyWith(color: colorPrimary),
+            style: textStyle14Gray.copyWith(
+              color: colorPrimary,
+              fontWeight: FontWeight.w500,
+            ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 NavigatorUtils.goBack(context);
