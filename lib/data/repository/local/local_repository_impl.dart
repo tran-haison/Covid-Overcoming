@@ -19,9 +19,9 @@ class LocalRepositoryImpl implements LocalRepository {
     try {
       final list = await localDatasource.getAllStages();
       return Right(list);
-    } catch(e) {
-      logger.e(e);
-      return const Left(DatabaseError());
+    } catch (e) {
+      logger.e(e.toString());
+      return Left(DatabaseError(e.toString()));
     }
   }
 }

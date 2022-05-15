@@ -20,9 +20,9 @@ class ServerError extends Error {
   const ServerError([String? message, int? code]) : super(message, code);
 }
 
-/// Other error
-class OtherError extends Error {
-  const OtherError([String? message, int? code]) : super(message, code);
+/// Auth error
+class AuthError extends Error {
+  const AuthError([String? message, int? code]) : super(message, code);
 }
 
 /// Network error
@@ -30,4 +30,7 @@ class NetworkError extends Error {
   const NetworkError([String? message, int? code]) : super(message, code);
 }
 
-class ConverterError extends Error {}
+/// Other error
+class OtherError extends Error {
+  const OtherError([String? message, int? code]) : super(message, code);
+}

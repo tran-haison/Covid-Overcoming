@@ -11,11 +11,11 @@ abstract class AppPref {
 class AppPrefImpl implements AppPref {
   @override
   Future<void> saveFirstTimeInit(bool isFirstTime) async {
-    SpUtil.putBool(KEY_FIRST_TIME_INIT, isFirstTime);
+    SpUtil.putBool(Constants.keyFirstTimeInit, isFirstTime);
   }
 
   @override
   Future<bool> getFirstTimeInit() async {
-    return SpUtil.getBool(KEY_FIRST_TIME_INIT, defValue: true) ?? true;
+    return SpUtil.getBool(Constants.keyFirstTimeInit, defValue: true) ?? true;
   }
 }

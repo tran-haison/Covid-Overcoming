@@ -132,7 +132,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildCardProblems() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         HomeCardProblem(

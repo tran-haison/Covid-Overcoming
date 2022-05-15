@@ -5,7 +5,6 @@ import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
-import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:flutter/material.dart';

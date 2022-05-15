@@ -1,4 +1,3 @@
-import 'package:covid_overcoming/config/logger/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -96,13 +95,8 @@ class AuthImpl implements Auth {
 
   @override
   Future<User?> reAuthenticateWithCredential(AuthCredential authCredential) async {
-    try {
-      final credential = await currentUser?.reauthenticateWithCredential(authCredential);
-      return credential?.user;
-    } catch (e) {
-      logger.e(e.toString());
-      throw Exception(e.toString());
-    }
+    final credential = await currentUser?.reauthenticateWithCredential(authCredential);
+    return credential?.user;
   }
 
   @override
@@ -125,36 +119,20 @@ class AuthImpl implements Auth {
 
   @override
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
-    try {
-      final credential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return credential.user;
-    } on FirebaseAuthException catch (e) {
-      logger.e(e.code);
-      throw FirebaseAuthException(code: e.code);
-    } catch (e) {
-      logger.e(e.toString());
-      throw Exception(e.toString());
-    }
+    final credential = await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return credential.user;
   }
 
   @override
   Future<User?> signUpWithEmailAndPassword(String email, String password) async {
-    try {
-      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return credential.user;
-    } on FirebaseAuthException catch (e) {
-      logger.e(e.code);
-      throw FirebaseAuthException(code: e.code);
-    } catch (e) {
-      logger.e(e.toString());
-      throw Exception(e.toString());
-    }
+    final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return credential.user;
   }
 
   @override
