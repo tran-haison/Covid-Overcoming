@@ -5,7 +5,7 @@ import 'package:covid_overcoming/domain/usecase/usecase.dart';
 import 'package:either_dart/either.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@injectable
 class GetAllStagesUseCase implements UseCaseNoParam<List<Stage>> {
   const GetAllStagesUseCase(this._localRepository);
 

@@ -125,7 +125,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Error, User>> reAuthenticateWithCredential(
-      AuthCredential authCredential) async {
+    AuthCredential authCredential,
+  ) async {
     return await _firebaseAuthMethodCall<User>(
       function: () async {
         final user = await auth.reAuthenticateWithCredential(authCredential);
@@ -209,6 +210,7 @@ class AuthRepositoryImpl implements AuthRepository {
     );
   }
 
+  /// Generic function with error handling for Firebase Auth methods
   Future<Either<Error, T>> _firebaseAuthMethodCall<T>({
     required Future<Either<Error, T>> Function() function,
     required String errorMessage,
