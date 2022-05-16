@@ -8,7 +8,7 @@ class CommonElevatedButton extends StatelessWidget {
   const CommonElevatedButton({
     Key? key,
     required this.text,
-    required this.onPressed,
+    this.onPressed,
     this.radius = Dimens.radius8,
     this.width,
     this.height,
@@ -18,7 +18,7 @@ class CommonElevatedButton extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double radius;
   final double? width;
   final double? height;
@@ -37,7 +37,7 @@ class CommonElevatedButton extends StatelessWidget {
             if (states.contains(MaterialState.pressed)) {
               return buttonColor;
             } else if (states.contains(MaterialState.disabled)) {
-              return Colors.grey;
+              return const Color(0xFFE0E0E0);
             }
             return buttonColor;
           },

@@ -25,7 +25,7 @@ class AuthRouter implements IRouterProvider {
   void defineRoutes(FluroRouter router) {
     // Sign-in page
     router.define(NavigatorPaths.signIn, handler: Handler(handlerFunc: (_, __) {
-      return const SignInPage();
+      return SignInPage();
     }));
 
     // Sign-up page

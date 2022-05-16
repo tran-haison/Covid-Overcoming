@@ -1,56 +1,67 @@
+import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/auth/signin/bloc/sign_in_bloc.dart';
+import 'package:covid_overcoming/presentation/pages/auth/signin/bloc/sign_in_event.dart';
+import 'package:covid_overcoming/presentation/pages/auth/signin/bloc/sign_in_state.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
+import 'package:covid_overcoming/utils/extension/string_extension.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:covid_overcoming/values/res/fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  SignInPage({Key? key}) : super(key: key);
+
+  final SignInBloc _signInBloc = getIt<SignInBloc>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(Dimens.dimen25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      S.current.sign_in,
-                      style: textStyle40Bold,
-                    ),
-                    Text(
-                      S.current.enter_email_and_password_to_get_started,
-                      style: textStyle14Gray,
-                    ),
-                    vGap20,
-                    _buildEmailTextFormField(),
-                    vGap10,
-                    _buildPasswordTextFormField(),
-                    _buildForgotPasswordButton(context),
-                    _buildSignInButton(context),
-                    vGap20,
-                    _buildSocialSignInButton(),
-                  ],
+    return BlocProvider<SignInBloc>(
+      create: (_) => _signInBloc,
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(Dimens.dimen25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        S.current.sign_in,
+                        style: textStyle40Bold,
+                      ),
+                      Text(
+                        S.current.enter_email_and_password_to_get_started,
+                        style: textStyle14Gray,
+                      ),
+                      vGap20,
+                      _buildEmailTextFormField(),
+                      vGap10,
+                      _buildPasswordTextFormField(),
+                      _buildForgotPasswordButton(context),
+                      _buildSignInButton(context),
+                      vGap20,
+                      _buildSocialSignInButton(),
+                    ],
+                  ),
                 ),
-              ),
-              _buildSignUpTextButton(context),
-            ],
+                _buildSignUpTextButton(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -62,8 +73,8 @@ class SignInPage extends StatelessWidget {
       hintText: S.current.email,
       icon: const Icon(Icons.mail_outline_rounded),
       isPassword: false,
-      onChanged: (value) {
-        // TODO: onChange mail
+      onChanged: (email) {
+        _signInBloc.add(SignInEmailChangedEvent(email));
       },
     );
   }
@@ -73,8 +84,8 @@ class SignInPage extends StatelessWidget {
       hintText: S.current.password,
       icon: const Icon(Icons.lock_outline_rounded),
       isPassword: true,
-      onChanged: (value) {
-        // TODO: onChange password
+      onChanged: (password) {
+        _signInBloc.add(SignInPasswordChangedEvent(password));
       },
     );
   }
@@ -93,11 +104,26 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildSignInButton(BuildContext context) {
-    return CommonElevatedButton(
-      text: S.current.sign_in,
-      onPressed: () {
-        // TODO: implement sign in
-        MainRouter.goMain(context);
+    return BlocBuilder<SignInBloc, SignInState>(
+      buildWhen: (prev, curr) {
+        return prev.email != curr.email || prev.password != curr.password;
+      },
+      builder: (context, state) {
+        final email = state.email;
+        final password = state.password;
+        if (email.isValidEmail && password.isNotEmpty) {
+          return CommonElevatedButton(
+            text: S.current.sign_in,
+            onPressed: () {
+              // TODO: implement sign in
+              MainRouter.goMain(context);
+            },
+          );
+        }
+        return CommonElevatedButton(
+          text: S.current.sign_in,
+          onPressed: null,
+        );
       },
     );
   }
