@@ -66,7 +66,7 @@ class OnBoardingPage extends StatelessWidget {
               ),
               CommonElevatedButton(
                 text: S.current.start,
-                onPressed: () => AuthRouter.goSignIn(context),
+                onPressed: () => AuthRouter.goAuth(context),
               ),
             ],
           ),

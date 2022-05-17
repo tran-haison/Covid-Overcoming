@@ -2,7 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'sign_in_state.dart';
+part of 'sign_up_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,53 +14,63 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$SignInStateTearOff {
-  const _$SignInStateTearOff();
+class _$SignUpStateTearOff {
+  const _$SignUpStateTearOff();
 
-  _SignInState call(
-      {String email = '', String password = '', bool isFieldsValid = false}) {
-    return _SignInState(
+  _SignUpState call(
+      {String email = '',
+      String password = '',
+      String confirmPassword = '',
+      bool isFieldsValid = false}) {
+    return _SignUpState(
       email: email,
       password: password,
+      confirmPassword: confirmPassword,
       isFieldsValid: isFieldsValid,
     );
   }
 }
 
 /// @nodoc
-const $SignInState = _$SignInStateTearOff();
+const $SignUpState = _$SignUpStateTearOff();
 
 /// @nodoc
-mixin _$SignInState {
+mixin _$SignUpState {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String get confirmPassword => throw _privateConstructorUsedError;
   bool get isFieldsValid => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignInStateCopyWith<SignInState> get copyWith =>
+  $SignUpStateCopyWith<SignUpState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignInStateCopyWith<$Res> {
-  factory $SignInStateCopyWith(
-          SignInState value, $Res Function(SignInState) then) =
-      _$SignInStateCopyWithImpl<$Res>;
-  $Res call({String email, String password, bool isFieldsValid});
+abstract class $SignUpStateCopyWith<$Res> {
+  factory $SignUpStateCopyWith(
+          SignUpState value, $Res Function(SignUpState) then) =
+      _$SignUpStateCopyWithImpl<$Res>;
+  $Res call(
+      {String email,
+      String password,
+      String confirmPassword,
+      bool isFieldsValid});
 }
 
 /// @nodoc
-class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
-  _$SignInStateCopyWithImpl(this._value, this._then);
+class _$SignUpStateCopyWithImpl<$Res> implements $SignUpStateCopyWith<$Res> {
+  _$SignUpStateCopyWithImpl(this._value, this._then);
 
-  final SignInState _value;
+  final SignUpState _value;
   // ignore: unused_field
-  final $Res Function(SignInState) _then;
+  final $Res Function(SignUpState) _then;
 
   @override
   $Res call({
     Object? email = freezed,
     Object? password = freezed,
+    Object? confirmPassword = freezed,
     Object? isFieldsValid = freezed,
   }) {
     return _then(_value.copyWith(
@@ -72,6 +82,10 @@ class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      confirmPassword: confirmPassword == freezed
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
       isFieldsValid: isFieldsValid == freezed
           ? _value.isFieldsValid
           : isFieldsValid // ignore: cast_nullable_to_non_nullable
@@ -81,32 +95,37 @@ class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SignInStateCopyWith<$Res>
-    implements $SignInStateCopyWith<$Res> {
-  factory _$SignInStateCopyWith(
-          _SignInState value, $Res Function(_SignInState) then) =
-      __$SignInStateCopyWithImpl<$Res>;
+abstract class _$SignUpStateCopyWith<$Res>
+    implements $SignUpStateCopyWith<$Res> {
+  factory _$SignUpStateCopyWith(
+          _SignUpState value, $Res Function(_SignUpState) then) =
+      __$SignUpStateCopyWithImpl<$Res>;
   @override
-  $Res call({String email, String password, bool isFieldsValid});
+  $Res call(
+      {String email,
+      String password,
+      String confirmPassword,
+      bool isFieldsValid});
 }
 
 /// @nodoc
-class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
-    implements _$SignInStateCopyWith<$Res> {
-  __$SignInStateCopyWithImpl(
-      _SignInState _value, $Res Function(_SignInState) _then)
-      : super(_value, (v) => _then(v as _SignInState));
+class __$SignUpStateCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
+    implements _$SignUpStateCopyWith<$Res> {
+  __$SignUpStateCopyWithImpl(
+      _SignUpState _value, $Res Function(_SignUpState) _then)
+      : super(_value, (v) => _then(v as _SignUpState));
 
   @override
-  _SignInState get _value => super._value as _SignInState;
+  _SignUpState get _value => super._value as _SignUpState;
 
   @override
   $Res call({
     Object? email = freezed,
     Object? password = freezed,
+    Object? confirmPassword = freezed,
     Object? isFieldsValid = freezed,
   }) {
-    return _then(_SignInState(
+    return _then(_SignUpState(
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -115,6 +134,10 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      confirmPassword: confirmPassword == freezed
+          ? _value.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
       isFieldsValid: isFieldsValid == freezed
           ? _value.isFieldsValid
           : isFieldsValid // ignore: cast_nullable_to_non_nullable
@@ -125,9 +148,12 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignInState implements _SignInState {
-  const _$_SignInState(
-      {this.email = '', this.password = '', this.isFieldsValid = false});
+class _$_SignUpState implements _SignUpState {
+  const _$_SignUpState(
+      {this.email = '',
+      this.password = '',
+      this.confirmPassword = '',
+      this.isFieldsValid = false});
 
   @JsonKey()
   @override
@@ -137,20 +163,25 @@ class _$_SignInState implements _SignInState {
   final String password;
   @JsonKey()
   @override
+  final String confirmPassword;
+  @JsonKey()
+  @override
   final bool isFieldsValid;
 
   @override
   String toString() {
-    return 'SignInState(email: $email, password: $password, isFieldsValid: $isFieldsValid)';
+    return 'SignUpState(email: $email, password: $password, confirmPassword: $confirmPassword, isFieldsValid: $isFieldsValid)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SignInState &&
+            other is _SignUpState &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other.confirmPassword, confirmPassword) &&
             const DeepCollectionEquality()
                 .equals(other.isFieldsValid, isFieldsValid));
   }
@@ -160,26 +191,32 @@ class _$_SignInState implements _SignInState {
       runtimeType,
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(confirmPassword),
       const DeepCollectionEquality().hash(isFieldsValid));
 
   @JsonKey(ignore: true)
   @override
-  _$SignInStateCopyWith<_SignInState> get copyWith =>
-      __$SignInStateCopyWithImpl<_SignInState>(this, _$identity);
+  _$SignUpStateCopyWith<_SignUpState> get copyWith =>
+      __$SignUpStateCopyWithImpl<_SignUpState>(this, _$identity);
 }
 
-abstract class _SignInState implements SignInState {
-  const factory _SignInState(
-      {String email, String password, bool isFieldsValid}) = _$_SignInState;
+abstract class _SignUpState implements SignUpState {
+  const factory _SignUpState(
+      {String email,
+      String password,
+      String confirmPassword,
+      bool isFieldsValid}) = _$_SignUpState;
 
   @override
   String get email;
   @override
   String get password;
   @override
+  String get confirmPassword;
+  @override
   bool get isFieldsValid;
   @override
   @JsonKey(ignore: true)
-  _$SignInStateCopyWith<_SignInState> get copyWith =>
+  _$SignUpStateCopyWith<_SignUpState> get copyWith =>
       throw _privateConstructorUsedError;
 }

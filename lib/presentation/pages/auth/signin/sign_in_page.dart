@@ -9,7 +9,6 @@ import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
-import 'package:covid_overcoming/utils/extension/string_extension.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
@@ -105,13 +104,9 @@ class SignInPage extends StatelessWidget {
 
   Widget _buildSignInButton(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
-      buildWhen: (prev, curr) {
-        return prev.email != curr.email || prev.password != curr.password;
-      },
+      buildWhen: (prev, curr) => prev.isFieldsValid != curr.isFieldsValid,
       builder: (context, state) {
-        final email = state.email;
-        final password = state.password;
-        if (email.isValidEmail && password.isNotEmpty) {
+        if (state.isFieldsValid) {
           return CommonElevatedButton(
             text: S.current.sign_in,
             onPressed: () {

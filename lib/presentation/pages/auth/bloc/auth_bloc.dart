@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/domain/usecase/auth/get_current_user_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_email_and_password_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_up_with_email_and_password_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
@@ -8,15 +9,38 @@ import 'package:injectable/injectable.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
+    this._getCurrentUserUseCase,
     this._signInWithEmailAndPasswordUseCase,
     this._signUpWithEmailAndPasswordUseCase,
   ) : super(const AuthState()) {
+    on<GetCurrentUserEvent>(_onGetCurrentUserEvent);
     on<SignInWithEmailAndPasswordEvent>(_onSignInWithEmailAndPasswordEvent);
     on<SignUpWithEmailAndPasswordEvent>(_onSignUpWithEmailAndPasswordEvent);
   }
 
+  final GetCurrentUserUseCase _getCurrentUserUseCase;
   final SignInWithEmailAndPasswordUseCase _signInWithEmailAndPasswordUseCase;
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
+
+  Future<void> _onGetCurrentUserEvent(
+    GetCurrentUserEvent event,
+    Emitter emit,
+  ) async {
+    final result = await _getCurrentUserUseCase();
+    if (result.isRight) {
+      final user = result.right;
+      emit(state.copyWith(
+        user: user,
+        userError: null,
+      ));
+    } else {
+      final error = result.left;
+      emit(state.copyWith(
+        user: null,
+        userError: error,
+      ));
+    }
+  }
 
   Future<void> _onSignInWithEmailAndPasswordEvent(
     SignInWithEmailAndPasswordEvent event,

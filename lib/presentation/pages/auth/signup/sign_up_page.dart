@@ -1,5 +1,9 @@
+import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/utils/navigator_utils.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/auth/signup/bloc/sign_up_bloc.dart';
+import 'package:covid_overcoming/presentation/pages/auth/signup/bloc/sign_up_event.dart';
+import 'package:covid_overcoming/presentation/pages/auth/signup/bloc/sign_up_state.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
@@ -9,61 +13,67 @@ import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:covid_overcoming/values/res/fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
+
+  final SignUpBloc _signUpBloc = getIt<SignUpBloc>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Dimens.dimen10,
-                vertical: Dimens.dimen5,
+    return BlocProvider<SignUpBloc>(
+      create: (_) => _signUpBloc,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Dimens.dimen10,
+                  vertical: Dimens.dimen5,
+                ),
+                child: _buildIconButtonBack(context),
               ),
-              child: _buildIconButtonBack(context),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(Dimens.dimen25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            S.current.sign_up,
-                            style: textStyle40Bold,
-                          ),
-                          Text(
-                            S.current.begin_your_journey_with_us_from_today,
-                            style: textStyle14Gray,
-                          ),
-                          vGap20,
-                          _buildEmailTextFormField(),
-                          vGap10,
-                          _buildPasswordTextFormField(),
-                          vGap10,
-                          _buildConfirmPasswordTextFormField(),
-                          vGap20,
-                          _buildSignUpButton(context),
-                        ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(Dimens.dimen25),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              S.current.sign_up,
+                              style: textStyle40Bold,
+                            ),
+                            Text(
+                              S.current.begin_your_journey_with_us_from_today,
+                              style: textStyle14Gray,
+                            ),
+                            vGap20,
+                            _buildEmailTextFormField(),
+                            vGap10,
+                            _buildPasswordTextFormField(),
+                            vGap10,
+                            _buildConfirmPasswordTextFormField(),
+                            vGap20,
+                            _buildSignUpButton(context),
+                          ],
+                        ),
                       ),
-                    ),
-                    _buildSignInTextButton(context),
-                  ],
+                      _buildSignInTextButton(context),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -83,8 +93,8 @@ class SignUpPage extends StatelessWidget {
       hintText: S.current.email,
       icon: const Icon(Icons.mail_outline_rounded),
       isPassword: false,
-      onChanged: (value) {
-        // TODO: onChange mail
+      onChanged: (email) {
+        _signUpBloc.add(SignUpEmailChangedEvent(email));
       },
     );
   }
@@ -94,8 +104,8 @@ class SignUpPage extends StatelessWidget {
       hintText: S.current.password,
       icon: const Icon(Icons.lock_outline_rounded),
       isPassword: true,
-      onChanged: (value) {
-        // TODO: onChange password
+      onChanged: (password) {
+        _signUpBloc.add(SignUpPasswordChangedEvent(password));
       },
     );
   }
@@ -105,17 +115,28 @@ class SignUpPage extends StatelessWidget {
       hintText: S.current.confirm_password,
       icon: const Icon(Icons.lock_outline_rounded),
       isPassword: true,
-      onChanged: (value) {
-        // TODO: onChange confirm password
+      onChanged: (confirmPassword) {
+        _signUpBloc.add(SignUpConfirmPasswordChangedEvent(confirmPassword));
       },
     );
   }
 
   Widget _buildSignUpButton(BuildContext context) {
-    return CommonElevatedButton(
-      text: S.current.sign_up,
-      onPressed: () {
-        // TODO: implement click sign up
+    return BlocBuilder<SignUpBloc, SignUpState>(
+      buildWhen: (prev, curr) => prev.isFieldsValid != curr.isFieldsValid,
+      builder: (context, state) {
+        if (state.isFieldsValid) {
+          return CommonElevatedButton(
+            text: S.current.sign_up,
+            onPressed: () {
+              // TODO: implement click sign up
+            },
+          );
+        }
+        return CommonElevatedButton(
+          text: S.current.sign_up,
+          onPressed: null,
+        );
       },
     );
   }

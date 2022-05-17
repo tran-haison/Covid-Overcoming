@@ -20,6 +20,7 @@ class _$AuthStateTearOff {
   _AuthState call(
       {bool isLoading = false,
       User? user = null,
+      Error? userError = null,
       bool isSignInSuccess = false,
       Error? signInError = null,
       bool isSignUpSuccess = false,
@@ -27,6 +28,7 @@ class _$AuthStateTearOff {
     return _AuthState(
       isLoading: isLoading,
       user: user,
+      userError: userError,
       isSignInSuccess: isSignInSuccess,
       signInError: signInError,
       isSignUpSuccess: isSignUpSuccess,
@@ -42,7 +44,8 @@ const $AuthState = _$AuthStateTearOff();
 mixin _$AuthState {
 // Loading
   bool get isLoading => throw _privateConstructorUsedError; // User
-  User? get user => throw _privateConstructorUsedError; // Sign in
+  User? get user => throw _privateConstructorUsedError;
+  Error? get userError => throw _privateConstructorUsedError; // Sign in
   bool get isSignInSuccess => throw _privateConstructorUsedError;
   Error? get signInError => throw _privateConstructorUsedError; // Sign up
   bool get isSignUpSuccess => throw _privateConstructorUsedError;
@@ -60,6 +63,7 @@ abstract class $AuthStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       User? user,
+      Error? userError,
       bool isSignInSuccess,
       Error? signInError,
       bool isSignUpSuccess,
@@ -78,6 +82,7 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
   $Res call({
     Object? isLoading = freezed,
     Object? user = freezed,
+    Object? userError = freezed,
     Object? isSignInSuccess = freezed,
     Object? signInError = freezed,
     Object? isSignUpSuccess = freezed,
@@ -92,6 +97,10 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      userError: userError == freezed
+          ? _value.userError
+          : userError // ignore: cast_nullable_to_non_nullable
+              as Error?,
       isSignInSuccess: isSignInSuccess == freezed
           ? _value.isSignInSuccess
           : isSignInSuccess // ignore: cast_nullable_to_non_nullable
@@ -121,6 +130,7 @@ abstract class _$AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       User? user,
+      Error? userError,
       bool isSignInSuccess,
       Error? signInError,
       bool isSignUpSuccess,
@@ -140,6 +150,7 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? user = freezed,
+    Object? userError = freezed,
     Object? isSignInSuccess = freezed,
     Object? signInError = freezed,
     Object? isSignUpSuccess = freezed,
@@ -154,6 +165,10 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User?,
+      userError: userError == freezed
+          ? _value.userError
+          : userError // ignore: cast_nullable_to_non_nullable
+              as Error?,
       isSignInSuccess: isSignInSuccess == freezed
           ? _value.isSignInSuccess
           : isSignInSuccess // ignore: cast_nullable_to_non_nullable
@@ -180,6 +195,7 @@ class _$_AuthState implements _AuthState {
   const _$_AuthState(
       {this.isLoading = false,
       this.user = null,
+      this.userError = null,
       this.isSignInSuccess = false,
       this.signInError = null,
       this.isSignUpSuccess = false,
@@ -191,6 +207,9 @@ class _$_AuthState implements _AuthState {
   @JsonKey()
   @override // User
   final User? user;
+  @JsonKey()
+  @override
+  final Error? userError;
   @JsonKey()
   @override // Sign in
   final bool isSignInSuccess;
@@ -206,7 +225,7 @@ class _$_AuthState implements _AuthState {
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, user: $user, isSignInSuccess: $isSignInSuccess, signInError: $signInError, isSignUpSuccess: $isSignUpSuccess, signUpError: $signUpError)';
+    return 'AuthState(isLoading: $isLoading, user: $user, userError: $userError, isSignInSuccess: $isSignInSuccess, signInError: $signInError, isSignUpSuccess: $isSignUpSuccess, signUpError: $signUpError)';
   }
 
   @override
@@ -216,6 +235,7 @@ class _$_AuthState implements _AuthState {
             other is _AuthState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality().equals(other.userError, userError) &&
             const DeepCollectionEquality()
                 .equals(other.isSignInSuccess, isSignInSuccess) &&
             const DeepCollectionEquality()
@@ -231,6 +251,7 @@ class _$_AuthState implements _AuthState {
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(userError),
       const DeepCollectionEquality().hash(isSignInSuccess),
       const DeepCollectionEquality().hash(signInError),
       const DeepCollectionEquality().hash(isSignUpSuccess),
@@ -246,6 +267,7 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {bool isLoading,
       User? user,
+      Error? userError,
       bool isSignInSuccess,
       Error? signInError,
       bool isSignUpSuccess,
@@ -255,6 +277,8 @@ abstract class _AuthState implements AuthState {
   bool get isLoading;
   @override // User
   User? get user;
+  @override
+  Error? get userError;
   @override // Sign in
   bool get isSignInSuccess;
   @override

@@ -12,6 +12,7 @@ class AuthState with _$AuthState {
 
     // User
     @Default(null) User? user,
+    @Default(null) Error? userError,
 
     // Sign in
     @Default(false) bool isSignInSuccess,
