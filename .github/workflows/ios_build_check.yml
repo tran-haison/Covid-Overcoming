@@ -1,0 +1,40 @@
+name: Build Check Workflow ~ IOS
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - master
+      - develop
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  analysis:
+    name: Build Check Workflow
+    # The type of runner that the job will run on
+    runs-on: [self-hosted]
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.10.1'
+      - name: Install gems
+        run: |
+          cd ./ios
+          gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+          bundle install
+          gem update --system
+      - name: Clean cache
+        run: flutter pub cache clean
+      - name: Clean project
+        run: flutter clean
+      - name: Get flutter dependencies.
+        run: flutter pub get
+      - name: Android Build Check
+        run: flutter build ios --debug --no-codesign
