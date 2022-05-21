@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/config/logger/logger.dart';
+import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/config/route/router/landing_router.dart';
 import 'package:covid_overcoming/config/route/router/main_router.dart';
@@ -11,7 +11,7 @@ final router = FluroRouter();
 void configureRoutes() {
   // Return to page not found if route error
   router.notFoundHandler = Handler(handlerFunc: (_, __) {
-    logger.e(Strings.pageNotFound);
+    Log.e(Strings.pageNotFound);
     return const PageNotFound();
   });
 

@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "how_do_you_feel_today":
             MessageLookupByLibrary.simpleMessage("How do you feel today?"),
+        "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "mental": MessageLookupByLibrary.simpleMessage("Mental"),
         "mental_problems":
             MessageLookupByLibrary.simpleMessage("Mental problems"),

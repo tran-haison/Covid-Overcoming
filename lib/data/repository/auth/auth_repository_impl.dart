@@ -1,6 +1,6 @@
-import 'package:covid_overcoming/config/logger/logger.dart';
+import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/core/error/error.dart';
-import 'package:covid_overcoming/core/service/auth.dart';
+import 'package:covid_overcoming/data/datasource/remote/service/auth.dart';
 import 'package:covid_overcoming/domain/repository/auth/auth_repository.dart';
 import 'package:covid_overcoming/values/constant/constants.dart';
 import 'package:either_dart/either.dart';
@@ -216,12 +216,18 @@ class AuthRepositoryImpl implements AuthRepository {
     required String errorMessage,
   }) async {
     try {
-      return await function();
+      final result = await function();
+      if (result.isRight) {
+        Log.d(result.right.toString());
+      } else {
+        Log.e(result.left.message!);
+      }
+      return result;
     } on FirebaseAuthException catch (e) {
-      logger.e(e.code);
+      Log.e(e.code);
       return Left(AuthError(e.code));
     } catch (e) {
-      logger.e(e.toString());
+      Log.e(e.toString());
       return Left(AuthError(errorMessage));
     }
   }

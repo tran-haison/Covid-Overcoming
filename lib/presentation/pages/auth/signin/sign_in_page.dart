@@ -1,7 +1,8 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
-import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_bloc.dart';
+import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/signin/bloc/sign_in_bloc.dart';
 import 'package:covid_overcoming/presentation/pages/auth/signin/bloc/sign_in_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/signin/bloc/sign_in_state.dart';
@@ -17,10 +18,24 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignInPage extends StatelessWidget {
-  SignInPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
-  final SignInBloc _signInBloc = getIt<SignInBloc>();
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final _signInBloc = getIt<SignInBloc>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +84,7 @@ class SignInPage extends StatelessWidget {
 
   Widget _buildEmailTextFormField() {
     return CommonTextFormField(
+      controller: _emailController,
       hintText: S.current.email,
       icon: const Icon(Icons.mail_outline_rounded),
       isPassword: false,
@@ -80,6 +96,7 @@ class SignInPage extends StatelessWidget {
 
   Widget _buildPasswordTextFormField() {
     return CommonTextFormField(
+      controller: _passwordController,
       hintText: S.current.password,
       icon: const Icon(Icons.lock_outline_rounded),
       isPassword: true,
@@ -103,15 +120,19 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildSignInButton(BuildContext context) {
+    final authBloc = context.read<AuthBloc>();
     return BlocBuilder<SignInBloc, SignInState>(
       buildWhen: (prev, curr) => prev.isFieldsValid != curr.isFieldsValid,
-      builder: (context, state) {
+      builder: (_, state) {
         if (state.isFieldsValid) {
           return CommonElevatedButton(
             text: S.current.sign_in,
             onPressed: () {
-              // TODO: implement sign in
-              MainRouter.goMain(context);
+              authBloc.add(SignInWithEmailAndPasswordEvent(
+                _emailController.text,
+                _passwordController.text,
+              ));
+              //MainRouter.goMain(context);
             },
           );
         }

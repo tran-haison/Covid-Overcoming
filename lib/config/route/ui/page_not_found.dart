@@ -1,6 +1,5 @@
 import 'package:covid_overcoming/generated/l10n.dart';
-import 'package:covid_overcoming/values/res/colors.dart';
-import 'package:covid_overcoming/values/res/dimens.dart';
+import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class PageNotFound extends StatelessWidget {
@@ -17,10 +16,8 @@ class PageNotFound extends StatelessWidget {
       body: Center(
         child: Text(
           message ?? S.current.page_not_found,
-          style: const TextStyle(
-            fontSize: Dimens.fontSize16,
-            color: colorLightBlack,
-          ),
+          style: textStyle16Medium,
+          textAlign: TextAlign.center,
         ),
       ),
     );

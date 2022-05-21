@@ -7,9 +7,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class LandingRouter implements IRouterProvider {
-
   static void goWelcome(BuildContext context) {
-    NavigatorUtils.pushReplacement(context, NavigatorPaths.welcome);
+    NavigatorUtils.pushAndRemoveUntil(context, NavigatorPaths.welcome);
   }
 
   static void goOnBoarding(BuildContext context) {
@@ -19,13 +18,19 @@ class LandingRouter implements IRouterProvider {
   @override
   void defineRoutes(FluroRouter router) {
     // Welcome page
-    router.define(NavigatorPaths.welcome, handler: Handler(handlerFunc: (_, __) {
-      return const WelcomePage();
-    }));
+    router.define(
+      NavigatorPaths.welcome,
+      handler: Handler(handlerFunc: (_, __) {
+        return const WelcomePage();
+      }),
+    );
 
     // On-boarding page
-    router.define(NavigatorPaths.onBoarding, handler: Handler(handlerFunc: (_, __) {
-      return const OnBoardingPage();
-    }));  }
-
+    router.define(
+      NavigatorPaths.onBoarding,
+      handler: Handler(handlerFunc: (_, __) {
+        return const OnBoardingPage();
+      }),
+    );
+  }
 }

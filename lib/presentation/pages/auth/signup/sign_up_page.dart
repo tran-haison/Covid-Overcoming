@@ -15,10 +15,26 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
-  final SignUpBloc _signUpBloc = getIt<SignUpBloc>();
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final _signUpBloc = getIt<SignUpBloc>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +106,7 @@ class SignUpPage extends StatelessWidget {
 
   Widget _buildEmailTextFormField() {
     return CommonTextFormField(
+      controller: _emailController,
       hintText: S.current.email,
       icon: const Icon(Icons.mail_outline_rounded),
       isPassword: false,
@@ -101,6 +118,7 @@ class SignUpPage extends StatelessWidget {
 
   Widget _buildPasswordTextFormField() {
     return CommonTextFormField(
+      controller: _passwordController,
       hintText: S.current.password,
       icon: const Icon(Icons.lock_outline_rounded),
       isPassword: true,
@@ -112,6 +130,7 @@ class SignUpPage extends StatelessWidget {
 
   Widget _buildConfirmPasswordTextFormField() {
     return CommonTextFormField(
+      controller: _confirmPasswordController,
       hintText: S.current.confirm_password,
       icon: const Icon(Icons.lock_outline_rounded),
       isPassword: true,

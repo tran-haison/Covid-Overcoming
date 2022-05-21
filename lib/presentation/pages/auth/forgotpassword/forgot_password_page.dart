@@ -7,8 +7,21 @@ import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
+
+  @override
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+}
+
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final _emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +86,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
   Widget _buildEmailTextFormField() {
     return CommonTextFormField(
+      controller: _emailController,
       hintText: S.current.email,
       icon: const Icon(Icons.mail_outline_rounded),
       isPassword: false,

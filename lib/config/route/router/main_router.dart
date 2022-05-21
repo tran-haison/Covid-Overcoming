@@ -6,7 +6,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class MainRouter implements IRouterProvider {
-
   static void goMain(BuildContext context) {
     NavigatorUtils.push(context, NavigatorPaths.main);
   }
@@ -14,9 +13,11 @@ class MainRouter implements IRouterProvider {
   @override
   void defineRoutes(FluroRouter router) {
     // Main page
-    router.define(NavigatorPaths.main, handler: Handler(handlerFunc: (_, __) {
-      return const MainPage();
-    }));
+    router.define(
+      NavigatorPaths.main,
+      handler: Handler(handlerFunc: (_, __) {
+        return const MainPage();
+      }),
+    );
   }
-
 }

@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/config/logger/logger.dart';
+import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class BaseConverter<T> implements JsonConverter<T, dynamic> {
@@ -9,7 +9,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
     try {
       return _fromJsonAsT(json);
     } catch (e) {
-      logger.e('Unable to parse $json to ${T.runtimeType}\nMessage: $e');
+      Log.e('Unable to parse $json to ${T.runtimeType}\nMessage: $e');
     }
     return json as T;
   }
@@ -19,7 +19,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
     try {
       return _getToJson(runtimeType, this);
     } catch (e) {
-      logger.e('Unable to parse $object to ${T.runtimeType}\nMessage: $e');
+      Log.e('Unable to parse $object to ${T.runtimeType}\nMessage: $e');
     }
     return object;
   }
@@ -56,7 +56,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
       // case 'User?':
       //    return User.fromJson(json)
     }
-    logger.e('Parse error - Type:$type');
+    Log.e('Parse error - Type:$type');
     return null;
   }
 

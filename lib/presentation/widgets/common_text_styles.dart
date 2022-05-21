@@ -80,4 +80,3 @@ const textStyle12LightGray = TextStyle(
   fontSize: 12,
   color: Color(0xFFE5E5E5),
 );
-

@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimens.radius10),
-        color: colorLightGrayBackground,
+        color: colorGray100,
       ),
       child: InkWell(
         onTap: () {

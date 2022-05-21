@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:covid_overcoming/config/logger/logger.dart';
+import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:flutter/services.dart';
@@ -15,13 +15,13 @@ Future<void> copyDbFromAsset() async {
   // Create db if not exist
   var exists = await databaseExists(path);
   if (!exists) {
-    logger.d('Copy database from assets');
+    Log.d('Copy database from assets');
 
     // Make sure the parent directory exists
     try {
       await Directory(dirname(path)).create(recursive: true);
     } catch (e) {
-      logger.e(e);
+      Log.e(e.toString());
     }
 
     // Copy from asset
@@ -37,6 +37,6 @@ Future<void> copyDbFromAsset() async {
     // Write and flush the bytes written
     await File(path).writeAsBytes(bytes, flush: true);
   } else {
-    logger.d('Open existing database');
+    Log.d('Open existing database');
   }
 }

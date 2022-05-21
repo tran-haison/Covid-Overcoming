@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/config/logger/logger.dart';
+import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/config/route/routes.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class NavigatorUtils {
     );
   }
 
-  static void replace(
+  static void pushReplacement(
     BuildContext context,
     String path, {
     Object? sendData,
@@ -39,7 +39,7 @@ class NavigatorUtils {
     );
   }
 
-  static void pushReplacement(
+  static void pushAndRemoveUntil(
     BuildContext context,
     String path, {
     Object? sendData,
@@ -48,7 +48,6 @@ class NavigatorUtils {
     push(
       context,
       path,
-      replace: true,
       clearStack: true,
       sendData: sendData,
       transition: transition,
@@ -76,13 +75,13 @@ class NavigatorUtils {
               sendData != null ? RouteSettings(arguments: sendData) : null,
         )
         .then<dynamic>((Object? result) => onResult.call(result))
-        .catchError((dynamic error) => logger.e(error.toString()));
+        .catchError((dynamic error) => Log.e(error.toString()));
   }
 
   static Future<dynamic> pushWidget(
-      BuildContext context,
-      WidgetBuilder builder,
-      ) {
+    BuildContext context,
+    WidgetBuilder builder,
+  ) {
     return Navigator.of(context).push<dynamic>(
       MaterialPageRoute<dynamic>(builder: builder),
     );

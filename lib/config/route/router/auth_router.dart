@@ -9,7 +9,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class AuthRouter implements IRouterProvider {
-
   static void goAuth(BuildContext context) {
     NavigatorUtils.push(context, NavigatorPaths.auth);
   }
@@ -29,24 +28,35 @@ class AuthRouter implements IRouterProvider {
   @override
   void defineRoutes(FluroRouter router) {
     // Auth page
-    router.define(NavigatorPaths.auth, handler: Handler(handlerFunc: (_, __) {
-      return const AuthPage();
-    }));
+    router.define(
+      NavigatorPaths.auth,
+      handler: Handler(handlerFunc: (_, __) {
+        return AuthPage();
+      }),
+    );
 
     // Sign-in page
-    router.define(NavigatorPaths.signIn, handler: Handler(handlerFunc: (_, __) {
-      return SignInPage();
-    }));
+    router.define(
+      NavigatorPaths.signIn,
+      handler: Handler(handlerFunc: (_, __) {
+        return const SignInPage();
+      }),
+    );
 
     // Sign-up page
-    router.define(NavigatorPaths.signUp, handler: Handler(handlerFunc: (_, __) {
-      return SignUpPage();
-    }));
+    router.define(
+      NavigatorPaths.signUp,
+      handler: Handler(handlerFunc: (_, __) {
+        return const SignUpPage();
+      }),
+    );
 
     // Forgot-password page
-    router.define(NavigatorPaths.forgotPassword, handler: Handler(handlerFunc: (_, __) {
-      return const ForgotPasswordPage();
-    }));
+    router.define(
+      NavigatorPaths.forgotPassword,
+      handler: Handler(handlerFunc: (_, __) {
+        return const ForgotPasswordPage();
+      }),
+    );
   }
-
 }

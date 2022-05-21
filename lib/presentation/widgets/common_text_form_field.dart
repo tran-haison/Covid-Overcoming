@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
+import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ class CommonTextFormField extends StatefulWidget {
     required this.icon,
     required this.isPassword,
     required this.onChanged,
+    required this.controller,
+    this.validator,
     this.radius = Dimens.radius8,
   }) : super(key: key);
 
@@ -16,6 +19,8 @@ class CommonTextFormField extends StatefulWidget {
   final Icon icon;
   final bool isPassword;
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
   final double radius;
 
   @override
@@ -23,20 +28,14 @@ class CommonTextFormField extends StatefulWidget {
 }
 
 class _CommonTextFormFieldState extends State<CommonTextFormField> {
-  late bool _passwordVisible;
-
-  @override
-  void initState() {
-    _passwordVisible = false;
-    super.initState();
-  }
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.radius),
-        color: Colors.grey[100],
+        color: colorGray100,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -50,6 +49,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
 
   Widget _buildTextFormField() {
     return TextFormField(
+      controller: widget.controller,
       onChanged: widget.onChanged,
       textAlignVertical: TextAlignVertical.center,
       style: textStyle14Medium,
@@ -73,6 +73,8 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       obscureText: widget.isPassword ? !_passwordVisible : widget.isPassword,
       autocorrect: !widget.isPassword,
       enableSuggestions: !widget.isPassword,
+      validator: widget.validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 }

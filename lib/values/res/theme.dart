@@ -50,8 +50,11 @@ const appBarTheme = AppBarTheme(centerTitle: false, elevation: 0);
 
 extension BuildContextExt on BuildContext {
   TextStyle get headline1 =>
-      Theme.of(this).textTheme.headline1?.copyWith(fontSize: 62, color: Colors.black)
-          ?? const TextStyle();
+      Theme.of(this).textTheme.headline1?.copyWith(
+            fontSize: 62,
+            color: Colors.black,
+          ) ??
+      const TextStyle();
 
   TextStyle get headline2 =>
       Theme.of(this).textTheme.headline2 ?? const TextStyle();
@@ -68,8 +71,7 @@ extension BuildContextExt on BuildContext {
   TextStyle get headline6 =>
       Theme.of(this).textTheme.headline6 ?? const TextStyle();
 
-  TextStyle get button =>
-      Theme.of(this).textTheme.button ?? const TextStyle();
+  TextStyle get button => Theme.of(this).textTheme.button ?? const TextStyle();
 
   TextStyle get subtitle1 =>
       Theme.of(this).textTheme.subtitle1 ?? const TextStyle();
