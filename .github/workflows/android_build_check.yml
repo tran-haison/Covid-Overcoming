@@ -7,10 +7,8 @@ on:
       - synchronize
     branches:
       - master
-      - develop
   push:
     branches:
-      - master
       - develop
 
 jobs:
