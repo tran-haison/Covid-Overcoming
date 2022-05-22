@@ -12,7 +12,7 @@ on:
       - develop
 
 jobs:
-  analysis:
+  build:
     name: Build Check Workflow
     # The type of runner that the job will run on
     runs-on: [self-hosted]
@@ -35,4 +35,4 @@ jobs:
       - name: Get flutter dependencies.
         run: flutter pub get
       - name: Android Build Check
-        run: flutter build ios --debug --no-codesign
+        run: flutter build ios --release --no-codesign
