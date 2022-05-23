@@ -12,6 +12,7 @@ class CommonTextFormField extends StatefulWidget {
     required this.onChanged,
     required this.controller,
     this.validator,
+    this.autovalidateMode,
     this.radius = Dimens.radius8,
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ class CommonTextFormField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final AutovalidateMode? autovalidateMode;
   final double radius;
 
   @override
@@ -74,7 +76,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       autocorrect: !widget.isPassword,
       enableSuggestions: !widget.isPassword,
       validator: widget.validator,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: widget.autovalidateMode,
     );
   }
 }

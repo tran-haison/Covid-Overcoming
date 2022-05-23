@@ -220,7 +220,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (result.isRight) {
         Log.d(result.right.toString());
       } else {
-        Log.e(result.left.message!);
+        Log.e(result.left.message);
       }
       return result;
     } on FirebaseAuthException catch (e) {

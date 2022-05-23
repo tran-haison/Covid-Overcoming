@@ -1,16 +1,22 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/utils/navigator_utils.dart';
+import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_bloc.dart';
+import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
+import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
 import 'package:covid_overcoming/presentation/pages/auth/signup/bloc/sign_up_bloc.dart';
 import 'package:covid_overcoming/presentation/pages/auth/signup/bloc/sign_up_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/signup/bloc/sign_up_state.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
+import 'package:covid_overcoming/presentation/widgets/common_dialogs.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:covid_overcoming/values/res/fonts.dart';
+import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +28,9 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends State<SignUpPage>
+    with BaseStateMixin<SignUpPage> {
+  final _authBloc = getIt<AuthBloc>();
   final _signUpBloc = getIt<SignUpBloc>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -38,58 +46,90 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignUpBloc>(
-      create: (_) => _signUpBloc,
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Dimens.dimen10,
-                  vertical: Dimens.dimen5,
-                ),
-                child: _buildIconButtonBack(context),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(create: (_) => _authBloc),
+        BlocProvider<SignUpBloc>(create: (_) => _signUpBloc),
+      ],
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSignUpLoadingState) {
+            showLoadingProgress();
+            return;
+          }
+          hideLoadingProgress();
+
+          if (state is AuthSignUpSuccessState) {
+            showCommonDialog(
+              context,
+              S.current.success,
+              S.current.sign_up_successfully,
+            );
+            return;
+          }
+
+          if (state is AuthSignUpFailedState) {
+            showCommonDialog(context, Strings.error, state.error);
+            return;
+          }
+        },
+        child: _buildPage(),
+      ),
+    );
+  }
+
+  Widget _buildPage() {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Dimens.dimen10,
+                vertical: Dimens.dimen5,
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(Dimens.dimen25),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              S.current.sign_up,
-                              style: textStyle40Bold,
-                            ),
-                            Text(
-                              S.current.begin_your_journey_with_us_from_today,
-                              style: textStyle14Gray,
-                            ),
-                            vGap20,
-                            _buildEmailTextFormField(),
-                            vGap10,
-                            _buildPasswordTextFormField(),
-                            vGap10,
-                            _buildConfirmPasswordTextFormField(),
-                            vGap20,
-                            _buildSignUpButton(context),
-                          ],
-                        ),
+              child: _buildIconButtonBack(context),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(Dimens.dimen25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            S.current.sign_up,
+                            style: textStyle40Bold,
+                          ),
+                          Text(
+                            S.current.begin_your_journey_with_us_from_today,
+                            style: textStyle14Gray,
+                          ),
+                          vGap20,
+                          _buildEmailTextFormField(),
+                          vGap10,
+                          _buildPasswordTextFormField(),
+                          vGap10,
+                          _buildConfirmPasswordTextFormField(),
+                          vGap20,
+                          _buildSignUpButton(context),
+                          vGap50,
+                        ],
                       ),
-                      _buildSignInTextButton(context),
-                    ],
-                  ),
+                    ),
+                    _buildSignInTextButton(context),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -148,7 +188,10 @@ class _SignUpPageState extends State<SignUpPage> {
           return CommonElevatedButton(
             text: S.current.sign_up,
             onPressed: () {
-              // TODO: implement click sign up
+              _authBloc.add(SignUpWithEmailAndPasswordEvent(
+                _emailController.text,
+                _passwordController.text,
+              ));
             },
           );
         }

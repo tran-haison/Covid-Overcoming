@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/config/route/router/profile_router.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/home_widgets.dart';
 import 'package:covid_overcoming/presentation/widgets/common_chips.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildHeader(),
+            _buildHeader(context),
             vGap30,
             _buildCardCurrentStage(),
             vGap20,
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            // TODO: implement avatar click
+            ProfileRouter.goProfile(context);
           },
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,

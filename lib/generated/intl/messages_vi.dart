@@ -55,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "how_do_you_feel_today":
             MessageLookupByLibrary.simpleMessage("How do you feel today?"),
+        "invalid_email": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "mental": MessageLookupByLibrary.simpleMessage("Mental"),
         "mental_problems":
@@ -65,15 +66,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "physical": MessageLookupByLibrary.simpleMessage("Physical"),
         "physical_problems":
             MessageLookupByLibrary.simpleMessage("Physical problems"),
+        "please_confirm_password":
+            MessageLookupByLibrary.simpleMessage("Please confirm password"),
+        "please_enter_email":
+            MessageLookupByLibrary.simpleMessage("Please enter email"),
+        "please_enter_password":
+            MessageLookupByLibrary.simpleMessage("Please enter password"),
         "recovery_tracking":
             MessageLookupByLibrary.simpleMessage("Recovery tracking"),
         "recovery_tracking_description": MessageLookupByLibrary.simpleMessage(
             "Monitor the stage of recovery to get full insight of heath status"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "sign_out": MessageLookupByLibrary.simpleMessage("Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "sign_up_successfully": MessageLookupByLibrary.simpleMessage(
+            "Register new user successfully"),
         "stages": MessageLookupByLibrary.simpleMessage("Stages"),
         "start": MessageLookupByLibrary.simpleMessage("Bắt đầu"),
+        "success": MessageLookupByLibrary.simpleMessage("Success"),
         "test_system": MessageLookupByLibrary.simpleMessage("Test system"),
         "test_system_description": MessageLookupByLibrary.simpleMessage(
             "Various tests to quickly find out any problem with body system"),

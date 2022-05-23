@@ -1,8 +1,14 @@
 class Strings {
   static const appName = 'Covid Overcoming';
+  static const ok = 'OK';
 
   /// Error
   static const pageNotFound = 'Page not found';
+  static const error = 'Error';
+  static const errorSignIn = 'Sign in error! Please try again';
+  static const errorSignUp = 'Sign up error! Please try again';
+  static const errorSignOut = 'Sign out error! Please try again';
+  static const errorGetCurrentUser = 'Cannot get current user!';
 
   /// Bottom navbar item
   static const home = 'home';

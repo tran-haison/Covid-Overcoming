@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/domain/usecase/auth/get_current_user_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/on_auth_state_changes_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_email_and_password_usecase.dart';
+import 'package:covid_overcoming/domain/usecase/auth/sign_out_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_up_with_email_and_password_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
@@ -15,16 +16,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._getCurrentUserUseCase,
     this._signInWithEmailAndPasswordUseCase,
     this._signUpWithEmailAndPasswordUseCase,
-  ) : super(const AuthState()) {
+    this._signOutUseCase,
+  ) : super(AuthInitialState()) {
     on<GetCurrentUserEvent>(_onGetCurrentUserEvent);
     on<SignInWithEmailAndPasswordEvent>(_onSignInWithEmailAndPasswordEvent);
     on<SignUpWithEmailAndPasswordEvent>(_onSignUpWithEmailAndPasswordEvent);
+    on<SignOutEvent>(_onSignOutEvent);
   }
 
   final OnAuthStateChangesUseCase _onAuthStateChangesUseCase;
   final GetCurrentUserUseCase _getCurrentUserUseCase;
   final SignInWithEmailAndPasswordUseCase _signInWithEmailAndPasswordUseCase;
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
+  final SignOutUseCase _signOutUseCase;
 
   Stream<User?> onAuthStateChanges() {
     return _onAuthStateChangesUseCase();
@@ -34,19 +38,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     GetCurrentUserEvent event,
     Emitter emit,
   ) async {
+    emit(AuthGetCurrentUserLoadingState());
+
     final result = await _getCurrentUserUseCase();
+
     if (result.isRight) {
       final user = result.right;
-      emit(state.copyWith(
-        user: user,
-        userError: null,
-      ));
+      emit(AuthGetCurrentUserSuccessState(user));
     } else {
       final error = result.left;
-      emit(state.copyWith(
-        user: null,
-        userError: error,
-      ));
+      emit(AuthGetCurrentUserFailedState(error.message));
     }
   }
 
@@ -54,7 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SignInWithEmailAndPasswordEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(AuthSignInLoadingState());
 
     // Sign in
     final result = await _signInWithEmailAndPasswordUseCase(
@@ -64,23 +65,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
     );
 
-    emit(state.copyWith(isLoading: false));
-
-    // Emit state
     if (result.isRight) {
       final user = result.right;
-      emit(state.copyWith(
-        isSignInSuccess: true,
-        user: user,
-        signInError: null,
-      ));
+      emit(AuthSignInSuccessState(user));
     } else {
       final error = result.left;
-      emit(state.copyWith(
-        isSignInSuccess: false,
-        user: null,
-        signInError: error,
-      ));
+      emit(AuthSignInFailedState(error.message));
     }
   }
 
@@ -88,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SignUpWithEmailAndPasswordEvent event,
     Emitter emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(AuthSignUpLoadingState());
 
     // Sign up
     final result = await _signUpWithEmailAndPasswordUseCase(
@@ -98,23 +88,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
     );
 
-    emit(state.copyWith(isLoading: false));
-
-    // Emit state
     if (result.isRight) {
       final user = result.right;
-      emit(state.copyWith(
-        isSignUpSuccess: true,
-        user: user,
-        signUpError: null,
-      ));
+      emit(AuthSignUpSuccessState(user));
     } else {
       final error = result.left;
-      emit(state.copyWith(
-        isSignUpSuccess: false,
-        user: null,
-        signUpError: error,
-      ));
+      emit(AuthSignUpFailedState(error.message));
+    }
+  }
+
+  Future<void> _onSignOutEvent(
+    SignOutEvent event,
+    Emitter emit,
+  ) async {
+    emit(AuthSignOutLoadingState());
+
+    // Sign out
+    final result = await _signOutUseCase();
+
+    if (result.isRight) {
+      emit(AuthSignOutSuccessState());
+    } else {
+      final error = result.left;
+      emit(AuthSignOutFailedState(error.message));
     }
   }
 }

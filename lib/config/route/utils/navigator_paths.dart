@@ -11,4 +11,7 @@ class NavigatorPaths {
 
   /// Main route
   static const main = '/main';
+
+  /// Profile route
+  static const profile = '/profile';
 }

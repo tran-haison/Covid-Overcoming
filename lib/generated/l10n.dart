@@ -240,6 +240,16 @@ class S {
     );
   }
 
+  /// `Sign out`
+  String get sign_out {
+    return Intl.message(
+      'Sign out',
+      name: 'sign_out',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter email and password to get started`
   String get enter_email_and_password_to_get_started {
     return Intl.message(
@@ -435,6 +445,66 @@ class S {
     return Intl.message(
       'Loading',
       name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter email`
+  String get please_enter_email {
+    return Intl.message(
+      'Please enter email',
+      name: 'please_enter_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter password`
+  String get please_enter_password {
+    return Intl.message(
+      'Please enter password',
+      name: 'please_enter_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please confirm password`
+  String get please_confirm_password {
+    return Intl.message(
+      'Please confirm password',
+      name: 'please_confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email`
+  String get invalid_email {
+    return Intl.message(
+      'Invalid email',
+      name: 'invalid_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register new user successfully`
+  String get sign_up_successfully {
+    return Intl.message(
+      'Register new user successfully',
+      name: 'sign_up_successfully',
       desc: '',
       args: [],
     );

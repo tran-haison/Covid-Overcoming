@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 
 class AuthRouter implements IRouterProvider {
   static void goAuth(BuildContext context) {
-    NavigatorUtils.push(context, NavigatorPaths.auth);
+    NavigatorUtils.pushAndRemoveUntil(context, NavigatorPaths.auth);
   }
 
   static void goSignIn(BuildContext context) {
-    NavigatorUtils.push(context, NavigatorPaths.signIn);
+    NavigatorUtils.pushAndRemoveUntil(context, NavigatorPaths.signIn);
   }
 
   static void goSignUp(BuildContext context) {
@@ -31,7 +31,7 @@ class AuthRouter implements IRouterProvider {
     router.define(
       NavigatorPaths.auth,
       handler: Handler(handlerFunc: (_, __) {
-        return AuthPage();
+        return const AuthPage();
       }),
     );
 

@@ -1,25 +1,52 @@
-import 'package:covid_overcoming/core/error/error.dart';
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'auth_state.freezed.dart';
+abstract class AuthState extends Equatable {
+  const AuthState();
 
-@freezed
-class AuthState with _$AuthState {
-  const factory AuthState({
-    // Loading
-    @Default(false) bool isLoading,
+  @override
+  List<Object?> get props => [];
+}
 
-    // User
-    @Default(null) User? user,
-    @Default(null) Error? userError,
+class AuthInitialState extends AuthState {}
 
-    // Sign in
-    @Default(false) bool isSignInSuccess,
-    @Default(null) Error? signInError,
+/// Get user info
+class AuthGetCurrentUserLoadingState extends AuthState {}
+class AuthGetCurrentUserSuccessState extends AuthState {
+  final User user;
+  const AuthGetCurrentUserSuccessState(this.user);
+}
+class AuthGetCurrentUserFailedState extends AuthState {
+  final String error;
+  const AuthGetCurrentUserFailedState(this.error);
+}
 
-    // Sign up
-    @Default(false) bool isSignUpSuccess,
-    @Default(null) Error? signUpError,
-  }) = _AuthState;
+/// Sign in
+class AuthSignInLoadingState extends AuthState {}
+class AuthSignInSuccessState extends AuthState {
+  final User user;
+  const AuthSignInSuccessState(this.user);
+}
+class AuthSignInFailedState extends AuthState {
+  final String error;
+  const AuthSignInFailedState(this.error);
+}
+
+/// Sign up
+class AuthSignUpLoadingState extends AuthState {}
+class AuthSignUpSuccessState extends AuthState {
+  final User user;
+  const AuthSignUpSuccessState(this.user);
+}
+class AuthSignUpFailedState extends AuthState {
+  final String error;
+  const AuthSignUpFailedState(this.error);
+}
+
+/// Sign out
+class AuthSignOutLoadingState extends AuthState {}
+class AuthSignOutSuccessState extends AuthState {}
+class AuthSignOutFailedState extends AuthState {
+  final String error;
+  const AuthSignOutFailedState(this.error);
 }

@@ -19,14 +19,15 @@ import '../../domain/usecase/auth/get_current_user_usecase.dart' as _i8;
 import '../../domain/usecase/auth/on_auth_state_changes_usecase.dart' as _i12;
 import '../../domain/usecase/auth/sign_in_with_email_and_password_usecase.dart'
     as _i14;
+import '../../domain/usecase/auth/sign_out_usecase.dart' as _i15;
 import '../../domain/usecase/auth/sign_up_with_email_and_password_usecase.dart'
-    as _i16;
-import '../../domain/usecase/local/get_all_stages_usecase.dart' as _i18;
-import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i17;
+    as _i17;
+import '../../domain/usecase/local/get_all_stages_usecase.dart' as _i19;
+import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i18;
 import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i13;
-import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i15;
-import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i19;
-import 'app_module.dart' as _i20; // ignore_for_file: unnecessary_lambdas
+import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i16;
+import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i20;
+import 'app_module.dart' as _i21; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -51,19 +52,22 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i13.SignInBloc>(() => _i13.SignInBloc());
   gh.factory<_i14.SignInWithEmailAndPasswordUseCase>(
       () => _i14.SignInWithEmailAndPasswordUseCase(get<_i6.AuthRepository>()));
-  gh.factory<_i15.SignUpBloc>(() => _i15.SignUpBloc());
-  gh.factory<_i16.SignUpWithEmailAndPasswordUseCase>(
-      () => _i16.SignUpWithEmailAndPasswordUseCase(get<_i6.AuthRepository>()));
-  gh.factory<_i17.AuthBloc>(() => _i17.AuthBloc(
+  gh.factory<_i15.SignOutUseCase>(
+      () => _i15.SignOutUseCase(get<_i6.AuthRepository>()));
+  gh.factory<_i16.SignUpBloc>(() => _i16.SignUpBloc());
+  gh.factory<_i17.SignUpWithEmailAndPasswordUseCase>(
+      () => _i17.SignUpWithEmailAndPasswordUseCase(get<_i6.AuthRepository>()));
+  gh.factory<_i18.AuthBloc>(() => _i18.AuthBloc(
       get<_i12.OnAuthStateChangesUseCase>(),
       get<_i8.GetCurrentUserUseCase>(),
       get<_i14.SignInWithEmailAndPasswordUseCase>(),
-      get<_i16.SignUpWithEmailAndPasswordUseCase>()));
-  gh.factory<_i18.GetAllStagesUseCase>(
-      () => _i18.GetAllStagesUseCase(get<_i10.LocalRepository>()));
-  gh.factory<_i19.HomeBloc>(
-      () => _i19.HomeBloc(get<_i18.GetAllStagesUseCase>()));
+      get<_i17.SignUpWithEmailAndPasswordUseCase>(),
+      get<_i15.SignOutUseCase>()));
+  gh.factory<_i19.GetAllStagesUseCase>(
+      () => _i19.GetAllStagesUseCase(get<_i10.LocalRepository>()));
+  gh.factory<_i20.HomeBloc>(
+      () => _i20.HomeBloc(get<_i19.GetAllStagesUseCase>()));
   return get;
 }
 
-class _$AppModule extends _i20.AppModule {}
+class _$AppModule extends _i21.AppModule {}
