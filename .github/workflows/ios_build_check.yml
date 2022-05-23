@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build:
+  analysis:
     name: Build Check Workflow
     # The type of runner that the job will run on
     runs-on: [self-hosted]
