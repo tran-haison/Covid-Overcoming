@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Build Check Workflow
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
