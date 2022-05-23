@@ -9,10 +9,9 @@ on:
       - master
 
 jobs:
-  analysis:
+  build:
     name: Build Check Workflow
-    # The type of runner that the job will run on
-    runs-on: [self-hosted]
+    runs-on: self-hosted
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
