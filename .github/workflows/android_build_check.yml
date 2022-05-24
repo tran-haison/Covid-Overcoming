@@ -1,10 +1,7 @@
 name: Build Check Workflow ~ Android
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
+  push:
     branches:
       - master
 
@@ -23,4 +20,4 @@ jobs:
       - name: Get flutter dependencies.
         run: flutter pub get
       - name: Android Build Check
-        run: flutter build apk --release --split-per-abi
+        run: flutter build apk --split-per-abi
