@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "714851979076",
+    "project_id": "covid-overcoming",
+    "storage_bucket": "covid-overcoming.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714851979076:android:9e47c89aca5e7466fcd111",
+        "android_client_info": {
+          "package_name": "com.vigour.covidovercoming.covid_overcoming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714851979076-gn9e44gp1oecbofqso81sq4r4oj6536c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoc4JVjnfO-w0-IMcjXd3wW_tN7-14LMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714851979076-gn9e44gp1oecbofqso81sq4r4oj6536c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "714851979076-q4ib2qsop92lfu146srii5720o5abbqp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vigour.covidovercoming.covidOvercoming"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

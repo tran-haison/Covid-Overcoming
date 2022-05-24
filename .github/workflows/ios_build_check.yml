@@ -18,12 +18,12 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.10.1'
-      - name: Install gems
-        run: |
-          cd ./ios
-          gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
-          bundle install
-          gem update --system
+#      - name: Install gems
+#        run: |
+#          cd ./ios
+#          gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
+#          bundle install
+#          gem update --system
       - name: Clean project
         run: flutter clean
       - name: Get flutter dependencies.
