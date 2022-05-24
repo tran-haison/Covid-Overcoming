@@ -24,7 +24,7 @@ class _AuthPageState extends State<AuthPage> with BaseStateMixin<AuthPage> {
   @override
   void initState() {
     super.initState();
-    _authBloc.add(GetCurrentUserEvent());
+    _authBloc.add(AuthGetCurrentUserEvent());
   }
 
   @override

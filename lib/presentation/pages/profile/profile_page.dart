@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage>
               height: 60,
               width: 120,
               onPressed: () {
-                _authBloc.add(SignOutEvent());
+                _authBloc.add(AuthSignOutEvent());
               },
             ),
           ),

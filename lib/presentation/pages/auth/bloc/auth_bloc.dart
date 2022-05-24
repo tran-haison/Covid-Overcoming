@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/domain/usecase/auth/get_current_user_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/on_auth_state_changes_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_email_and_password_usecase.dart';
+import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_google_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_out_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_up_with_email_and_password_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
@@ -14,18 +15,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
     this._onAuthStateChangesUseCase,
     this._getCurrentUserUseCase,
+    this._signInWithGoogleUseCase,
     this._signInWithEmailAndPasswordUseCase,
     this._signUpWithEmailAndPasswordUseCase,
     this._signOutUseCase,
   ) : super(AuthInitialState()) {
-    on<GetCurrentUserEvent>(_onGetCurrentUserEvent);
-    on<SignInWithEmailAndPasswordEvent>(_onSignInWithEmailAndPasswordEvent);
-    on<SignUpWithEmailAndPasswordEvent>(_onSignUpWithEmailAndPasswordEvent);
-    on<SignOutEvent>(_onSignOutEvent);
+    on<AuthGetCurrentUserEvent>(_onGetCurrentUserEvent);
+    on<AuthSignInWithGoogleEvent>(_onSignInWithGoogleEvent);
+    on<AuthSignInWithEmailAndPasswordEvent>(_onSignInWithEmailAndPasswordEvent);
+    on<AuthSignUpWithEmailAndPasswordEvent>(_onSignUpWithEmailAndPasswordEvent);
+    on<AuthSignOutEvent>(_onSignOutEvent);
   }
 
   final OnAuthStateChangesUseCase _onAuthStateChangesUseCase;
   final GetCurrentUserUseCase _getCurrentUserUseCase;
+  final SignInWithGoogleUseCase _signInWithGoogleUseCase;
   final SignInWithEmailAndPasswordUseCase _signInWithEmailAndPasswordUseCase;
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
   final SignOutUseCase _signOutUseCase;
@@ -35,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onGetCurrentUserEvent(
-    GetCurrentUserEvent event,
+    AuthGetCurrentUserEvent event,
     Emitter emit,
   ) async {
     emit(AuthGetCurrentUserLoadingState());
@@ -51,8 +55,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  Future<void> _onSignInWithGoogleEvent(
+    AuthSignInWithGoogleEvent event,
+    Emitter emit,
+  ) async {
+    emit(AuthSignInLoadingState());
+
+    // Sign in with Google
+    final result = await _signInWithGoogleUseCase();
+    if (result.isRight) {
+      final user = result.right;
+      emit(AuthSignInSuccessState(user));
+    } else {
+      final error = result.left;
+      emit(AuthSignInFailedState(error.message));
+    }
+  }
+
   Future<void> _onSignInWithEmailAndPasswordEvent(
-    SignInWithEmailAndPasswordEvent event,
+    AuthSignInWithEmailAndPasswordEvent event,
     Emitter emit,
   ) async {
     emit(AuthSignInLoadingState());
@@ -75,7 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onSignUpWithEmailAndPasswordEvent(
-    SignUpWithEmailAndPasswordEvent event,
+    AuthSignUpWithEmailAndPasswordEvent event,
     Emitter emit,
   ) async {
     emit(AuthSignUpLoadingState());
@@ -98,7 +119,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onSignOutEvent(
-    SignOutEvent event,
+    AuthSignOutEvent event,
     Emitter emit,
   ) async {
     emit(AuthSignOutLoadingState());

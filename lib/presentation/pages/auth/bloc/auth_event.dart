@@ -7,20 +7,22 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetCurrentUserEvent extends AuthEvent {}
+class AuthGetCurrentUserEvent extends AuthEvent {}
 
-class SignInWithEmailAndPasswordEvent extends AuthEvent {
-  const SignInWithEmailAndPasswordEvent(this.email, this.password);
+class AuthSignInWithGoogleEvent extends AuthEvent {}
 
-  final String email;
-  final String password;
-}
-
-class SignUpWithEmailAndPasswordEvent extends AuthEvent {
-  const SignUpWithEmailAndPasswordEvent(this.email, this.password);
+class AuthSignInWithEmailAndPasswordEvent extends AuthEvent {
+  const AuthSignInWithEmailAndPasswordEvent(this.email, this.password);
 
   final String email;
   final String password;
 }
 
-class SignOutEvent extends AuthEvent {}
+class AuthSignUpWithEmailAndPasswordEvent extends AuthEvent {
+  const AuthSignUpWithEmailAndPasswordEvent(this.email, this.password);
+
+  final String email;
+  final String password;
+}
+
+class AuthSignOutEvent extends AuthEvent {}

@@ -1,4 +1,6 @@
+import 'package:covid_overcoming/values/constant/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class Auth {
@@ -107,8 +109,29 @@ class AuthImpl implements Auth {
 
   @override
   Future<User?> signInWithGoogle() async {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+    final googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser != null) {
+      final googleAuth = await googleUser.authentication;
+      if (googleAuth.idToken != null) {
+        final userCredential = await _firebaseAuth.signInWithCredential(
+          GoogleAuthProvider.credential(
+            idToken: googleAuth.idToken,
+            accessToken: googleAuth.accessToken,
+          ),
+        );
+        return userCredential.user;
+      } else {
+        throw FirebaseAuthException(
+          code: Constants.codeMissingGoogleIdToken,
+          message: Constants.errorMissingGoogleIdToken,
+        );
+      }
+    } else {
+      throw FirebaseAuthException(
+        code: Constants.errorSignInWithGoogle,
+      );
+    }
   }
 
   @override
@@ -138,6 +161,8 @@ class AuthImpl implements Auth {
   @override
   Future<void> signOut() async {
     // TODO: sign out for other provider
+    final googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
     await _firebaseAuth.signOut();
   }
 }

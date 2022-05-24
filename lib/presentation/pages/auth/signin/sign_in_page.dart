@@ -171,7 +171,7 @@ class _SignInPageState extends State<SignInPage>
           return CommonElevatedButton(
             text: S.current.sign_in,
             onPressed: () {
-              _authBloc.add(SignInWithEmailAndPasswordEvent(
+              _authBloc.add(AuthSignInWithEmailAndPasswordEvent(
                 _emailController.text,
                 _passwordController.text,
               ));
@@ -193,7 +193,7 @@ class _SignInPageState extends State<SignInPage>
       children: <Widget>[
         CommonSocialButton(
           onPressed: () {
-            // TODO: google sign in
+            _authBloc.add(AuthSignInWithGoogleEvent());
           },
           iconPath: AssetPaths.icGoogle,
         ),

@@ -188,7 +188,7 @@ class _SignUpPageState extends State<SignUpPage>
           return CommonElevatedButton(
             text: S.current.sign_up,
             onPressed: () {
-              _authBloc.add(SignUpWithEmailAndPasswordEvent(
+              _authBloc.add(AuthSignUpWithEmailAndPasswordEvent(
                 _emailController.text,
                 _passwordController.text,
               ));

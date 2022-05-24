@@ -130,6 +130,9 @@ dependencies:
   # https://pub.dev/packages/firebase_auth
   firebase_auth: ^3.3.17
 
+  # https://pub.dev/packages/google_sign_in
+  google_sign_in: ^5.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

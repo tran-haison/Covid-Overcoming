@@ -20,6 +20,7 @@ class Constants {
   static const errorSignInWithEmailAndPassword = 'Error sign in with email and password';
   static const errorSignUpWithEmailAndPassword = 'Error sign up with email and password';
   static const errorSignOut = 'Error sign out';
+  static const errorMissingGoogleIdToken = 'Missing Google ID Token';
 
   /// FirebaseAuthException error codes
   static const codeFirebaseInvalidEmail = 'invalid-email';
@@ -40,5 +41,6 @@ class Constants {
   static const codeFirebaseAuthInvalidContinueUri = 'auth/invalid-continue-uri';
   static const codeFirebaseAuthUnauthorizedContinueUri = 'auth/unauthorized-continue-uri';
   static const codeFirebaseAuthUserNotFound = 'auth/user-not-found';
+  static const codeMissingGoogleIdToken = 'ERROR_MISSING_GOOGLE_ID_TOKEN';
 }
 

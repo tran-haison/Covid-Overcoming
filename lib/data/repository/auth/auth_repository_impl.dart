@@ -154,9 +154,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Error, User>> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<Either<Error, User>> signInWithGoogle() async {
+    return await _firebaseAuthMethodCall<User>(
+      function: () async {
+        final user = await auth.signInWithGoogle();
+        if (user != null) {
+          return Right(user);
+        }
+        return const Left(AuthError(Constants.errorUserIsNull));
+      },
+      errorMessage: Constants.errorSignInWithGoogle,
+    );
   }
 
   @override
@@ -224,8 +232,8 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return result;
     } on FirebaseAuthException catch (e) {
-      Log.e(e.code);
-      return Left(AuthError(e.code));
+      Log.e(e.message ?? e.code);
+      return Left(AuthError(e.message ?? e.code));
     } catch (e) {
       Log.e(e.toString());
       return Left(AuthError(errorMessage));
