@@ -3,7 +3,7 @@ name: Build Check Workflow ~ IOS
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   build:
