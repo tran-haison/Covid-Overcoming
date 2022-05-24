@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build Check Workflow
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
@@ -20,4 +20,4 @@ jobs:
       - name: Get flutter dependencies.
         run: flutter pub get
       - name: Android Build Check
-        run: flutter build ios --no-codesign
+        run: flutter build ios --release --no-codesign
