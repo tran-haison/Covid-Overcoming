@@ -6,7 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class SignInWithEmailAndPasswordUseCase implements UseCase<User, SignInWithEmailAndPasswordParams> {
+class SignInWithEmailAndPasswordUseCase
+    implements UseCase<User, SignInWithEmailAndPasswordParams> {
   const SignInWithEmailAndPasswordUseCase(this._authRepository);
 
   final AuthRepository _authRepository;

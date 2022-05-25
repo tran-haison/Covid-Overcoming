@@ -200,7 +200,7 @@ class _SignInPageState extends State<SignInPage>
         hGap22,
         CommonSocialButton(
           onPressed: () {
-            // TODO: facebook sign in
+            _authBloc.add(AuthSignInWithFacebookEvent());
           },
           iconPath: AssetPaths.icFacebook,
         ),

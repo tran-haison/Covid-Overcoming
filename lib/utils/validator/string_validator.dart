@@ -10,7 +10,8 @@ class NotEmptyValidator implements StringValidator {
 }
 
 class EmailValidator implements StringValidator {
-  final pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+  final pattern =
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 
   @override
   bool isValid(String value) {
@@ -19,7 +20,8 @@ class EmailValidator implements StringValidator {
 }
 
 class PasswordValidator implements StringValidator {
-  final pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  final pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
 
   @override
   bool isValid(String value) {

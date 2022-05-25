@@ -11,6 +11,8 @@ class AuthGetCurrentUserEvent extends AuthEvent {}
 
 class AuthSignInWithGoogleEvent extends AuthEvent {}
 
+class AuthSignInWithFacebookEvent extends AuthEvent {}
+
 class AuthSignInWithEmailAndPasswordEvent extends AuthEvent {
   const AuthSignInWithEmailAndPasswordEvent(this.email, this.password);
 

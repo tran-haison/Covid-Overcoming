@@ -7,4 +7,3 @@ class DatabaseException implements Exception {
 class ServerException implements Exception {
   const ServerException({String? message}) : super();
 }
-

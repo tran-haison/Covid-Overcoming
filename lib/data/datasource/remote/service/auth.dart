@@ -1,34 +1,48 @@
 import 'package:covid_overcoming/values/constant/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class Auth {
-
   /// Manage user
   User? get currentUser;
+
   Future<void> updateEmail(String email);
+
   Future<void> updateDisplayName(String displayName);
+
   Future<void> updatePhotoUrl(String photoUrl);
+
   Future<void> updatePassword(String password);
+
   Future<void> deleteUser();
 
   /// Auth state
   Stream<User?> onAuthStateChanges();
+
   Stream<User?> onIdTokenChanges();
+
   Stream<User?> onUserChanges();
 
   /// Email sending
   Future<void> sendEmailVerification();
+
   Future<void> sendPasswordResetEmail(String email);
 
   /// Auth methods
   Future<User?> reAuthenticateWithCredential(AuthCredential authCredential);
+
   Future<User?> signInAnonymously();
+
   Future<User?> signInWithGoogle();
+
   Future<User?> signInWithFacebook();
+
   Future<User?> signInWithEmailAndPassword(String email, String password);
+
   Future<User?> signUpWithEmailAndPassword(String email, String password);
+
   Future<void> signOut();
 }
 
@@ -96,8 +110,12 @@ class AuthImpl implements Auth {
   }
 
   @override
-  Future<User?> reAuthenticateWithCredential(AuthCredential authCredential) async {
-    final credential = await currentUser?.reauthenticateWithCredential(authCredential);
+  Future<User?> reAuthenticateWithCredential(
+    AuthCredential authCredential,
+  ) async {
+    final credential = await currentUser?.reauthenticateWithCredential(
+      authCredential,
+    );
     return credential?.user;
   }
 
@@ -136,12 +154,37 @@ class AuthImpl implements Auth {
 
   @override
   Future<User?> signInWithFacebook() async {
-    // TODO: implement signInWithFacebook
-    throw UnimplementedError();
+    final fb = FacebookLogin();
+    final result = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+    switch (result.status) {
+      case FacebookLoginStatus.success:
+        final accessToken = result.accessToken;
+        final userCredential = await _firebaseAuth.signInWithCredential(
+          FacebookAuthProvider.credential(accessToken?.token ?? ''),
+        );
+        return userCredential.user;
+      case FacebookLoginStatus.cancel:
+        throw FirebaseAuthException(
+          code: Constants.errorSignInWithFacebook,
+        );
+      case FacebookLoginStatus.error:
+        throw FirebaseAuthException(
+          code: Constants.errorSignInWithFacebook,
+          message: result.error?.developerMessage,
+        );
+      default:
+        throw UnimplementedError();
+    }
   }
 
   @override
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<User?> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     final credential = await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
@@ -150,7 +193,10 @@ class AuthImpl implements Auth {
   }
 
   @override
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async {
+  Future<User?> signUpWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     final credential = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -160,9 +206,10 @@ class AuthImpl implements Auth {
 
   @override
   Future<void> signOut() async {
-    // TODO: sign out for other provider
     final googleSignIn = GoogleSignIn();
     await googleSignIn.signOut();
+    final facebookLogin = FacebookLogin();
+    await facebookLogin.logOut();
     await _firebaseAuth.signOut();
   }
 }

@@ -16,7 +16,6 @@ class CommonFilterChip extends StatefulWidget {
 }
 
 class _CommonFilterChipState extends State<CommonFilterChip> {
-
   var selected = false;
 
   @override

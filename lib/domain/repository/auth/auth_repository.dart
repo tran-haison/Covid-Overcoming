@@ -3,7 +3,6 @@ import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepository {
-
   /// Manage user
   Future<Either<Error, User>> getCurrentUser();
   Future<Either<Error, bool>> updateEmail(String email);
@@ -22,7 +21,8 @@ abstract class AuthRepository {
   Future<Either<Error, bool>> sendPasswordResetEmail(String email);
 
   /// Auth methods
-  Future<Either<Error, User>> reAuthenticateWithCredential(AuthCredential authCredential);
+  Future<Either<Error, User>> reAuthenticateWithCredential(
+      AuthCredential authCredential);
   Future<Either<Error, User>> signInAnonymously();
   Future<Either<Error, User>> signInWithGoogle();
   Future<Either<Error, User>> signInWithFacebook();

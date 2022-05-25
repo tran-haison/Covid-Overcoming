@@ -168,9 +168,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Error, User>> signInWithFacebook() {
-    // TODO: implement signInWithFacebook
-    throw UnimplementedError();
+  Future<Either<Error, User>> signInWithFacebook() async {
+    return await _firebaseAuthMethodCall<User>(
+      function: () async {
+        final user = await auth.signInWithFacebook();
+        if (user != null) {
+          return Right(user);
+        }
+        return const Left(AuthError(Constants.errorUserIsNull));
+      },
+      errorMessage: Constants.errorSignInWithFacebook,
+    );
   }
 
   @override

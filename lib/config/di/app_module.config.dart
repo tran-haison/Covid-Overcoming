@@ -19,16 +19,17 @@ import '../../domain/usecase/auth/get_current_user_usecase.dart' as _i8;
 import '../../domain/usecase/auth/on_auth_state_changes_usecase.dart' as _i12;
 import '../../domain/usecase/auth/sign_in_with_email_and_password_usecase.dart'
     as _i14;
-import '../../domain/usecase/auth/sign_in_with_google_usecase.dart' as _i15;
-import '../../domain/usecase/auth/sign_out_usecase.dart' as _i16;
+import '../../domain/usecase/auth/sign_in_with_facebook_usecase.dart' as _i15;
+import '../../domain/usecase/auth/sign_in_with_google_usecase.dart' as _i16;
+import '../../domain/usecase/auth/sign_out_usecase.dart' as _i17;
 import '../../domain/usecase/auth/sign_up_with_email_and_password_usecase.dart'
-    as _i18;
-import '../../domain/usecase/local/get_all_stages_usecase.dart' as _i20;
-import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i19;
+    as _i19;
+import '../../domain/usecase/local/get_all_stages_usecase.dart' as _i21;
+import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i20;
 import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i13;
-import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i17;
-import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i21;
-import 'app_module.dart' as _i22; // ignore_for_file: unnecessary_lambdas
+import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i18;
+import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i22;
+import 'app_module.dart' as _i23; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -53,25 +54,28 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i13.SignInBloc>(() => _i13.SignInBloc());
   gh.factory<_i14.SignInWithEmailAndPasswordUseCase>(
       () => _i14.SignInWithEmailAndPasswordUseCase(get<_i6.AuthRepository>()));
-  gh.factory<_i15.SignInWithGoogleUseCase>(
-      () => _i15.SignInWithGoogleUseCase(get<_i6.AuthRepository>()));
-  gh.factory<_i16.SignOutUseCase>(
-      () => _i16.SignOutUseCase(get<_i6.AuthRepository>()));
-  gh.factory<_i17.SignUpBloc>(() => _i17.SignUpBloc());
-  gh.factory<_i18.SignUpWithEmailAndPasswordUseCase>(
-      () => _i18.SignUpWithEmailAndPasswordUseCase(get<_i6.AuthRepository>()));
-  gh.factory<_i19.AuthBloc>(() => _i19.AuthBloc(
+  gh.factory<_i15.SignInWithFacebookUseCase>(
+      () => _i15.SignInWithFacebookUseCase(get<_i6.AuthRepository>()));
+  gh.factory<_i16.SignInWithGoogleUseCase>(
+      () => _i16.SignInWithGoogleUseCase(get<_i6.AuthRepository>()));
+  gh.factory<_i17.SignOutUseCase>(
+      () => _i17.SignOutUseCase(get<_i6.AuthRepository>()));
+  gh.factory<_i18.SignUpBloc>(() => _i18.SignUpBloc());
+  gh.factory<_i19.SignUpWithEmailAndPasswordUseCase>(
+      () => _i19.SignUpWithEmailAndPasswordUseCase(get<_i6.AuthRepository>()));
+  gh.factory<_i20.AuthBloc>(() => _i20.AuthBloc(
       get<_i12.OnAuthStateChangesUseCase>(),
       get<_i8.GetCurrentUserUseCase>(),
-      get<_i15.SignInWithGoogleUseCase>(),
+      get<_i16.SignInWithGoogleUseCase>(),
+      get<_i15.SignInWithFacebookUseCase>(),
       get<_i14.SignInWithEmailAndPasswordUseCase>(),
-      get<_i18.SignUpWithEmailAndPasswordUseCase>(),
-      get<_i16.SignOutUseCase>()));
-  gh.factory<_i20.GetAllStagesUseCase>(
-      () => _i20.GetAllStagesUseCase(get<_i10.LocalRepository>()));
-  gh.factory<_i21.HomeBloc>(
-      () => _i21.HomeBloc(get<_i20.GetAllStagesUseCase>()));
+      get<_i19.SignUpWithEmailAndPasswordUseCase>(),
+      get<_i17.SignOutUseCase>()));
+  gh.factory<_i21.GetAllStagesUseCase>(
+      () => _i21.GetAllStagesUseCase(get<_i10.LocalRepository>()));
+  gh.factory<_i22.HomeBloc>(
+      () => _i22.HomeBloc(get<_i21.GetAllStagesUseCase>()));
   return get;
 }
 
-class _$AppModule extends _i22.AppModule {}
+class _$AppModule extends _i23.AppModule {}

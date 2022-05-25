@@ -32,7 +32,7 @@ class BaseConverter<T> implements JsonConverter<T, dynamic> {
   }
 
   /// Convert from json to type
-  T _fromJsonAsT (dynamic json) {
+  T _fromJsonAsT(dynamic json) {
     final type = T.toString();
     if (json is List && type.contains('List<')) {
       // Get single object type as string

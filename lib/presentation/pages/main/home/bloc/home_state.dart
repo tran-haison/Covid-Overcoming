@@ -9,10 +9,9 @@ class HomeState with _$HomeState {
   const factory HomeState({
     // Loading
     @Default(false) bool isLoading,
-    
+
     // List of stages
     @Default(null) List<Stage>? stages,
     @Default(null) Error? stagesError,
-
   }) = _HomeState;
 }
