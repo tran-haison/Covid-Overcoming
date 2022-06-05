@@ -4,7 +4,7 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
-abstract class Auth {
+abstract class AuthService {
   /// Manage user
   User? get currentUser;
 
@@ -46,8 +46,8 @@ abstract class Auth {
   Future<void> signOut();
 }
 
-@LazySingleton(as: Auth)
-class AuthImpl implements Auth {
+@LazySingleton(as: AuthService)
+class AuthServiceImpl implements AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override

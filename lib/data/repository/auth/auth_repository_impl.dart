@@ -1,6 +1,6 @@
 import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/core/error/error.dart';
-import 'package:covid_overcoming/data/datasource/remote/service/auth.dart';
+import 'package:covid_overcoming/data/datasource/remote/service/firebase/auth_service.dart';
 import 'package:covid_overcoming/domain/repository/auth/auth_repository.dart';
 import 'package:covid_overcoming/values/constant/constants.dart';
 import 'package:either_dart/either.dart';
@@ -13,7 +13,7 @@ class AuthRepositoryImpl implements AuthRepository {
     this.auth,
   );
 
-  final Auth auth;
+  final AuthService auth;
 
   @override
   Future<Either<Error, User>> getCurrentUser() async {
