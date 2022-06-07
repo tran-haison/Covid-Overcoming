@@ -1,8 +1,8 @@
 import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/core/error/error.dart';
-import 'package:covid_overcoming/data/datasource/remote/service/firebase/auth_service.dart';
+import 'package:covid_overcoming/data/datasource/remote/service/firebase/auth/auth_service.dart';
+import 'package:covid_overcoming/data/utils/data_constants.dart';
 import 'package:covid_overcoming/domain/repository/auth/auth_repository.dart';
-import 'package:covid_overcoming/values/constant/constants.dart';
 import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
@@ -23,9 +23,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorGetCurrentUser,
+      errorMessage: DataConstants.errorGetCurrentUser,
     );
   }
 
@@ -36,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.updateEmail(email);
         return const Right(true);
       },
-      errorMessage: Constants.errorUpdateEmail,
+      errorMessage: DataConstants.errorUpdateEmail,
     );
   }
 
@@ -47,7 +47,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.updateDisplayName(displayName);
         return const Right(true);
       },
-      errorMessage: Constants.errorUpdateDisplayName,
+      errorMessage: DataConstants.errorUpdateDisplayName,
     );
   }
 
@@ -58,7 +58,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.updatePhotoUrl(photoUrl);
         return const Right(true);
       },
-      errorMessage: Constants.errorUpdatePhotoUrl,
+      errorMessage: DataConstants.errorUpdatePhotoUrl,
     );
   }
 
@@ -69,7 +69,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.updatePassword(password);
         return const Right(true);
       },
-      errorMessage: Constants.errorUpdatePassword,
+      errorMessage: DataConstants.errorUpdatePassword,
     );
   }
 
@@ -80,7 +80,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.deleteUser();
         return const Right(true);
       },
-      errorMessage: Constants.errorDeleteUser,
+      errorMessage: DataConstants.errorDeleteUser,
     );
   }
 
@@ -107,7 +107,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.sendEmailVerification();
         return const Right(true);
       },
-      errorMessage: Constants.errorSendEmailVerification,
+      errorMessage: DataConstants.errorSendEmailVerification,
     );
   }
 
@@ -119,7 +119,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.sendPasswordResetEmail(email);
         return const Right(true);
       },
-      errorMessage: Constants.errorSendPasswordResetEmail,
+      errorMessage: DataConstants.errorSendPasswordResetEmail,
     );
   }
 
@@ -133,9 +133,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorReAuthenticateWithCredential,
+      errorMessage: DataConstants.errorReAuthenticateWithCredential,
     );
   }
 
@@ -147,9 +147,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorSignInAnonymously,
+      errorMessage: DataConstants.errorSignInAnonymously,
     );
   }
 
@@ -161,9 +161,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorSignInWithGoogle,
+      errorMessage: DataConstants.errorSignInWithGoogle,
     );
   }
 
@@ -175,9 +175,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorSignInWithFacebook,
+      errorMessage: DataConstants.errorSignInWithFacebook,
     );
   }
 
@@ -192,9 +192,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorSignInWithEmailAndPassword,
+      errorMessage: DataConstants.errorSignInWithEmailAndPassword,
     );
   }
 
@@ -209,9 +209,9 @@ class AuthRepositoryImpl implements AuthRepository {
         if (user != null) {
           return Right(user);
         }
-        return const Left(AuthError(Constants.errorUserIsNull));
+        return const Left(AuthError(DataConstants.errorUserIsNull));
       },
-      errorMessage: Constants.errorSignUpWithEmailAndPassword,
+      errorMessage: DataConstants.errorSignUpWithEmailAndPassword,
     );
   }
 
@@ -222,7 +222,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await auth.signOut();
         return const Right(true);
       },
-      errorMessage: Constants.errorSignOut,
+      errorMessage: DataConstants.errorSignOut,
     );
   }
 

@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_overcoming/config/log/logger.dart';
 
-class FirestoreServiceImpl {
-  final _firebaseFirestore = FirebaseFirestore.instance;
+class FirestoreBase {
+  static final _firebaseFirestore = FirebaseFirestore.instance;
 
-  Future<void> setData({
+  static Future<void> setData({
     required String path,
     required Map<String, dynamic> data,
   }) async {
@@ -13,7 +13,7 @@ class FirestoreServiceImpl {
     await reference.set(data);
   }
 
-  Future<void> deleteData({
+  static Future<void> deleteData({
     required String path,
   }) async {
     final reference = _firebaseFirestore.doc(path);
@@ -21,7 +21,7 @@ class FirestoreServiceImpl {
     await reference.delete();
   }
 
-  Stream<List<T>> collectionStream<T>({
+  static Stream<List<T>> collectionStream<T>({
     required String path,
     required T Function(Map<String, dynamic> data, String documentId) builder,
     Query Function(Query query)? queryBuilder,
@@ -47,7 +47,7 @@ class FirestoreServiceImpl {
     });
   }
 
-  Stream<T> documentStream<T>({
+  static Stream<T> documentStream<T>({
     required String path,
     required T Function(Map<String, dynamic>? data, String documentID) builder,
   }) {
