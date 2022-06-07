@@ -1,19 +1,32 @@
-import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_base.dart';
+import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_base_service.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/utils/firestore_path.dart';
 import 'package:covid_overcoming/data/model/user/user_model.dart';
 import 'package:injectable/injectable.dart';
 
-abstract class FirestoreDatabaseService {}
+abstract class FirestoreDatabaseService {
+  Future<void> saveUser(UserModel userModel);
+  Future<UserModel> getUser(String uid);
+}
 
 @LazySingleton(as: FirestoreDatabaseService)
 class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
-  Stream<List<UserModel>> getUsersStream() {
-    return FirestoreBase.collectionStream(
-      path: FirestorePath.users,
-      builder: (data, documentId) {
-        // TODO: check
-        return UserModel.fromJson(data);
-      },
+  FirestoreDatabaseServiceImpl(this._baseService);
+
+  final FirestoreBaseService _baseService;
+
+  @override
+  Future<void> saveUser(UserModel userModel) async {
+    await _baseService.setData(
+      path: FirestorePath.user(userModel.uid),
+      data: userModel.toJson(),
     );
+  }
+
+  @override
+  Future<UserModel> getUser(String uid) async {
+    final data = await _baseService.getData(
+      path: FirestorePath.user(uid),
+    );
+    return UserModel.fromJson(data);
   }
 }

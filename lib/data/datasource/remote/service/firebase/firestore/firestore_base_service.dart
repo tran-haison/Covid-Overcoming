@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_overcoming/config/log/logger.dart';
+import 'package:injectable/injectable.dart';
 
-class FirestoreBase {
+@lazySingleton
+class FirestoreBaseService {
   static final _firebaseFirestore = FirebaseFirestore.instance;
 
-  static Future<void> setData({
+  Future<void> setData({
     required String path,
     required Map<String, dynamic> data,
   }) async {
@@ -13,7 +15,17 @@ class FirestoreBase {
     await reference.set(data);
   }
 
-  static Future<void> deleteData({
+  Future<Map<String, dynamic>> getData({
+    required String path,
+  }) async {
+    final reference = _firebaseFirestore.doc(path);
+    final snapshot = await reference.get();
+    final data = snapshot.data() as Map<String, dynamic>;
+    Log.d('$path: $data');
+    return data;
+  }
+
+  Future<void> deleteData({
     required String path,
   }) async {
     final reference = _firebaseFirestore.doc(path);
@@ -21,7 +33,7 @@ class FirestoreBase {
     await reference.delete();
   }
 
-  static Stream<List<T>> collectionStream<T>({
+  Stream<List<T>> collectionStream<T>({
     required String path,
     required T Function(Map<String, dynamic> data, String documentId) builder,
     Query Function(Query query)? queryBuilder,
@@ -47,7 +59,7 @@ class FirestoreBase {
     });
   }
 
-  static Stream<T> documentStream<T>({
+  Stream<T> documentStream<T>({
     required String path,
     required T Function(Map<String, dynamic>? data, String documentID) builder,
   }) {

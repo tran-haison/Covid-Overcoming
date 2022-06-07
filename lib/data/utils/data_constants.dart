@@ -1,5 +1,5 @@
 class DataConstants {
-  /// Auth error messages
+  /// Auth error
   static const errorUserIsNull = 'Error user is null';
   static const errorGetCurrentUser = 'Error get current user';
   static const errorUpdateEmail = 'Error update email';
@@ -20,4 +20,8 @@ class DataConstants {
       'Error sign up with email and password';
   static const errorSignOut = 'Error sign out';
   static const errorMissingGoogleIdToken = 'Missing Google ID Token';
+
+  /// Firebase Firestore error
+  static const errorSaveUser = 'Error save user';
+  static const errorGetUser = 'Error get user';
 }

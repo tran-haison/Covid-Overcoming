@@ -1,4 +1,3 @@
-import 'package:covid_overcoming/data/model/user/user_role_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.g.dart';
@@ -10,7 +9,8 @@ class UserModel {
     required this.name,
     required this.email,
     required this.photoUrl,
-    required this.roles,
+    required this.birthday,
+    required this.gender,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -24,7 +24,9 @@ class UserModel {
   @JsonKey(name: 'photo_url')
   final String photoUrl;
 
-  final List<UserRoleModel> roles;
+  final String birthday;
+
+  final String gender;
 
   @JsonKey(name: 'created_at')
   final String createdAt;

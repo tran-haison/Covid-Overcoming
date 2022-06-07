@@ -20,6 +20,11 @@ class ServerError extends Error {
   const ServerError(String message, [int? code]) : super(message, code);
 }
 
+/// Firebase error
+class FirebaseError extends Error {
+  const FirebaseError(String message, [int? code]) : super(message, code);
+}
+
 /// Auth error
 class AuthError extends Error {
   const AuthError(String message, [int? code]) : super(message, code);
