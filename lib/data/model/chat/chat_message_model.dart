@@ -21,7 +21,8 @@ class ChatMessageModel {
   @JsonKey(name: 'created_at')
   final String createdAt;
 
-  factory ChatMessageModel.fromJson(Map<String, dynamic> json) => _$ChatMessageModelFromJson(json);
+  factory ChatMessageModel.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ChatMessageModelToJson(this);
 }

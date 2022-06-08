@@ -24,4 +24,5 @@ class DataConstants {
   /// Firebase Firestore error
   static const errorSaveUser = 'Error save user';
   static const errorGetUser = 'Error get user';
+  static const errorCheckUserExists = 'Error check user exists';
 }

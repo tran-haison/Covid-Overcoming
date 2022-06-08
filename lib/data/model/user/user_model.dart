@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.g.dart';
@@ -38,4 +39,18 @@ class UserModel {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  factory UserModel.fromUser(User user) {
+    return UserModel(
+      uid: user.uid,
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+      photoUrl: user.photoURL ?? '',
+      birthday: '',
+      gender: '',
+      createdAt: user.metadata.creationTime?.toIso8601String() ??
+          DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+    );
+  }
 }

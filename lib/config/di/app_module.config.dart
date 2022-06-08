@@ -36,7 +36,8 @@ import '../../domain/usecase/auth/sign_out_usecase.dart' as _i26;
 import '../../domain/usecase/auth/sign_up_with_email_and_password_usecase.dart'
     as _i27;
 import '../../domain/usecase/local/get_all_stages_usecase.dart' as _i18;
-import '../../domain/usecase/remote/firebase/user_usecase.dart' as _i20;
+import '../../domain/usecase/remote/firebase/firebase_user_usecase.dart'
+    as _i20;
 import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i28;
 import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i12;
 import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i13;
@@ -90,6 +91,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i26.SignOutUseCase(get<_i14.AuthRepository>()));
   gh.factory<_i27.SignUpWithEmailAndPasswordUseCase>(
       () => _i27.SignUpWithEmailAndPasswordUseCase(get<_i14.AuthRepository>()));
+  gh.factory<_i20.CheckUserExistsUseCase>(
+      () => _i20.CheckUserExistsUseCase(get<_i16.FirebaseRepository>()));
   gh.factory<_i28.AuthBloc>(() => _i28.AuthBloc(
       get<_i22.OnAuthStateChangesUseCase>(),
       get<_i19.GetCurrentUserUseCase>(),
@@ -97,7 +100,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i24.SignInWithFacebookUseCase>(),
       get<_i23.SignInWithEmailAndPasswordUseCase>(),
       get<_i27.SignUpWithEmailAndPasswordUseCase>(),
-      get<_i26.SignOutUseCase>()));
+      get<_i26.SignOutUseCase>(),
+      get<_i20.SaveUserUseCase>(),
+      get<_i20.CheckUserExistsUseCase>()));
   return get;
 }
 

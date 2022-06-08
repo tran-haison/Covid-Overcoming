@@ -15,11 +15,13 @@ class AuthGetCurrentUserLoadingState extends AuthState {}
 
 class AuthGetCurrentUserSuccessState extends AuthState {
   final User user;
+
   const AuthGetCurrentUserSuccessState(this.user);
 }
 
 class AuthGetCurrentUserFailedState extends AuthState {
   final String error;
+
   const AuthGetCurrentUserFailedState(this.error);
 }
 
@@ -28,11 +30,13 @@ class AuthSignInLoadingState extends AuthState {}
 
 class AuthSignInSuccessState extends AuthState {
   final User user;
+
   const AuthSignInSuccessState(this.user);
 }
 
 class AuthSignInFailedState extends AuthState {
   final String error;
+
   const AuthSignInFailedState(this.error);
 }
 
@@ -41,11 +45,13 @@ class AuthSignUpLoadingState extends AuthState {}
 
 class AuthSignUpSuccessState extends AuthState {
   final User user;
+
   const AuthSignUpSuccessState(this.user);
 }
 
 class AuthSignUpFailedState extends AuthState {
   final String error;
+
   const AuthSignUpFailedState(this.error);
 }
 
@@ -56,5 +62,6 @@ class AuthSignOutSuccessState extends AuthState {}
 
 class AuthSignOutFailedState extends AuthState {
   final String error;
+
   const AuthSignOutFailedState(this.error);
 }

@@ -33,4 +33,14 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
       return const Left(FirebaseError(DataConstants.errorGetUser));
     }
   }
+
+  @override
+  Future<Either<Error, bool>> checkUserExists(String uid) async {
+    try {
+      final isUserExisted = await _fireStoreDatabase.checkUserExists(uid);
+      return Right(isUserExisted);
+    } catch (e) {
+      return const Left(FirebaseError(DataConstants.errorCheckUserExists));
+    }
+  }
 }

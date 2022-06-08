@@ -33,6 +33,14 @@ class FirestoreBaseService {
     await reference.delete();
   }
 
+  Future<bool> checkDataExists({
+    required String path,
+  }) async {
+    final reference = _firebaseFirestore.doc(path);
+    final snapshot = await reference.get();
+    return snapshot.exists;
+  }
+
   Stream<List<T>> collectionStream<T>({
     required String path,
     required T Function(Map<String, dynamic> data, String documentId) builder,

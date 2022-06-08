@@ -5,7 +5,10 @@ import 'package:injectable/injectable.dart';
 
 abstract class FirestoreDatabaseService {
   Future<void> saveUser(UserModel userModel);
+
   Future<UserModel> getUser(String uid);
+
+  Future<bool> checkUserExists(String uid);
 }
 
 @LazySingleton(as: FirestoreDatabaseService)
@@ -28,5 +31,12 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
       path: FirestorePath.user(uid),
     );
     return UserModel.fromJson(data);
+  }
+
+  @override
+  Future<bool> checkUserExists(String uid) async {
+    return await _baseService.checkDataExists(
+      path: FirestorePath.user(uid),
+    );
   }
 }

@@ -28,3 +28,15 @@ class SaveUserUseCase extends UseCase<bool, UserModel> {
     return _firebaseRepository.saveUser(params);
   }
 }
+
+@injectable
+class CheckUserExistsUseCase extends UseCase<bool, String> {
+  CheckUserExistsUseCase(this._firebaseRepository);
+
+  final FirebaseRepository _firebaseRepository;
+
+  @override
+  Future<Either<Error, bool>> call(String params) {
+    return _firebaseRepository.checkUserExists(params);
+  }
+}

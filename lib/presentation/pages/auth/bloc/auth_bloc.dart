@@ -1,3 +1,5 @@
+import 'package:covid_overcoming/core/error/error.dart';
+import 'package:covid_overcoming/data/model/user/user_model.dart';
 import 'package:covid_overcoming/domain/usecase/auth/get_current_user_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/on_auth_state_changes_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_email_and_password_usecase.dart';
@@ -5,8 +7,10 @@ import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_facebook_useca
 import 'package:covid_overcoming/domain/usecase/auth/sign_in_with_google_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_out_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/sign_up_with_email_and_password_usecase.dart';
+import 'package:covid_overcoming/domain/usecase/remote/firebase/firebase_user_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
+import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._signInWithEmailAndPasswordUseCase,
     this._signUpWithEmailAndPasswordUseCase,
     this._signOutUseCase,
+    this._saveUserUseCase,
+    this._checkUserExistsUseCase,
   ) : super(AuthInitialState()) {
     on<AuthGetCurrentUserEvent>(_onGetCurrentUserEvent);
     on<AuthSignInWithGoogleEvent>(_onSignInWithGoogleEvent);
@@ -37,6 +43,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithEmailAndPasswordUseCase _signInWithEmailAndPasswordUseCase;
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
   final SignOutUseCase _signOutUseCase;
+  final SaveUserUseCase _saveUserUseCase;
+  final CheckUserExistsUseCase _checkUserExistsUseCase;
 
   Stream<User?> onAuthStateChanges() {
     return _onAuthStateChangesUseCase();
@@ -48,14 +56,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthGetCurrentUserLoadingState());
 
-    final result = await _getCurrentUserUseCase();
-
-    if (result.isRight) {
-      final user = result.right;
-      emit(AuthGetCurrentUserSuccessState(user));
+    // Get current user auth
+    final res = await _getCurrentUserUseCase();
+    if (res.isRight) {
+      emit(AuthGetCurrentUserSuccessState(res.right));
     } else {
-      final error = result.left;
-      emit(AuthGetCurrentUserFailedState(error.message));
+      emit(AuthGetCurrentUserFailedState(res.left.message));
     }
   }
 
@@ -66,14 +72,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthSignInLoadingState());
 
     // Sign in with Google
-    final result = await _signInWithGoogleUseCase();
-    if (result.isRight) {
-      final user = result.right;
-      emit(AuthSignInSuccessState(user));
-    } else {
-      final error = result.left;
-      emit(AuthSignInFailedState(error.message));
-    }
+    final resSignIn = await _signInWithGoogleUseCase();
+    await _signInWithSocial(emit, resSignIn);
   }
 
   Future<void> _onSignInWithFacebookEvent(
@@ -83,14 +83,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthSignInLoadingState());
 
     // Sign in with Facebook
-    final result = await _signInWithFacebookUseCase();
-    if (result.isRight) {
-      final user = result.right;
-      emit(AuthSignInSuccessState(user));
-    } else {
-      final error = result.left;
-      emit(AuthSignInFailedState(error.message));
-    }
+    final resSignIn = await _signInWithFacebookUseCase();
+    await _signInWithSocial(emit, resSignIn);
   }
 
   Future<void> _onSignInWithEmailAndPasswordEvent(
@@ -108,11 +102,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     if (result.isRight) {
-      final user = result.right;
-      emit(AuthSignInSuccessState(user));
+      emit(AuthSignInSuccessState(result.right));
     } else {
-      final error = result.left;
-      emit(AuthSignInFailedState(error.message));
+      emit(AuthSignInFailedState(result.left.message));
     }
   }
 
@@ -122,20 +114,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthSignUpLoadingState());
 
-    // Sign up
-    final result = await _signUpWithEmailAndPasswordUseCase(
+    // Sign up new user
+    final resSignUp = await _signUpWithEmailAndPasswordUseCase(
       SignUpWithEmailAndPasswordParams(
         email: event.email,
         password: event.password,
       ),
     );
 
-    if (result.isRight) {
-      final user = result.right;
-      emit(AuthSignUpSuccessState(user));
+    if (resSignUp.isRight) {
+      final user = resSignUp.right;
+      final userModel = UserModel.fromUser(user);
+
+      // Save user info if sign up success
+      final resSaveUser = await _saveUserUseCase(userModel);
+      if (resSaveUser.isRight) {
+        emit(AuthSignUpSuccessState(user));
+      } else {
+        emit(AuthSignUpFailedState(resSaveUser.left.message));
+      }
     } else {
-      final error = result.left;
-      emit(AuthSignUpFailedState(error.message));
+      emit(AuthSignUpFailedState(resSignUp.left.message));
     }
   }
 
@@ -147,12 +146,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Sign out
     final result = await _signOutUseCase();
-
     if (result.isRight) {
       emit(AuthSignOutSuccessState());
     } else {
-      final error = result.left;
-      emit(AuthSignOutFailedState(error.message));
+      emit(AuthSignOutFailedState(result.left.message));
     }
+  }
+
+  Future<void> _signInWithSocial(
+    Emitter emit,
+    Either<Error, User> resSignIn,
+  ) async {
+    if (resSignIn.isRight) {
+      final user = resSignIn.right;
+      // Check if user already exists or not
+      final resCheckUser = await _checkUserExistsUseCase(user.uid);
+      if (resCheckUser.isRight) {
+        final isUserExisted = resCheckUser.right;
+        if (!isUserExisted) {
+          // Save new user if not exists
+          final userModel = UserModel.fromUser(user);
+          final resSaveUser = await _saveUserUseCase(userModel);
+          if (resSaveUser.isRight) {
+            emit(AuthSignInSuccessState(user));
+            return;
+          }
+          emit(AuthSignInFailedState(resSaveUser.left.message));
+          return;
+        }
+        emit(AuthSignInSuccessState(user));
+        return;
+      }
+      emit(AuthSignInFailedState(resCheckUser.left.message));
+      return;
+    }
+    emit(AuthSignInFailedState(resSignIn.left.message));
   }
 }
