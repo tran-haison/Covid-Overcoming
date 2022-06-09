@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage>
           showCommonDialog(
             context,
             Strings.error,
-            state.error,
+            state.error.message,
           );
           return;
         }

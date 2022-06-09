@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/config/route/router/profile_router.dart';
+import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
-import 'package:covid_overcoming/presentation/pages/main/home/home_widgets.dart';
+import 'package:covid_overcoming/presentation/pages/main/home/widgets/home_card_problem.dart';
 import 'package:covid_overcoming/presentation/widgets/common_chips.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
@@ -10,9 +11,14 @@ import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

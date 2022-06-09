@@ -15,10 +15,19 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
   final FirestoreDatabaseService _fireStoreDatabase;
 
   @override
-  Future<Either<Error, bool>> saveUser(UserModel userModel) async {
+  Future<Either<Error, bool>> saveUser({
+    required UserModel userModel,
+    required bool shouldReplace,
+  }) async {
     try {
-      await _fireStoreDatabase.saveUser(userModel);
-      return const Right(true);
+      final isUserExisted = await _fireStoreDatabase.checkUserExists(
+        userModel.uid,
+      );
+      if (!isUserExisted || (isUserExisted && shouldReplace)) {
+        await _fireStoreDatabase.saveUser(userModel);
+        return const Right(true);
+      }
+      return const Right(false);
     } catch (e) {
       return const Left(FirebaseError(DataConstants.errorSaveUser));
     }

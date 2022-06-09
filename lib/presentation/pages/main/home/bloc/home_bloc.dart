@@ -8,37 +8,34 @@ import 'package:injectable/injectable.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(
     this._getAllStagesUseCase,
-  ) : super(const HomeState()) {
-    on<HomeInitEvent>(_onHomeInitEvent);
+  ) : super(HomeInitialState()) {
+    on<HomeGetAllStagesEvent>(_onHomeGetAllStagesEvent);
+    on<HomeGetLocalUserEvent>(_onHomeGetLocalUserEvent);
   }
 
   final GetAllStagesUseCase _getAllStagesUseCase;
 
-  Future<void> _onHomeInitEvent(
-    HomeInitEvent event,
+  Future<void> _onHomeGetAllStagesEvent(
+    HomeGetAllStagesEvent event,
     Emitter<HomeState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(HomeGetAllStagesLoadingState());
 
     // Get all stages
-    _getAllStages(emit);
-
-    emit(state.copyWith(isLoading: false));
+    final res = await _getAllStagesUseCase();
+    if (res.isRight) {
+      emit(HomeGetAllStagesSuccessState(res.right));
+    } else {
+      emit(HomeGetAllStagesFailedState(res.left));
+    }
   }
 
-  void _getAllStages(Emitter<HomeState> emit) {
-    _getAllStagesUseCase().then((value) {
-      if (value.isRight) {
-        emit(state.copyWith(
-          stages: value.right,
-          stagesError: null,
-        ));
-      } else {
-        emit(state.copyWith(
-          stages: null,
-          stagesError: value.left,
-        ));
-      }
-    });
+  Future<void> _onHomeGetLocalUserEvent(
+    HomeGetLocalUserEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    // TODO: implement function
+    emit(HomeGetLocalUserLoadingState());
+
   }
 }

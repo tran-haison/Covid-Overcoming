@@ -26,7 +26,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._signUpWithEmailAndPasswordUseCase,
     this._signOutUseCase,
     this._saveUserUseCase,
-    this._checkUserExistsUseCase,
   ) : super(AuthInitialState()) {
     on<AuthGetCurrentUserEvent>(_onGetCurrentUserEvent);
     on<AuthSignInWithGoogleEvent>(_onSignInWithGoogleEvent);
@@ -44,7 +43,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
   final SignOutUseCase _signOutUseCase;
   final SaveUserUseCase _saveUserUseCase;
-  final CheckUserExistsUseCase _checkUserExistsUseCase;
 
   Stream<User?> onAuthStateChanges() {
     return _onAuthStateChangesUseCase();
@@ -61,7 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (res.isRight) {
       emit(AuthGetCurrentUserSuccessState(res.right));
     } else {
-      emit(AuthGetCurrentUserFailedState(res.left.message));
+      emit(AuthGetCurrentUserFailedState(res.left));
     }
   }
 
@@ -94,17 +92,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthSignInLoadingState());
 
     // Sign in
-    final result = await _signInWithEmailAndPasswordUseCase(
+    final res = await _signInWithEmailAndPasswordUseCase(
       SignInWithEmailAndPasswordParams(
         email: event.email,
         password: event.password,
       ),
     );
 
-    if (result.isRight) {
-      emit(AuthSignInSuccessState(result.right));
+    if (res.isRight) {
+      emit(AuthSignInSuccessState(res.right));
     } else {
-      emit(AuthSignInFailedState(result.left.message));
+      emit(AuthSignInFailedState(res.left));
     }
   }
 
@@ -126,15 +124,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final user = resSignUp.right;
       final userModel = UserModel.fromUser(user);
 
-      // Save user info if sign up success
-      final resSaveUser = await _saveUserUseCase(userModel);
+      final params = FirebaseSaveUserParams(
+        userModel: userModel,
+        shouldReplace: true,
+      );
+      final resSaveUser = await _saveUserUseCase(params);
       if (resSaveUser.isRight) {
         emit(AuthSignUpSuccessState(user));
       } else {
-        emit(AuthSignUpFailedState(resSaveUser.left.message));
+        emit(AuthSignUpFailedState(resSaveUser.left));
       }
     } else {
-      emit(AuthSignUpFailedState(resSignUp.left.message));
+      emit(AuthSignUpFailedState(resSignUp.left));
     }
   }
 
@@ -149,7 +150,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (result.isRight) {
       emit(AuthSignOutSuccessState());
     } else {
-      emit(AuthSignOutFailedState(result.left.message));
+      emit(AuthSignOutFailedState(result.left));
     }
   }
 
@@ -159,27 +160,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     if (resSignIn.isRight) {
       final user = resSignIn.right;
-      // Check if user already exists or not
-      final resCheckUser = await _checkUserExistsUseCase(user.uid);
-      if (resCheckUser.isRight) {
-        final isUserExisted = resCheckUser.right;
-        if (!isUserExisted) {
-          // Save new user if not exists
-          final userModel = UserModel.fromUser(user);
-          final resSaveUser = await _saveUserUseCase(userModel);
-          if (resSaveUser.isRight) {
-            emit(AuthSignInSuccessState(user));
-            return;
-          }
-          emit(AuthSignInFailedState(resSaveUser.left.message));
-          return;
-        }
+      final userModel = UserModel.fromUser(user);
+
+      // Only save user info once when first sign in with social account
+      // Eg: Google, Facebook, ...
+      final params = FirebaseSaveUserParams(
+        userModel: userModel,
+        shouldReplace: false,
+      );
+      final resSaveUser = await _saveUserUseCase(params);
+      if (resSaveUser.isRight) {
         emit(AuthSignInSuccessState(user));
-        return;
+      } else {
+        emit(AuthSignInFailedState(resSaveUser.left));
       }
-      emit(AuthSignInFailedState(resCheckUser.left.message));
-      return;
+    } else {
+      emit(AuthSignInFailedState(resSignIn.left));
     }
-    emit(AuthSignInFailedState(resSignIn.left.message));
   }
 }

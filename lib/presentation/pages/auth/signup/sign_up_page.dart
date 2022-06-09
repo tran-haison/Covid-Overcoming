@@ -69,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage>
           }
 
           if (state is AuthSignUpFailedState) {
-            showCommonDialog(context, Strings.error, state.error);
+            showCommonDialog(context, Strings.error, state.error.message);
             return;
           }
         },

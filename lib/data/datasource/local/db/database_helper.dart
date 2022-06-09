@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:covid_overcoming/config/log/logger.dart';
+import 'package:covid_overcoming/data/utils/data_constants.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
-import 'package:covid_overcoming/values/res/strings.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -15,7 +15,7 @@ Future<void> copyDbFromAsset() async {
   // Create db if not exist
   var exists = await databaseExists(path);
   if (!exists) {
-    Log.d('Copy database from assets');
+    Log.d('Create new database: $path');
 
     // Make sure the parent directory exists
     try {
@@ -34,9 +34,8 @@ Future<void> copyDbFromAsset() async {
       data.lengthInBytes,
     );
 
-    // Write and flush the bytes written
     await File(path).writeAsBytes(bytes, flush: true);
   } else {
-    Log.d('Open existing database');
+    Log.d('Open existing database: $path');
   }
 }

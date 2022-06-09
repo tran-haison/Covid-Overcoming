@@ -1,17 +1,47 @@
 import 'package:covid_overcoming/core/error/error.dart';
+import 'package:covid_overcoming/data/model/user/user_model.dart';
 import 'package:covid_overcoming/domain/entity/local/stage.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'home_state.freezed.dart';
+abstract class HomeState extends Equatable {
+  const HomeState();
 
-@freezed
-class HomeState with _$HomeState {
-  const factory HomeState({
-    // Loading
-    @Default(false) bool isLoading,
+  @override
+  List<Object?> get props => [];
+}
 
-    // List of stages
-    @Default(null) List<Stage>? stages,
-    @Default(null) Error? stagesError,
-  }) = _HomeState;
+class HomeInitialState extends HomeState {}
+
+/// Get all stages
+abstract class HomeGetAllStagesState extends HomeState {}
+
+class HomeGetAllStagesLoadingState extends HomeGetAllStagesState {}
+
+class HomeGetAllStagesSuccessState extends HomeGetAllStagesState {
+  HomeGetAllStagesSuccessState(this.stages);
+
+  final List<Stage> stages;
+}
+
+class HomeGetAllStagesFailedState extends HomeGetAllStagesState {
+  HomeGetAllStagesFailedState(this.error);
+
+  final Error error;
+}
+
+/// Get local user
+abstract class HomeGetLocalUserState extends HomeState {}
+
+class HomeGetLocalUserLoadingState extends HomeGetLocalUserState {}
+
+class HomeGetLocalUserSuccessState extends HomeGetLocalUserState {
+  HomeGetLocalUserSuccessState(this.userModel);
+
+  final UserModel userModel;
+}
+
+class HomeGetLocalUserFailedState extends HomeGetLocalUserState {
+  HomeGetLocalUserFailedState(this.error);
+
+  final Error error;
 }

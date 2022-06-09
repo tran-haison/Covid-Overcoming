@@ -91,8 +91,6 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i26.SignOutUseCase(get<_i14.AuthRepository>()));
   gh.factory<_i27.SignUpWithEmailAndPasswordUseCase>(
       () => _i27.SignUpWithEmailAndPasswordUseCase(get<_i14.AuthRepository>()));
-  gh.factory<_i20.CheckUserExistsUseCase>(
-      () => _i20.CheckUserExistsUseCase(get<_i16.FirebaseRepository>()));
   gh.factory<_i28.AuthBloc>(() => _i28.AuthBloc(
       get<_i22.OnAuthStateChangesUseCase>(),
       get<_i19.GetCurrentUserUseCase>(),
@@ -101,8 +99,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i23.SignInWithEmailAndPasswordUseCase>(),
       get<_i27.SignUpWithEmailAndPasswordUseCase>(),
       get<_i26.SignOutUseCase>(),
-      get<_i20.SaveUserUseCase>(),
-      get<_i20.CheckUserExistsUseCase>()));
+      get<_i20.SaveUserUseCase>()));
+  gh.factory<_i20.CheckUserExistsUseCase>(
+      () => _i20.CheckUserExistsUseCase(get<_i16.FirebaseRepository>()));
   return get;
 }
 

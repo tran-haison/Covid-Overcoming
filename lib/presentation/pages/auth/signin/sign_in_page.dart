@@ -2,7 +2,6 @@ import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
-import 'package:covid_overcoming/data/datasource/mock/mock_data.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_bloc.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
@@ -39,15 +38,6 @@ class _SignInPageState extends State<SignInPage>
   final _passwordController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    _emailController.text = MockData.email;
-    _passwordController.text = MockData.password;
-    _signInBloc.add(SignInEmailChangedEvent(_emailController.text));
-    _signInBloc.add(SignInPasswordChangedEvent(_passwordController.text));
-  }
-
-  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -75,7 +65,7 @@ class _SignInPageState extends State<SignInPage>
           }
 
           if (state is AuthSignInFailedState) {
-            showCommonDialog(context, Strings.error, state.error);
+            showCommonDialog(context, Strings.error, state.error.message);
             return;
           }
         },

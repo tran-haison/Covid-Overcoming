@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/core/error/error.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,7 +21,7 @@ class AuthGetCurrentUserSuccessState extends AuthState {
 }
 
 class AuthGetCurrentUserFailedState extends AuthState {
-  final String error;
+  final Error error;
 
   const AuthGetCurrentUserFailedState(this.error);
 }
@@ -35,7 +36,7 @@ class AuthSignInSuccessState extends AuthState {
 }
 
 class AuthSignInFailedState extends AuthState {
-  final String error;
+  final Error error;
 
   const AuthSignInFailedState(this.error);
 }
@@ -50,7 +51,7 @@ class AuthSignUpSuccessState extends AuthState {
 }
 
 class AuthSignUpFailedState extends AuthState {
-  final String error;
+  final Error error;
 
   const AuthSignUpFailedState(this.error);
 }
@@ -61,7 +62,7 @@ class AuthSignOutLoadingState extends AuthState {}
 class AuthSignOutSuccessState extends AuthState {}
 
 class AuthSignOutFailedState extends AuthState {
-  final String error;
+  final Error error;
 
   const AuthSignOutFailedState(this.error);
 }

@@ -18,14 +18,17 @@ class GetUserUseCase extends UseCase<UserModel, String> {
 }
 
 @injectable
-class SaveUserUseCase extends UseCase<bool, UserModel> {
+class SaveUserUseCase extends UseCase<bool, FirebaseSaveUserParams> {
   SaveUserUseCase(this._firebaseRepository);
 
   final FirebaseRepository _firebaseRepository;
 
   @override
-  Future<Either<Error, bool>> call(UserModel params) {
-    return _firebaseRepository.saveUser(params);
+  Future<Either<Error, bool>> call(FirebaseSaveUserParams params) {
+    return _firebaseRepository.saveUser(
+      userModel: params.userModel,
+      shouldReplace: params.shouldReplace,
+    );
   }
 }
 
@@ -39,4 +42,14 @@ class CheckUserExistsUseCase extends UseCase<bool, String> {
   Future<Either<Error, bool>> call(String params) {
     return _firebaseRepository.checkUserExists(params);
   }
+}
+
+class FirebaseSaveUserParams {
+  const FirebaseSaveUserParams({
+    required this.userModel,
+    required this.shouldReplace,
+  });
+
+  final UserModel userModel;
+  final bool shouldReplace;
 }
