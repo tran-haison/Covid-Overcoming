@@ -1,7 +1,7 @@
 import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/core/error/error.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/auth/auth_service.dart';
-import 'package:covid_overcoming/data/utils/data_constants.dart';
+import 'package:covid_overcoming/data/repository/utils/data_constants.dart';
 import 'package:covid_overcoming/domain/repository/auth/auth_repository.dart';
 import 'package:either_dart/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,9 +9,7 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
-  const AuthRepositoryImpl(
-    this.auth,
-  );
+  const AuthRepositoryImpl(this.auth);
 
   final AuthService auth;
 

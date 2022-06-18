@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/data/utils/data_constants.dart';
+import 'package:covid_overcoming/data/datasource/local/db/database_constants.dart';
 import 'package:floor/floor.dart';
 
 @Entity(tableName: kTableMentalProblem)

@@ -15,6 +15,11 @@ class DatabaseError extends Error {
   const DatabaseError(String message, [int? code]) : super(message, code);
 }
 
+/// Cache error
+class CacheError extends Error {
+  const CacheError(String message, [int? code]) : super(message, code);
+}
+
 /// Server error
 class ServerError extends Error {
   const ServerError(String message, [int? code]) : super(message, code);

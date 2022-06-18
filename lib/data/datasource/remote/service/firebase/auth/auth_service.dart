@@ -1,5 +1,4 @@
-import 'package:covid_overcoming/data/datasource/remote/service/firebase/utils/firebase_constants.dart';
-import 'package:covid_overcoming/data/utils/data_constants.dart';
+import 'package:covid_overcoming/data/datasource/remote/service/firebase/firebase_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -143,12 +142,11 @@ class AuthServiceImpl implements AuthService {
       } else {
         throw FirebaseAuthException(
           code: FirebaseConstants.codeMissingGoogleIdToken,
-          message: DataConstants.errorMissingGoogleIdToken,
         );
       }
     } else {
       throw FirebaseAuthException(
-        code: DataConstants.errorSignInWithGoogle,
+        code: FirebaseConstants.codeGoogleUserIsNull,
       );
     }
   }
@@ -169,11 +167,11 @@ class AuthServiceImpl implements AuthService {
         return userCredential.user;
       case FacebookLoginStatus.cancel:
         throw FirebaseAuthException(
-          code: DataConstants.errorSignInWithFacebook,
+          code: FirebaseConstants.codeFacebookLoginCancel,
         );
       case FacebookLoginStatus.error:
         throw FirebaseAuthException(
-          code: DataConstants.errorSignInWithFacebook,
+          code: FirebaseConstants.codeFacebookLoginError,
           message: result.error?.developerMessage,
         );
       default:

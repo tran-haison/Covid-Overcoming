@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:covid_overcoming/config/log/logger.dart';
-import 'package:covid_overcoming/data/utils/data_constants.dart';
+import 'package:covid_overcoming/data/datasource/local/db/database_constants.dart';
 import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';

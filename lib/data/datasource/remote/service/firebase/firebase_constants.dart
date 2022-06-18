@@ -22,5 +22,10 @@ class FirebaseConstants {
   static const codeFirebaseAuthUnauthorizedContinueUri =
       'auth/unauthorized-continue-uri';
   static const codeFirebaseAuthUserNotFound = 'auth/user-not-found';
-  static const codeMissingGoogleIdToken = 'ERROR_MISSING_GOOGLE_ID_TOKEN';
+
+  /// Auth error codes
+  static const codeMissingGoogleIdToken = 'missing-google-id-token';
+  static const codeGoogleUserIsNull = 'google-user-is-null';
+  static const codeFacebookLoginCancel = 'facebook-login-cancel';
+  static const codeFacebookLoginError = 'facebook-login-error';
 }

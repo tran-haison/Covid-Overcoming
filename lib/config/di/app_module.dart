@@ -1,6 +1,6 @@
 import 'package:covid_overcoming/data/datasource/local/db/app_database.dart';
+import 'package:covid_overcoming/data/datasource/local/db/database_constants.dart';
 import 'package:covid_overcoming/data/datasource/local/db/database_helper.dart';
-import 'package:covid_overcoming/data/utils/data_constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 

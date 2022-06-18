@@ -25,13 +25,12 @@ class DataConstants {
   static const errorSaveUser = 'Error save user';
   static const errorGetUser = 'Error get user';
   static const errorCheckUserExists = 'Error check user exists';
-}
 
-/// Database
-const kDatabaseName = 'app.db';
-const kTableBorgBreathlessnessScale = 'borg_breathlessness_scale';
-const kTableMentalProblem = 'mental_problem';
-const kTablePhysicalProblem = 'physical_problem';
-const kTableRisk = 'risk';
-const kTableRiskTest = 'risk_test';
-const kTableStage = 'stage';
+  /// Local cache error
+  static const errorSaveLocalUser = 'Error save local user';
+  static const errorGetLocalUser = 'Error get local user';
+  static const errorClearCacheData = 'Error clear cache data';
+
+  /// Local database error
+  static const errorGetAllStages = 'Error get all stages';
+}
