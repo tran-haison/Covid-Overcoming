@@ -1,6 +1,10 @@
+import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/profile_router.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
+import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_bloc.dart';
+import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_event.dart';
+import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_state.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/widgets/home_card_problem.dart';
 import 'package:covid_overcoming/presentation/widgets/common_chips.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
@@ -10,6 +14,7 @@ import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,8 +24,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
+  final _homeBloc = getIt<HomeBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+    _homeBloc.add(HomeGetLocalAccountEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<HomeBloc>(
+      create: (_) => _homeBloc,
+      child: _buildPage(),
+    );
+  }
+
+  Widget _buildPage() {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(Dimens.dimen20),
@@ -45,42 +65,48 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
   }
 
   Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                // TODO: implement greeting
-                'Good afternoon,',
-                style: textStyle14Gray,
+    return BlocBuilder<HomeBloc, HomeState>(
+      buildWhen: (context, state) => state is HomeGetLocalAccountState,
+      builder: (context, state) {
+        final user = state.accountModel;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    // TODO: implement greeting
+                    'Good afternoon,',
+                    style: textStyle14Gray,
+                  ),
+                  vGap5,
+                  Text(
+                    user != null ? user.name : '',
+                    style: textStyle26Medium.copyWith(height: 1),
+                  ),
+                ],
               ),
-              vGap5,
-              Text(
-                // TODO: get user name
-                'Tran Hai Son',
-                style: textStyle26Medium.copyWith(height: 1),
+            ),
+            InkWell(
+              onTap: () {
+                ProfileRouter.goProfile(context);
+              },
+              borderRadius: BorderRadius.circular(Dimens.radius25),
+              splashColor: colorBlack,
+              highlightColor: colorBlack,
+              child: CommonAvatar(
+                photoUrl: user?.photoUrl,
+                height: Dimens.dimen50,
+                width: Dimens.dimen50,
               ),
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            ProfileRouter.goProfile(context);
-          },
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          child: const CommonAssetImage(
-            imagePath: AssetPaths.imgHacker,
-            height: Dimens.dimen40,
-            width: Dimens.dimen40,
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -104,8 +130,8 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
             children: <Widget>[
               const CommonAssetImage(
                 imagePath: AssetPaths.imgChakra,
-                height: 40,
-                width: 40,
+                height: Dimens.dimen40,
+                width: Dimens.dimen40,
               ),
               hGap15,
               Expanded(

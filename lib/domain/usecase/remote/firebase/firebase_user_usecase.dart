@@ -1,55 +1,55 @@
 import 'package:covid_overcoming/core/error/error.dart';
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/domain/repository/remote/firebase/firebase_repository.dart';
 import 'package:covid_overcoming/domain/usecase/usecase.dart';
 import 'package:either_dart/either.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetUserUseCase extends UseCase<UserModel, String> {
-  GetUserUseCase(this._firebaseRepository);
+class GetAccountUseCase extends UseCase<AccountModel, String> {
+  GetAccountUseCase(this._firebaseRepository);
 
   final FirebaseRepository _firebaseRepository;
 
   @override
-  Future<Either<Error, UserModel>> call(String params) {
-    return _firebaseRepository.getUser(params);
+  Future<Either<Error, AccountModel>> call(String params) {
+    return _firebaseRepository.getAccount(params);
   }
 }
 
 @injectable
-class SaveUserUseCase extends UseCase<bool, FirebaseSaveUserParams> {
-  SaveUserUseCase(this._firebaseRepository);
+class SaveAccountUseCase extends UseCase<bool, FirebaseSaveAccountParams> {
+  SaveAccountUseCase(this._firebaseRepository);
 
   final FirebaseRepository _firebaseRepository;
 
   @override
-  Future<Either<Error, bool>> call(FirebaseSaveUserParams params) {
-    return _firebaseRepository.saveUser(
-      userModel: params.userModel,
+  Future<Either<Error, bool>> call(FirebaseSaveAccountParams params) {
+    return _firebaseRepository.saveAccount(
+      accountModel: params.accountModel,
       shouldReplace: params.shouldReplace,
     );
   }
 }
 
 @injectable
-class CheckUserExistsUseCase extends UseCase<bool, String> {
-  CheckUserExistsUseCase(this._firebaseRepository);
+class CheckAccountExistsUseCase extends UseCase<bool, String> {
+  CheckAccountExistsUseCase(this._firebaseRepository);
 
   final FirebaseRepository _firebaseRepository;
 
   @override
   Future<Either<Error, bool>> call(String params) {
-    return _firebaseRepository.checkUserExists(params);
+    return _firebaseRepository.checkAccountExists(params);
   }
 }
 
-class FirebaseSaveUserParams {
-  const FirebaseSaveUserParams({
-    required this.userModel,
+class FirebaseSaveAccountParams {
+  const FirebaseSaveAccountParams({
+    required this.accountModel,
     required this.shouldReplace,
   });
 
-  final UserModel userModel;
+  final AccountModel accountModel;
   final bool shouldReplace;
 }

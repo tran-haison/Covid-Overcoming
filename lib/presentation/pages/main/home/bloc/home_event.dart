@@ -9,4 +9,4 @@ abstract class HomeEvent extends Equatable {
 
 class HomeGetAllStagesEvent extends HomeEvent {}
 
-class HomeGetLocalUserEvent extends HomeEvent {}
+class HomeGetLocalAccountEvent extends HomeEvent {}

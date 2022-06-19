@@ -1,5 +1,5 @@
 import 'package:covid_overcoming/data/datasource/local/pref/preferences_keys.dart';
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sp_util/sp_util.dart';
 
@@ -8,9 +8,9 @@ abstract class AppPreferences {
 
   Future<bool> getFirstTimeInit();
 
-  Future<bool> saveUser(UserModel userModel);
+  Future<bool> saveAccount(AccountModel accountModel);
 
-  Future<UserModel> getUser();
+  Future<AccountModel> getAccount();
 
   Future<bool> clear();
 }
@@ -36,20 +36,20 @@ class AppPreferencesImpl implements AppPreferences {
   }
 
   @override
-  Future<bool> saveUser(UserModel userModel) async {
+  Future<bool> saveAccount(AccountModel accountModel) async {
     final res = await SpUtil.putObject(
-      PreferencesKeys.user,
-      userModel.toJson(),
+      PreferencesKeys.account,
+      accountModel.toJson(),
     );
     return res ?? false;
   }
 
   @override
-  Future<UserModel> getUser() async {
+  Future<AccountModel> getAccount() async {
     final res = SpUtil.getObject(
-      PreferencesKeys.user,
+      PreferencesKeys.account,
     ) as Map<String, dynamic>;
-    return UserModel.fromJson(res);
+    return AccountModel.fromJson(res);
   }
 
   @override

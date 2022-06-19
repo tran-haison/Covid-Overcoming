@@ -1,3 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:covid_overcoming/values/constant/asset_paths.dart';
+import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:flutter/material.dart';
 
 class CommonAssetImage extends StatelessWidget {
@@ -9,6 +12,7 @@ class CommonAssetImage extends StatelessWidget {
     this.cacheWidth,
     this.cacheHeight,
     this.fit,
+    this.color,
   }) : super(key: key);
 
   final String imagePath;
@@ -17,6 +21,7 @@ class CommonAssetImage extends StatelessWidget {
   final int? cacheWidth;
   final int? cacheHeight;
   final BoxFit? fit;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class CommonAssetImage extends StatelessWidget {
       cacheWidth: cacheWidth,
       cacheHeight: cacheHeight,
       fit: fit,
+      color: color,
       excludeFromSemantics: true,
     );
   }
@@ -38,11 +44,13 @@ class CommonAssetIcon extends StatelessWidget {
     required this.iconPath,
     this.height = 24,
     this.width = 24,
+    this.color,
   }) : super(key: key);
 
   final String iconPath;
   final double height;
   final double width;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +58,52 @@ class CommonAssetIcon extends StatelessWidget {
       imagePath: iconPath,
       height: height,
       width: width,
+      color: color,
       fit: BoxFit.fill,
+    );
+  }
+}
+
+class CommonAvatar extends StatelessWidget {
+  const CommonAvatar({
+    Key? key,
+    this.photoUrl,
+    this.radius = 40,
+    this.height = 80,
+    this.width = 80,
+  }) : super(key: key);
+
+  final String? photoUrl;
+  final double radius;
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: colorBlack54,
+            width: 2.0,
+          )),
+      child: CircleAvatar(
+        radius: radius,
+        backgroundColor: colorWhite,
+        backgroundImage: photoUrl != null
+            ? CachedNetworkImageProvider(
+                photoUrl!,
+              )
+            : null,
+        child: photoUrl == null
+            ? const CommonAssetIcon(
+                iconPath: AssetPaths.icUser,
+                color: colorBlack54,
+              )
+            : null,
+      ),
     );
   }
 }

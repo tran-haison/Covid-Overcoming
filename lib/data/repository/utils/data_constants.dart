@@ -22,13 +22,13 @@ class DataConstants {
   static const errorMissingGoogleIdToken = 'Missing Google ID Token';
 
   /// Firebase Firestore error
-  static const errorSaveUser = 'Error save user';
-  static const errorGetUser = 'Error get user';
-  static const errorCheckUserExists = 'Error check user exists';
+  static const errorSaveAccount = 'Error save account';
+  static const errorGetAccount = 'Error get account';
+  static const errorCheckAccountExists = 'Error check account exists';
 
   /// Local cache error
-  static const errorSaveLocalUser = 'Error save local user';
-  static const errorGetLocalUser = 'Error get local user';
+  static const errorSaveLocalAccount = 'Error save local account';
+  static const errorGetLocalAccount = 'Error get local account';
   static const errorClearCacheData = 'Error clear cache data';
 
   /// Local database error

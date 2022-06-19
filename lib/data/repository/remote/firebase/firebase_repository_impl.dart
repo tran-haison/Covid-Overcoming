@@ -1,7 +1,7 @@
 import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/core/error/error.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_database_service.dart';
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/data/repository/utils/data_constants.dart';
 import 'package:covid_overcoming/domain/repository/remote/firebase/firebase_repository.dart';
 import 'package:either_dart/either.dart';
@@ -14,38 +14,40 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
   final FirestoreDatabaseService fireStoreDatabase;
 
   @override
-  Future<Either<Error, bool>> saveUser({
-    required UserModel userModel,
+  Future<Either<Error, bool>> saveAccount({
+    required AccountModel accountModel,
     required bool shouldReplace,
   }) async {
     return _firebaseMethodCall<bool>(
       function: () async {
-        final isUserExisted = await fireStoreDatabase.checkUserExists(
-          userModel.uid,
+        final isAccountExisted = await fireStoreDatabase.checkAccountExists(
+          accountModel.uid,
         );
-        if (!isUserExisted || (isUserExisted && shouldReplace)) {
-          await fireStoreDatabase.saveUser(userModel);
+        if (!isAccountExisted || (isAccountExisted && shouldReplace)) {
+          await fireStoreDatabase.saveAccount(accountModel);
           return const Right(true);
         }
         return const Right(false);
       },
-      errorMessage: DataConstants.errorSaveUser,
+      errorMessage: DataConstants.errorSaveAccount,
     );
   }
 
   @override
-  Future<Either<Error, UserModel>> getUser(String uid) async {
-    return _firebaseMethodCall<UserModel>(
-      function: () async => Right(await fireStoreDatabase.getUser(uid)),
-      errorMessage: DataConstants.errorGetUser,
+  Future<Either<Error, AccountModel>> getAccount(String uid) async {
+    return _firebaseMethodCall<AccountModel>(
+      function: () async => Right(await fireStoreDatabase.getAccount(uid)),
+      errorMessage: DataConstants.errorGetAccount,
     );
   }
 
   @override
-  Future<Either<Error, bool>> checkUserExists(String uid) async {
+  Future<Either<Error, bool>> checkAccountExists(String uid) async {
     return _firebaseMethodCall<bool>(
-      function: () async => Right(await fireStoreDatabase.checkUserExists(uid)),
-      errorMessage: DataConstants.errorCheckUserExists,
+      function: () async => Right(
+        await fireStoreDatabase.checkAccountExists(uid),
+      ),
+      errorMessage: DataConstants.errorCheckAccountExists,
     );
   }
 
@@ -57,7 +59,7 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
     try {
       return function();
     } catch (e) {
-      Log.e(e.toString());
+      Log.e('$errorMessage\n${e.toString()}');
       return Left(FirebaseError(errorMessage));
     }
   }

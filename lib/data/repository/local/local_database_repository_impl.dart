@@ -32,7 +32,7 @@ class LocalDatabaseRepositoryImpl implements LocalDatabaseRepository {
       final res = await function();
       return Right(res);
     } catch (e) {
-      Log.e(e.toString());
+      Log.e('$errorMessage\n${e.toString()}');
       return Left(DatabaseError(errorMessage));
     }
   }

@@ -1,14 +1,14 @@
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_base_service.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_paths.dart';
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class FirestoreDatabaseService {
-  Future<void> saveUser(UserModel userModel);
+  Future<void> saveAccount(AccountModel accountModel);
 
-  Future<UserModel> getUser(String uid);
+  Future<AccountModel> getAccount(String uid);
 
-  Future<bool> checkUserExists(String uid);
+  Future<bool> checkAccountExists(String uid);
 }
 
 @LazySingleton(as: FirestoreDatabaseService)
@@ -18,25 +18,25 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
   final FirestoreBaseService baseService;
 
   @override
-  Future<void> saveUser(UserModel userModel) async {
+  Future<void> saveAccount(AccountModel accountModel) async {
     await baseService.setData(
-      path: FirestorePaths.user(userModel.uid),
-      data: userModel.toJson(),
+      path: FirestorePaths.account(accountModel.uid),
+      data: accountModel.toJson(),
     );
   }
 
   @override
-  Future<UserModel> getUser(String uid) async {
+  Future<AccountModel> getAccount(String uid) async {
     final data = await baseService.getData(
-      path: FirestorePaths.user(uid),
+      path: FirestorePaths.account(uid),
     );
-    return UserModel.fromJson(data);
+    return AccountModel.fromJson(data);
   }
 
   @override
-  Future<bool> checkUserExists(String uid) async {
+  Future<bool> checkAccountExists(String uid) async {
     return await baseService.checkDataExists(
-      path: FirestorePaths.user(uid),
+      path: FirestorePaths.account(uid),
     );
   }
 }

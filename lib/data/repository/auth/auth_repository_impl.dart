@@ -234,14 +234,14 @@ class AuthRepositoryImpl implements AuthRepository {
       if (result.isRight) {
         Log.d(result.right.toString());
       } else {
-        Log.e(result.left.message);
+        Log.e('$errorMessage\n${result.left.message}');
       }
       return result;
     } on FirebaseAuthException catch (e) {
-      Log.e(e.message ?? e.code);
+      Log.e('$errorMessage\n${e.message ?? e.code}');
       return Left(AuthError(e.message ?? e.code));
     } catch (e) {
-      Log.e(e.toString());
+      Log.e('$errorMessage\n${e.toString()}');
       return Left(AuthError(errorMessage));
     }
   }

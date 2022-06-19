@@ -1,10 +1,14 @@
 import 'package:covid_overcoming/core/error/error.dart';
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/domain/entity/local/stage.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class HomeState extends Equatable {
-  const HomeState();
+  const HomeState({
+    this.accountModel,
+  });
+
+  final AccountModel? accountModel;
 
   @override
   List<Object?> get props => [];
@@ -29,19 +33,33 @@ class HomeGetAllStagesFailedState extends HomeGetAllStagesState {
   final Error error;
 }
 
-/// Get local user
-abstract class HomeGetLocalUserState extends HomeState {}
-
-class HomeGetLocalUserLoadingState extends HomeGetLocalUserState {}
-
-class HomeGetLocalUserSuccessState extends HomeGetLocalUserState {
-  HomeGetLocalUserSuccessState(this.userModel);
-
-  final UserModel userModel;
+/// Get local account
+abstract class HomeGetLocalAccountState extends HomeState {
+  HomeGetLocalAccountState({
+    required HomeState oldState,
+    AccountModel? accountModel,
+  }) : super(accountModel: accountModel ?? oldState.accountModel);
 }
 
-class HomeGetLocalUserFailedState extends HomeGetLocalUserState {
-  HomeGetLocalUserFailedState(this.error);
+class HomeGetLocalAccountLoadingState extends HomeGetLocalAccountState {
+  HomeGetLocalAccountLoadingState({
+    required HomeState oldState,
+  }) : super(oldState: oldState);
+}
 
-  final Error error;
+class HomeGetLocalAccountSuccessState extends HomeGetLocalAccountState {
+  HomeGetLocalAccountSuccessState({
+    required HomeState oldState,
+    required AccountModel accountModel,
+  }) : super(
+          oldState: oldState,
+          accountModel: accountModel,
+        );
+}
+
+class HomeGetLocalAccountFailedState extends HomeGetLocalAccountState {
+  HomeGetLocalAccountFailedState({
+    required HomeState oldState,
+    Error? error,
+  }) : super(oldState: oldState);
 }

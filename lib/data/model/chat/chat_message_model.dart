@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chat_message_model.g.dart';
@@ -7,14 +7,14 @@ part 'chat_message_model.g.dart';
 class ChatMessageModel {
   const ChatMessageModel({
     required this.id,
-    required this.user,
+    required this.account,
     required this.message,
     required this.createdAt,
   });
 
   final String id;
 
-  final UserModel user;
+  final AccountModel account;
 
   final String message;
 

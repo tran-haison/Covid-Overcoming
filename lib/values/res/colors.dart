@@ -11,6 +11,8 @@ const colorError = Color(0xFFF03738);
 /// Normal colors
 const colorBlack = Colors.black;
 const colorWhite = Colors.white;
+const colorBlack12 = Color(0x1F000000);
+const colorBlack54 = Color(0x8A000000);
 const colorLightBlack = Color(0xFF302C2C);
 const colorGray100 = Color(0xFFF5F5F5);
 const colorLightGray1 = Color(0xFFE5E5E5);

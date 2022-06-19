@@ -19,5 +19,5 @@ jobs:
         run: flutter clean
       - name: Get flutter dependencies.
         run: flutter pub get
-      - name: Android Build Check
+      - name: iOS Build Check
         run: flutter build ios --release --no-codesign

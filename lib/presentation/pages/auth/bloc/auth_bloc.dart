@@ -1,9 +1,9 @@
 import 'package:covid_overcoming/core/error/error.dart';
-import 'package:covid_overcoming/data/model/user/user_model.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/domain/usecase/auth/auth_action_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/manage_user_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/local/cache/cache_data_usecase.dart';
-import 'package:covid_overcoming/domain/usecase/local/cache/cache_user_usecase.dart';
+import 'package:covid_overcoming/domain/usecase/local/cache/cache_account_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/remote/firebase/firebase_user_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
@@ -21,8 +21,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._signInWithEmailAndPasswordUseCase,
     this._signUpWithEmailAndPasswordUseCase,
     this._signOutUseCase,
-    this._saveUserUseCase,
-    this._saveLocalUserUseCase,
+    this._saveAccountUseCase,
+    this._saveLocalAccountUseCase,
     this._clearCacheDataUseCase,
   ) : super(AuthInitialState()) {
     on<AuthGetCurrentUserEvent>(_onGetCurrentUserEvent);
@@ -39,8 +39,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithEmailAndPasswordUseCase _signInWithEmailAndPasswordUseCase;
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
   final SignOutUseCase _signOutUseCase;
-  final SaveUserUseCase _saveUserUseCase;
-  final SaveLocalUserUseCase _saveLocalUserUseCase;
+  final SaveAccountUseCase _saveAccountUseCase;
+  final SaveLocalAccountUseCase _saveLocalAccountUseCase;
   final ClearCacheDataUseCase _clearCacheDataUseCase;
 
   Future<void> _onGetCurrentUserEvent(
@@ -62,7 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthSignInWithGoogleEvent event,
     Emitter emit,
   ) async {
-    _signInWithSocial(
+    await _signInWithSocial(
       emit: emit,
       signInFunction: _signInWithGoogleUseCase,
     );
@@ -72,7 +72,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthSignInWithFacebookEvent event,
     Emitter emit,
   ) async {
-    _signInWithSocial(
+    await _signInWithSocial(
       emit: emit,
       signInFunction: _signInWithFacebookUseCase,
     );
@@ -94,8 +94,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (res.isRight) {
       final user = res.right;
-      final userModel = UserModel.fromUser(user);
-      await _saveLocalUser(userModel);
+      final accountModel = AccountModel.fromUser(user);
+      await _saveLocalAccount(accountModel);
       emit(AuthSignInSuccessState(user));
     } else {
       emit(AuthSignInFailedState(res.left));
@@ -118,11 +118,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (res.isRight) {
       final user = res.right;
-      final userModel = UserModel.fromUser(user);
+      final accountModel = AccountModel.fromUser(user);
 
       // No need to handle the result, just call api
-      await _saveFirebaseUser(
-        userModel: userModel,
+      await _saveFirebaseAccount(
+        accountModel: accountModel,
         shouldReplace: true,
       );
 
@@ -141,18 +141,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final res = await signInFunction();
     if (res.isRight) {
       final user = res.right;
-      final userModel = UserModel.fromUser(user);
+      final accountModel = AccountModel.fromUser(user);
 
       // Should not overwrite user info
       // Just save user info first time login
       // Eg: Google, Facebook, ...
 
       // No need to handle the result, just call api here
-      await _saveFirebaseUser(
-        userModel: userModel,
+      await _saveFirebaseAccount(
+        accountModel: accountModel,
         shouldReplace: false,
       );
-      await _saveLocalUser(userModel);
+      await _saveLocalAccount(accountModel);
 
       emit(AuthSignInSuccessState(user));
     } else {
@@ -176,18 +176,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<Either<Error, bool>> _saveFirebaseUser({
-    required UserModel userModel,
+  Future<Either<Error, bool>> _saveFirebaseAccount({
+    required AccountModel accountModel,
     required bool shouldReplace,
   }) async {
-    final params = FirebaseSaveUserParams(
-      userModel: userModel,
+    final params = FirebaseSaveAccountParams(
+      accountModel: accountModel,
       shouldReplace: shouldReplace,
     );
-    return await _saveUserUseCase(params);
+    return await _saveAccountUseCase(params);
   }
 
-  Future<Either<Error, bool>> _saveLocalUser(UserModel userModel) async {
-    return await _saveLocalUserUseCase(userModel);
+  Future<Either<Error, bool>> _saveLocalAccount(AccountModel accountModel) async {
+    return await _saveLocalAccountUseCase(accountModel);
   }
 }

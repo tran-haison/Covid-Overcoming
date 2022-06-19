@@ -9,6 +9,7 @@ class Dimens {
   static const double dimen25 = 25;
   static const double dimen30 = 30;
   static const double dimen40 = 40;
+  static const double dimen50 = 50;
 
   /// Elevation
   static const double elevation0_5 = 0.5;
@@ -20,6 +21,7 @@ class Dimens {
   static const double radius5 = 5;
   static const double radius8 = 8;
   static const double radius10 = 10;
+  static const double radius25 = 25;
   static const double radius30 = 30;
 
   /// Line height

@@ -1,17 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_model.g.dart';
+part 'account_model.g.dart';
 
 @JsonSerializable()
-class UserModel {
-  const UserModel({
+class AccountModel {
+  const AccountModel({
     required this.uid,
     required this.name,
     required this.email,
     required this.photoUrl,
     required this.birthday,
     required this.gender,
+    required this.role,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -29,28 +30,52 @@ class UserModel {
 
   final String gender;
 
+  final String role;
+
   @JsonKey(name: 'created_at')
   final String createdAt;
 
   @JsonKey(name: 'updated_at')
   final String updatedAt;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  AccountRole get accountRole => AccountRoleExtension.toRoleAccount(role);
 
-  Map<String, dynamic> toJson() => _$UserModelToJson(this);
+  factory AccountModel.fromJson(Map<String, dynamic> json) =>
+      _$AccountModelFromJson(json);
 
-  factory UserModel.fromUser(User user) {
-    return UserModel(
+  Map<String, dynamic> toJson() => _$AccountModelToJson(this);
+
+  factory AccountModel.fromUser(User user) {
+    return AccountModel(
       uid: user.uid,
       name: user.displayName ?? '',
       email: user.email ?? '',
       photoUrl: user.photoURL ?? '',
       birthday: '',
       gender: '',
+      role: AccountRole.user.toRoleString(),
       createdAt: user.metadata.creationTime?.toIso8601String() ??
           DateTime.now().toIso8601String(),
       updatedAt: DateTime.now().toIso8601String(),
+    );
+  }
+}
+
+enum AccountRole { user, expert }
+
+extension AccountRoleExtension on AccountRole {
+  String toRoleString() {
+    switch (this) {
+      case AccountRole.user:
+        return 'user';
+      case AccountRole.expert:
+        return 'expert';
+    }
+  }
+
+  static AccountRole toRoleAccount(String value) {
+    return AccountRole.values.firstWhere(
+      (role) => role.toRoleString() == value,
     );
   }
 }

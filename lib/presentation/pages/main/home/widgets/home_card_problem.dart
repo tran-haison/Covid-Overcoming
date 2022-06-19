@@ -38,6 +38,7 @@ class HomeCardProblem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(Dimens.radius10),
         child: SizedBox(
           width: 150,
           height: 150,
