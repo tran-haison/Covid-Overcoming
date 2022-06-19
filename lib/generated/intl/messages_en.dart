@@ -29,12 +29,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "begin_your_journey_with_us_from_today":
             MessageLookupByLibrary.simpleMessage(
                 "Begin your journey with us from today"),
+        "change_password":
+            MessageLookupByLibrary.simpleMessage("Change password"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "continue_": MessageLookupByLibrary.simpleMessage("Continue"),
+        "days": MessageLookupByLibrary.simpleMessage("Days"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "edit_profile": MessageLookupByLibrary.simpleMessage("Edit profile"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enter_email_and_password_to_get_started":
             MessageLookupByLibrary.simpleMessage(
@@ -44,6 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "exercise_provider_description": MessageLookupByLibrary.simpleMessage(
             "Provide exercises to help recover, from simple to advanced"),
         "expert": MessageLookupByLibrary.simpleMessage("Expert"),
+        "expert_certified_content": MessageLookupByLibrary.simpleMessage(
+            "You can add rules, modify the assessment test, and chat with patients"),
+        "expert_certified_title":
+            MessageLookupByLibrary.simpleMessage("You are an Expert"),
         "expert_connection":
             MessageLookupByLibrary.simpleMessage("Expert connection"),
         "expert_connection_description": MessageLookupByLibrary.simpleMessage(
@@ -51,8 +59,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "features": MessageLookupByLibrary.simpleMessage("Features"),
         "features_description": MessageLookupByLibrary.simpleMessage(
             "We continuously improve our product to bring more value to people"),
+        "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
         "forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
+        "help": MessageLookupByLibrary.simpleMessage("Help"),
         "how_do_you_feel_today":
             MessageLookupByLibrary.simpleMessage("How do you feel today?"),
         "invalid_email": MessageLookupByLibrary.simpleMessage("Invalid email"),
@@ -60,9 +70,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "mental": MessageLookupByLibrary.simpleMessage("Mental"),
         "mental_problems":
             MessageLookupByLibrary.simpleMessage("Mental problems"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "page_not_found":
             MessageLookupByLibrary.simpleMessage("Page not found"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "personal": MessageLookupByLibrary.simpleMessage("Personal"),
         "physical": MessageLookupByLibrary.simpleMessage("Physical"),
         "physical_problems":
             MessageLookupByLibrary.simpleMessage("Physical problems"),
@@ -72,23 +85,30 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter email"),
         "please_enter_password":
             MessageLookupByLibrary.simpleMessage("Please enter password"),
+        "privacy_policy":
+            MessageLookupByLibrary.simpleMessage("Privacy policy"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "recovery_tracking":
             MessageLookupByLibrary.simpleMessage("Recovery tracking"),
         "recovery_tracking_description": MessageLookupByLibrary.simpleMessage(
             "Monitor the stage of recovery to get full insight of heath status"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
         "sign_out": MessageLookupByLibrary.simpleMessage("Sign out"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "sign_up_successfully": MessageLookupByLibrary.simpleMessage(
             "Register new user successfully"),
+        "stage": MessageLookupByLibrary.simpleMessage("Stage"),
         "stages": MessageLookupByLibrary.simpleMessage("Stages"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "test_system": MessageLookupByLibrary.simpleMessage("Test system"),
         "test_system_description": MessageLookupByLibrary.simpleMessage(
             "Various tests to quickly find out any problem with body system"),
+        "tests_passed": MessageLookupByLibrary.simpleMessage("Tests passed"),
         "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
+        "version": MessageLookupByLibrary.simpleMessage("Version"),
         "we_will_send_a_link_to_your_email_to_reset_password":
             MessageLookupByLibrary.simpleMessage(
                 "We will send a link to your email to reset password"),

@@ -54,7 +54,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       controller: widget.controller,
       onChanged: widget.onChanged,
       textAlignVertical: TextAlignVertical.center,
-      style: textStyle14Medium,
+      style: textStyle14Medium.copyWith(height: 1.5),
       decoration: InputDecoration(
         icon: widget.icon,
         suffixIcon: widget.isPassword
@@ -69,7 +69,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
               )
             : Visibility(visible: false, child: Container()),
         hintText: widget.hintText,
-        hintStyle: textStyle14Gray,
+        hintStyle: textStyle14Gray.copyWith(height: 1.5),
         border: InputBorder.none,
       ),
       obscureText: widget.isPassword ? !_passwordVisible : widget.isPassword,

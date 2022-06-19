@@ -41,7 +41,8 @@ import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i27;
 import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i14;
 import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i15;
 import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i24;
-import 'app_module.dart' as _i28; // ignore_for_file: unnecessary_lambdas
+import '../../presentation/pages/profile/bloc/profile_bloc.dart' as _i28;
+import 'app_module.dart' as _i29; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -108,7 +109,11 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i18.ClearCacheDataUseCase>()));
   gh.factory<_i21.CheckAccountExistsUseCase>(
       () => _i21.CheckAccountExistsUseCase(get<_i19.FirebaseRepository>()));
+  gh.factory<_i28.ProfileBloc>(() => _i28.ProfileBloc(
+      get<_i13.GetLocalAccountUseCase>(),
+      get<_i26.SignOutUseCase>(),
+      get<_i18.ClearCacheDataUseCase>()));
   return get;
 }
 
-class _$AppModule extends _i28.AppModule {}
+class _$AppModule extends _i29.AppModule {}

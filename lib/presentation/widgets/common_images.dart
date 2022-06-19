@@ -71,24 +71,28 @@ class CommonAvatar extends StatelessWidget {
     this.radius = 40,
     this.height = 80,
     this.width = 80,
+    this.padding = 0,
   }) : super(key: key);
 
   final String? photoUrl;
   final double radius;
   final double height;
   final double width;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width,
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: colorBlack54,
-            width: 2.0,
-          )),
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: colorLightGray1,
+          width: 2.0,
+        ),
+      ),
       child: CircleAvatar(
         radius: radius,
         backgroundColor: colorWhite,

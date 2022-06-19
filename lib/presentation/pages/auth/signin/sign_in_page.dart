@@ -93,6 +93,7 @@ class _SignInPageState extends State<SignInPage>
                       S.current.sign_in,
                       style: textStyle40Bold,
                     ),
+                    vGap10,
                     Text(
                       S.current.enter_email_and_password_to_get_started,
                       style: textStyle14Gray,

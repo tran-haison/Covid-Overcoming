@@ -44,5 +44,21 @@
   "please_confirm_password": "Please confirm password",
   "invalid_email": "Invalid email",
   "success": "Success",
-  "sign_up_successfully": "Register new user successfully"
+  "sign_up_successfully": "Register new user successfully",
+  "profile": "Profile",
+  "edit_profile": "Edit profile",
+  "name": "Name",
+  "stage": "Stage",
+  "days": "Days",
+  "tests_passed": "Tests passed",
+  "expert_certified_title": "You are an Expert",
+  "expert_certified_content": "You can add rules, modify the assessment test, and chat with patients",
+  "change_password": "Change password",
+  "notification": "Notification",
+  "settings": "Settings",
+  "feedback": "Feedback",
+  "privacy_policy": "Privacy policy",
+  "version": "Version",
+  "personal": "Personal",
+  "help": "Help"
 }

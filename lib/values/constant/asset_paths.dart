@@ -26,4 +26,13 @@ class AssetPaths {
   static const icPhoneCallOutlined = 'assets/icons/ic_phone_call_outlined.png';
   static const icUser = 'assets/icons/ic_user.png';
   static const icUserOutlined = 'assets/icons/ic_user_outlined.png';
+  static const icCheck = 'assets/icons/ic_check.png';
+  static const icExperience = 'assets/icons/ic_experience.png';
+  static const icFeedback = 'assets/icons/ic_feedback.png';
+  static const icNotification = 'assets/icons/ic_notification.png';
+  static const icPassword = 'assets/icons/ic_password.png';
+  static const icPrivacy = 'assets/icons/ic_privacy.png';
+  static const icSettings = 'assets/icons/ic_settings.png';
+  static const icVersion = 'assets/icons/ic_version.png';
+  static const icArrowRight = 'assets/icons/ic_arrow_right.png';
 }

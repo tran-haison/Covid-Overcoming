@@ -57,7 +57,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           Text(
                             S.current
                                 .we_will_send_a_link_to_your_email_to_reset_password,
-                            style: textStyle14Gray,
+                            style: textStyle14Gray.copyWith(height: 1.5),
                           ),
                           vGap20,
                           _buildEmailTextFormField(),

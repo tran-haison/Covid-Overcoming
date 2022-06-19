@@ -32,9 +32,10 @@ class OnBoardingPage extends StatelessWidget {
                       S.current.features,
                       style: textStyle40Bold,
                     ),
+                    vGap5,
                     Text(
                       S.current.features_description,
-                      style: textStyle14Gray,
+                      style: textStyle14Gray.copyWith(height: 1.5),
                       textAlign: TextAlign.center,
                     ),
                     vGap40,
@@ -93,7 +94,7 @@ class OnBoardingPage extends StatelessWidget {
               ),
               Text(
                 content,
-                style: textStyle12Gray,
+                style: textStyle12Gray.copyWith(height: 1.5),
               ),
             ],
           ),

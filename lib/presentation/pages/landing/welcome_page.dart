@@ -35,14 +35,15 @@ class WelcomePage extends StatelessWidget {
                       ),
                       vGap10,
                       const Text(Strings.appName),
+                      vGap15,
                       Text(
                         S.current.welcome,
                         style: textStyle40Bold,
                       ),
-                      vGap10,
+                      vGap15,
                       Text(
                         S.current.welcome_description,
-                        style: textStyle12Gray,
+                        style: textStyle12Gray.copyWith(height: 1.5),
                         textAlign: TextAlign.center,
                       ),
                     ],

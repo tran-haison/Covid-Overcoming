@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
     return BlocBuilder<HomeBloc, HomeState>(
       buildWhen: (context, state) => state is HomeGetLocalAccountState,
       builder: (context, state) {
-        final user = state.accountModel;
+        final account = state.accountModel;
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
                   ),
                   vGap5,
                   Text(
-                    user != null ? user.name : '',
+                    account != null ? account.name : '',
                     style: textStyle26Medium.copyWith(height: 1),
                   ),
                 ],
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
               splashColor: colorBlack,
               highlightColor: colorBlack,
               child: CommonAvatar(
-                photoUrl: user?.photoUrl,
+                photoUrl: account?.photoUrl,
                 height: Dimens.dimen50,
                 width: Dimens.dimen50,
               ),

@@ -108,6 +108,7 @@ class _SignUpPageState extends State<SignUpPage>
                             S.current.sign_up,
                             style: textStyle40Bold,
                           ),
+                          vGap10,
                           Text(
                             S.current.begin_your_journey_with_us_from_today,
                             style: textStyle14Gray,

@@ -51,10 +51,7 @@ class HomeGetLocalAccountSuccessState extends HomeGetLocalAccountState {
   HomeGetLocalAccountSuccessState({
     required HomeState oldState,
     required AccountModel accountModel,
-  }) : super(
-          oldState: oldState,
-          accountModel: accountModel,
-        );
+  }) : super(oldState: oldState, accountModel: accountModel);
 }
 
 class HomeGetLocalAccountFailedState extends HomeGetLocalAccountState {
