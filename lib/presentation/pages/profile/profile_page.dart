@@ -83,6 +83,7 @@ class _ProfilePageState extends State<ProfilePage>
               _buildListActionItems(),
               vGap30,
               _buildButtonSignOut(),
+              vGap30,
             ],
           ),
         ),
