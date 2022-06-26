@@ -10,4 +10,8 @@ extension StringExtension on String {
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     return isNotEmpty && RegExp(pattern).hasMatch(this);
   }
+
+  DateTime toDateTime() {
+    return DateTime.parse(this);
+  }
 }

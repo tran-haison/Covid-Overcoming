@@ -51,6 +51,11 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
     );
   }
 
+  @override
+  Stream<List<AccountModel>> getAccountsStream() {
+    return fireStoreDatabase.getAccountsStream();
+  }
+
   /// Generic function with error handling for firebase methods
   Future<Either<Error, T>> _firebaseMethodCall<T>({
     required Future<Either<Error, T>> Function() function,

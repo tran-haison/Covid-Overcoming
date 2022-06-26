@@ -28,21 +28,22 @@ import '../../domain/repository/local/local_cache_repository.dart' as _i9;
 import '../../domain/repository/local/local_database_repository.dart' as _i11;
 import '../../domain/repository/remote/firebase/firebase_repository.dart'
     as _i19;
-import '../../domain/usecase/auth/auth_action_usecase.dart' as _i26;
+import '../../domain/usecase/auth/auth_action_usecase.dart' as _i27;
 import '../../domain/usecase/auth/auth_state_usecase.dart' as _i25;
 import '../../domain/usecase/auth/manage_user_usecase.dart' as _i23;
 import '../../domain/usecase/local/cache/cache_account_usecase.dart' as _i13;
 import '../../domain/usecase/local/cache/cache_data_usecase.dart' as _i18;
 import '../../domain/usecase/local/database/get_all_stages_usecase.dart'
     as _i22;
-import '../../domain/usecase/remote/firebase/firebase_user_usecase.dart'
+import '../../domain/usecase/remote/firebase/firebase_account_usecase.dart'
     as _i21;
-import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i27;
+import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i28;
 import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i14;
 import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i15;
 import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i24;
-import '../../presentation/pages/profile/bloc/profile_bloc.dart' as _i28;
-import 'app_module.dart' as _i29; // ignore_for_file: unnecessary_lambdas
+import '../../presentation/pages/main/schedule/bloc/schedule_bloc.dart' as _i26;
+import '../../presentation/pages/profile/bloc/profile_bloc.dart' as _i29;
+import 'app_module.dart' as _i30; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -56,7 +57,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i5.AuthService>(() => _i5.AuthServiceImpl());
   gh.lazySingleton<_i6.FirestoreBaseService>(() => _i6.FirestoreBaseService());
   gh.lazySingleton<_i7.FirestoreChatService>(
-      () => _i7.FirestoreChatServiceImpl());
+      () => _i7.FirestoreChatServiceImpl(get<_i6.FirestoreBaseService>()));
   gh.lazySingleton<_i8.FirestoreDatabaseService>(
       () => _i8.FirestoreDatabaseServiceImpl(get<_i6.FirestoreBaseService>()));
   gh.lazySingleton<_i9.LocalCacheRepository>(
@@ -87,33 +88,35 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i25.OnAuthStateChangesUseCase(get<_i16.AuthRepository>()));
   gh.factory<_i21.SaveAccountUseCase>(
       () => _i21.SaveAccountUseCase(get<_i19.FirebaseRepository>()));
-  gh.factory<_i26.SignInWithEmailAndPasswordUseCase>(
-      () => _i26.SignInWithEmailAndPasswordUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i26.SignInWithFacebookUseCase>(
-      () => _i26.SignInWithFacebookUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i26.SignInWithGoogleUseCase>(
-      () => _i26.SignInWithGoogleUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i26.SignOutUseCase>(
-      () => _i26.SignOutUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i26.SignUpWithEmailAndPasswordUseCase>(
-      () => _i26.SignUpWithEmailAndPasswordUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i27.AuthBloc>(() => _i27.AuthBloc(
+  gh.factory<_i26.ScheduleBloc>(
+      () => _i26.ScheduleBloc(get<_i19.FirebaseRepository>()));
+  gh.factory<_i27.SignInWithEmailAndPasswordUseCase>(
+      () => _i27.SignInWithEmailAndPasswordUseCase(get<_i16.AuthRepository>()));
+  gh.factory<_i27.SignInWithFacebookUseCase>(
+      () => _i27.SignInWithFacebookUseCase(get<_i16.AuthRepository>()));
+  gh.factory<_i27.SignInWithGoogleUseCase>(
+      () => _i27.SignInWithGoogleUseCase(get<_i16.AuthRepository>()));
+  gh.factory<_i27.SignOutUseCase>(
+      () => _i27.SignOutUseCase(get<_i16.AuthRepository>()));
+  gh.factory<_i27.SignUpWithEmailAndPasswordUseCase>(
+      () => _i27.SignUpWithEmailAndPasswordUseCase(get<_i16.AuthRepository>()));
+  gh.factory<_i28.AuthBloc>(() => _i28.AuthBloc(
       get<_i23.GetCurrentUserUseCase>(),
-      get<_i26.SignInWithGoogleUseCase>(),
-      get<_i26.SignInWithFacebookUseCase>(),
-      get<_i26.SignInWithEmailAndPasswordUseCase>(),
-      get<_i26.SignUpWithEmailAndPasswordUseCase>(),
-      get<_i26.SignOutUseCase>(),
+      get<_i27.SignInWithGoogleUseCase>(),
+      get<_i27.SignInWithFacebookUseCase>(),
+      get<_i27.SignInWithEmailAndPasswordUseCase>(),
+      get<_i27.SignUpWithEmailAndPasswordUseCase>(),
+      get<_i27.SignOutUseCase>(),
       get<_i21.SaveAccountUseCase>(),
       get<_i13.SaveLocalAccountUseCase>(),
       get<_i18.ClearCacheDataUseCase>()));
   gh.factory<_i21.CheckAccountExistsUseCase>(
       () => _i21.CheckAccountExistsUseCase(get<_i19.FirebaseRepository>()));
-  gh.factory<_i28.ProfileBloc>(() => _i28.ProfileBloc(
+  gh.factory<_i29.ProfileBloc>(() => _i29.ProfileBloc(
       get<_i13.GetLocalAccountUseCase>(),
-      get<_i26.SignOutUseCase>(),
+      get<_i27.SignOutUseCase>(),
       get<_i18.ClearCacheDataUseCase>()));
   return get;
 }
 
-class _$AppModule extends _i29.AppModule {}
+class _$AppModule extends _i30.AppModule {}

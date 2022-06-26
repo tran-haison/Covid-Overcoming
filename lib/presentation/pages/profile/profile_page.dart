@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage>
               _buildListActionItems(),
               vGap30,
               _buildButtonSignOut(),
-              vGap30,
+              vGap10,
             ],
           ),
         ),
@@ -121,34 +121,18 @@ class _ProfilePageState extends State<ProfilePage>
               account?.email ?? S.current.email,
               style: textStyle14Gray,
             ),
-            vGap15,
-            _buildEditProfileButton(),
             vGap30,
             _buildAccountStats(),
             vGap30,
-            _buildExpertCertified(),
+            _buildSingleActionItem(
+              iconPath: AssetPaths.icCheck,
+              text: S.current.expert_certified_title,
+              onTap: () {},
+            ),
+            //_buildExpertCertified(),
           ],
         );
       },
-    );
-  }
-
-  Widget _buildEditProfileButton() {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimens.radius30),
-        ),
-      ),
-      onPressed: () {},
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Icon(Icons.edit, color: colorPrimary),
-          hGap5,
-          Text(S.current.edit_profile),
-        ],
-      ),
     );
   }
 
@@ -189,50 +173,17 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-  Widget _buildExpertCertified() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(Dimens.dimen15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.radius10),
-        shape: BoxShape.rectangle,
-        border: Border.all(
-          color: colorGray200,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: <Widget>[
-          const CommonAssetIcon(iconPath: AssetPaths.icExperience),
-          hGap15,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  S.current.expert_certified_title,
-                  style: textStyle16Medium.copyWith(color: colorPrimary),
-                ),
-                vGap5,
-                Text(
-                  S.current.expert_certified_content,
-                  style: textStyle12Gray.copyWith(height: 1.2),
-                )
-              ],
-            ),
-          ),
-          hGap15,
-          const CommonAssetIcon(iconPath: AssetPaths.icCheck),
-        ],
-      ),
-    );
-  }
-
   Widget _buildListActionItems() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildTextSection(S.current.personal),
+        vGap10,
+        _buildSingleActionItem(
+          iconPath: AssetPaths.icEdit,
+          text: S.current.edit_profile,
+          onTap: () {},
+        ),
         vGap10,
         _buildSingleActionItem(
           iconPath: AssetPaths.icPassword,
@@ -286,6 +237,7 @@ class _ProfilePageState extends State<ProfilePage>
     required String iconPath,
     required String text,
     required VoidCallback onTap,
+    String? trailingText,
   }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -327,10 +279,16 @@ class _ProfilePageState extends State<ProfilePage>
                     ),
                   ),
                   hGap10,
-                  const CommonAssetIcon(
-                    iconPath: AssetPaths.icArrowRight,
-                    color: colorDarkGray1,
-                  ),
+                  if (trailingText != null && trailingText.isNotEmpty)
+                    Text(
+                      trailingText,
+                      style: textStyle16Medium,
+                    ),
+                  if (trailingText == null)
+                    const CommonAssetIcon(
+                      iconPath: AssetPaths.icArrowRight,
+                      color: colorDarkGray1,
+                    ),
                 ],
               ),
             ),
@@ -345,6 +303,10 @@ class _ProfilePageState extends State<ProfilePage>
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimens.radius30),
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.dimen30,
+          vertical: Dimens.dimen8,
         ),
       ),
       onPressed: () {

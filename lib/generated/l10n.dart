@@ -669,6 +669,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Chat`
+  String get chat {
+    return Intl.message(
+      'Chat',
+      name: 'chat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No user found...`
+  String get no_user_found {
+    return Intl.message(
+      'No user found...',
+      name: 'no_user_found',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

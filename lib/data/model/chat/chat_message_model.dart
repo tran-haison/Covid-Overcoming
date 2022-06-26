@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/data/model/account/account_model.dart';
+import 'package:covid_overcoming/utils/extension/string_extension.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chat_message_model.g.dart';
@@ -6,20 +6,27 @@ part 'chat_message_model.g.dart';
 @JsonSerializable()
 class ChatMessageModel {
   const ChatMessageModel({
-    required this.id,
-    required this.account,
+    required this.idFrom,
+    required this.idTo,
     required this.message,
     required this.createdAt,
+    required this.type,
   });
 
-  final String id;
+  @JsonKey(name: 'id_from')
+  final String idFrom;
 
-  final AccountModel account;
+  @JsonKey(name: 'id_to')
+  final String idTo;
 
   final String message;
 
   @JsonKey(name: 'created_at')
   final String createdAt;
+
+  final int type;
+
+  DateTime get createdAtDateTime => createdAt.toDateTime();
 
   factory ChatMessageModel.fromJson(Map<String, dynamic> json) =>
       _$ChatMessageModelFromJson(json);

@@ -60,5 +60,7 @@
   "privacy_policy": "Privacy policy",
   "version": "Version",
   "personal": "Personal",
-  "help": "Help"
+  "help": "Help",
+  "chat": "Chat",
+  "no_user_found": "No user found..."
 }

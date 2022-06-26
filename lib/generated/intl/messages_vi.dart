@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Begin your journey with us from today"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
@@ -71,6 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mental_problems":
             MessageLookupByLibrary.simpleMessage("Mental problems"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "no_user_found":
+            MessageLookupByLibrary.simpleMessage("No user found..."),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "page_not_found":
             MessageLookupByLibrary.simpleMessage("Trang không tìm thấy"),

@@ -96,7 +96,7 @@ class CommonAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: radius,
         backgroundColor: colorWhite,
-        backgroundImage: photoUrl != null
+        backgroundImage: photoUrl != null && photoUrl!.isNotEmpty
             ? CachedNetworkImageProvider(
                 photoUrl!,
               )

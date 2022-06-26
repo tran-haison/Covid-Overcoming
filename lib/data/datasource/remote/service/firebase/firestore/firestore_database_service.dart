@@ -9,6 +9,8 @@ abstract class FirestoreDatabaseService {
   Future<AccountModel> getAccount(String uid);
 
   Future<bool> checkAccountExists(String uid);
+
+  Stream<List<AccountModel>> getAccountsStream();
 }
 
 @LazySingleton(as: FirestoreDatabaseService)
@@ -37,6 +39,14 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
   Future<bool> checkAccountExists(String uid) async {
     return await baseService.checkDataExists(
       path: FirestorePaths.account(uid),
+    );
+  }
+
+  @override
+  Stream<List<AccountModel>> getAccountsStream() {
+    return baseService.collectionStream(
+      path: FirestorePaths.accounts(),
+      builder: (data, documentId) => AccountModel.fromJson(data),
     );
   }
 }

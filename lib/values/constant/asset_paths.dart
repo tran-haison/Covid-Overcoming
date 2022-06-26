@@ -35,4 +35,5 @@ class AssetPaths {
   static const icSettings = 'assets/icons/ic_settings.png';
   static const icVersion = 'assets/icons/ic_version.png';
   static const icArrowRight = 'assets/icons/ic_arrow_right.png';
+  static const icEdit = 'assets/icons/ic_edit.png';
 }

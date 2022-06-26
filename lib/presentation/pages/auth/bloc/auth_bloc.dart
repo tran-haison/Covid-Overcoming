@@ -4,7 +4,7 @@ import 'package:covid_overcoming/domain/usecase/auth/auth_action_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/manage_user_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/local/cache/cache_data_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/local/cache/cache_account_usecase.dart';
-import 'package:covid_overcoming/domain/usecase/remote/firebase/firebase_user_usecase.dart';
+import 'package:covid_overcoming/domain/usecase/remote/firebase/firebase_account_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
 import 'package:either_dart/either.dart';

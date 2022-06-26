@@ -11,4 +11,6 @@ abstract class FirebaseRepository {
   Future<Either<Error, AccountModel>> getAccount(String uid);
 
   Future<Either<Error, bool>> checkAccountExists(String uid);
+
+  Stream<List<AccountModel>> getAccountsStream();
 }
