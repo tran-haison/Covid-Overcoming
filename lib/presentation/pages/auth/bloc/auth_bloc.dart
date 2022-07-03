@@ -1,9 +1,8 @@
 import 'package:covid_overcoming/core/error/error.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
+import 'package:covid_overcoming/domain/repository/local/local_cache_repository.dart';
 import 'package:covid_overcoming/domain/usecase/auth/auth_action_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/auth/manage_user_usecase.dart';
-import 'package:covid_overcoming/domain/usecase/local/cache/cache_data_usecase.dart';
-import 'package:covid_overcoming/domain/usecase/local/cache/cache_account_usecase.dart';
 import 'package:covid_overcoming/domain/usecase/remote/firebase/firebase_account_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
@@ -22,8 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._signUpWithEmailAndPasswordUseCase,
     this._signOutUseCase,
     this._saveAccountUseCase,
-    this._saveLocalAccountUseCase,
-    this._clearCacheDataUseCase,
+    this._localCacheRepository,
   ) : super(AuthInitialState()) {
     on<AuthGetCurrentUserEvent>(_onGetCurrentUserEvent);
     on<AuthSignInWithGoogleEvent>(_onSignInWithGoogleEvent);
@@ -40,8 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
   final SignOutUseCase _signOutUseCase;
   final SaveAccountUseCase _saveAccountUseCase;
-  final SaveLocalAccountUseCase _saveLocalAccountUseCase;
-  final ClearCacheDataUseCase _clearCacheDataUseCase;
+  final LocalCacheRepository _localCacheRepository;
 
   Future<void> _onGetCurrentUserEvent(
     AuthGetCurrentUserEvent event,
@@ -169,7 +166,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     // Sign out
     final res = await _signOutUseCase();
     if (res.isRight) {
-      await _clearCacheDataUseCase();
+      await _localCacheRepository.clear();
       emit(AuthSignOutSuccessState());
     } else {
       emit(AuthSignOutFailedState(res.left));
@@ -187,7 +184,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return await _saveAccountUseCase(params);
   }
 
-  Future<Either<Error, bool>> _saveLocalAccount(AccountModel accountModel) async {
-    return await _saveLocalAccountUseCase(accountModel);
+  Future<bool> _saveLocalAccount(AccountModel accountModel) async {
+    return await _localCacheRepository.saveAccount(accountModel);
   }
 }

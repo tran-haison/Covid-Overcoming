@@ -14,4 +14,7 @@ class NavigatorPaths {
 
   /// Profile route
   static const profile = '/profile';
+
+  /// Chat route
+  static const chatDetail = '/chat-detail';
 }

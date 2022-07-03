@@ -1,7 +1,8 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
+import 'package:covid_overcoming/config/route/router/chat_router.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
-import 'package:covid_overcoming/presentation/pages/main/schedule/bloc/schedule_bloc.dart';
+import 'package:covid_overcoming/presentation/pages/main/chat/bloc/chat_bloc.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
@@ -9,18 +10,16 @@ import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SchedulePage extends StatefulWidget {
-  const SchedulePage({Key? key}) : super(key: key);
+class ChatPage extends StatefulWidget {
+  const ChatPage({Key? key}) : super(key: key);
 
   @override
-  State<SchedulePage> createState() => _SchedulePageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _SchedulePageState extends State<SchedulePage>
+class _ChatPageState extends State<ChatPage>
     with SingleTickerProviderStateMixin {
-  final _scheduleBloc = getIt<ScheduleBloc>();
-
-  // TODO: add load more list account
+  final _chatBloc = getIt<ChatBloc>();
   final _scrollController = ScrollController();
 
   @override
@@ -31,8 +30,8 @@ class _SchedulePageState extends State<SchedulePage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ScheduleBloc>(
-      create: (_) => _scheduleBloc,
+    return BlocProvider<ChatBloc>(
+      create: (_) => _chatBloc,
       child: Scaffold(
         body: SafeArea(
           child: Column(
@@ -56,34 +55,60 @@ class _SchedulePageState extends State<SchedulePage>
   }
 
   Widget _buildListAccounts() {
-    return StreamBuilder<List<AccountModel>>(
-      stream: _scheduleBloc.accountsStream,
+    return FutureBuilder<AccountModel>(
+      future: _chatBloc.account,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final accounts = snapshot.data;
-          if (accounts != null && accounts.isNotEmpty) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: accounts.length,
-              itemBuilder: (context, index) => _buildSingleAccount(
-                accounts[index],
-              ),
-              controller: _scrollController,
-            );
-          }
-          return Center(
-            child: Text(S.current.no_user_found),
-          );
+        final currentAccount = snapshot.data;
+
+        if (currentAccount == null) {
+          return empty;
         }
-        return const Center(
-          child: CircularProgressIndicator(),
+
+        return StreamBuilder<List<AccountModel>>(
+          stream: _chatBloc.accountsStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final accounts = snapshot.data;
+              if (accounts != null && accounts.isNotEmpty) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: accounts.length,
+                  itemBuilder: (context, index) {
+                    final account = accounts[index];
+
+                    if (currentAccount.uid == account.uid) {
+                      return empty;
+                    }
+
+                    return _buildSingleAccountItem(
+                      otherAccount: account,
+                      currentAccount: currentAccount,
+                    );
+                  },
+                  controller: _scrollController,
+                );
+              }
+              return Center(
+                child: Text(
+                  S.current.no_user_found,
+                  style: textStyle16Medium,
+                ),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         );
       },
     );
   }
 
-  Widget _buildSingleAccount(AccountModel accountModel) {
-    final photoUrl = accountModel.photoUrl;
+  Widget _buildSingleAccountItem({
+    required AccountModel otherAccount,
+    required AccountModel currentAccount,
+  }) {
+    final photoUrl = otherAccount.photoUrl;
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -103,12 +128,12 @@ class _SchedulePageState extends State<SchedulePage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    accountModel.name,
+                    otherAccount.name,
                     style: textStyle16Medium,
                   ),
                   vGap5,
                   Text(
-                    accountModel.email,
+                    otherAccount.email,
                     style: textStyle12Gray,
                   ),
                 ],
@@ -117,7 +142,13 @@ class _SchedulePageState extends State<SchedulePage>
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        ChatRouter.goChatDetail(
+          context,
+          accountMe: currentAccount,
+          accountOther: otherAccount,
+        );
+      },
     );
   }
 }

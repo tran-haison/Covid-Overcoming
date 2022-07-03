@@ -13,7 +13,7 @@ extension DateExtension on DateTime {
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 
-  String toStringWithFormat([String format = 'dd-MM-yyyy']) {
+  String toStringWithFormat([String format = 'dd-MM-yyyy hh:mm']) {
     return DateFormat(format).format(this);
   }
 }

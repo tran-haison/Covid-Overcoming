@@ -1,5 +1,6 @@
 import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
+import 'package:covid_overcoming/config/route/router/chat_router.dart';
 import 'package:covid_overcoming/config/route/router/landing_router.dart';
 import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/config/route/router/profile_router.dart';
@@ -21,4 +22,5 @@ void configureRoutes() {
   LandingRouter().defineRoutes(router);
   MainRouter().defineRoutes(router);
   ProfileRouter().defineRoutes(router);
+  ChatRouter().defineRoutes(router);
 }

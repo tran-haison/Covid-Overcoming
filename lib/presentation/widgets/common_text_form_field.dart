@@ -7,17 +7,17 @@ class CommonTextFormField extends StatefulWidget {
   const CommonTextFormField({
     Key? key,
     required this.hintText,
-    required this.icon,
-    required this.isPassword,
     required this.onChanged,
     required this.controller,
+    this.isPassword = false,
+    this.icon,
     this.validator,
     this.autoValidateMode,
     this.radius = Dimens.radius8,
   }) : super(key: key);
 
   final String hintText;
-  final Icon icon;
+  final Icon? icon;
   final bool isPassword;
   final ValueChanged<String> onChanged;
   final TextEditingController controller;
@@ -67,7 +67,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
                   _passwordVisible = !_passwordVisible;
                 }),
               )
-            : Visibility(visible: false, child: Container()),
+            : null,
         hintText: widget.hintText,
         hintStyle: textStyle14Gray.copyWith(height: 1.5),
         border: InputBorder.none,

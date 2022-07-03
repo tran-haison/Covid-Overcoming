@@ -1,4 +1,4 @@
-import 'package:covid_overcoming/domain/usecase/local/cache/cache_account_usecase.dart';
+import 'package:covid_overcoming/domain/repository/local/local_cache_repository.dart';
 import 'package:covid_overcoming/domain/usecase/local/database/get_all_stages_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_event.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_state.dart';
@@ -9,14 +9,14 @@ import 'package:injectable/injectable.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(
     this._getAllStagesUseCase,
-    this._getLocalAccountUseCase,
+    this._localCacheRepository,
   ) : super(HomeInitialState()) {
     on<HomeGetAllStagesEvent>(_onHomeGetAllStagesEvent);
     on<HomeGetLocalAccountEvent>(_onHomeGetLocalAccountEvent);
   }
 
   final GetAllStagesUseCase _getAllStagesUseCase;
-  final GetLocalAccountUseCase _getLocalAccountUseCase;
+  final LocalCacheRepository _localCacheRepository;
 
   Future<void> _onHomeGetAllStagesEvent(
     HomeGetAllStagesEvent event,
@@ -39,14 +39,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeGetLocalAccountLoadingState(oldState: state));
 
-    final res = await _getLocalAccountUseCase();
-    if (res.isRight) {
-      emit(HomeGetLocalAccountSuccessState(
-        oldState: state,
-        accountModel: res.right,
-      ));
-    } else {
-      emit(HomeGetLocalAccountFailedState(oldState: state, error: res.left));
-    }
+    final account = await _localCacheRepository.getAccount();
+    emit(HomeGetLocalAccountSuccessState(
+      oldState: state,
+      accountModel: account,
+    ));
   }
 }

@@ -25,6 +25,7 @@ class DataConstants {
   static const errorSaveAccount = 'Error save account';
   static const errorGetAccount = 'Error get account';
   static const errorCheckAccountExists = 'Error check account exists';
+  static const errorSendChatMessage = 'Error send chat message';
 
   /// Local cache error
   static const errorSaveLocalAccount = 'Error save local account';

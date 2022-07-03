@@ -12,7 +12,6 @@ ChatMessageModel _$ChatMessageModelFromJson(Map<String, dynamic> json) =>
       idTo: json['id_to'] as String,
       message: json['message'] as String,
       createdAt: json['created_at'] as String,
-      type: json['type'] as int,
     );
 
 Map<String, dynamic> _$ChatMessageModelToJson(ChatMessageModel instance) =>
@@ -21,5 +20,4 @@ Map<String, dynamic> _$ChatMessageModelToJson(ChatMessageModel instance) =>
       'id_to': instance.idTo,
       'message': instance.message,
       'created_at': instance.createdAt,
-      'type': instance.type,
     };

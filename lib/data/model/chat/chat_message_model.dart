@@ -10,7 +10,6 @@ class ChatMessageModel {
     required this.idTo,
     required this.message,
     required this.createdAt,
-    required this.type,
   });
 
   @JsonKey(name: 'id_from')
@@ -23,8 +22,6 @@ class ChatMessageModel {
 
   @JsonKey(name: 'created_at')
   final String createdAt;
-
-  final int type;
 
   DateTime get createdAtDateTime => createdAt.toDateTime();
 

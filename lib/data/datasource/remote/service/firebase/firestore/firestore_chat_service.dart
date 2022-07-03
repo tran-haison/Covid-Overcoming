@@ -8,6 +8,7 @@ abstract class FirestoreChatService {
     required String groupChatId,
     required int limit,
   });
+
   Future<void> sendChatMessage({
     required String groupChatId,
     required ChatMessageModel chatMessageModel,
@@ -28,10 +29,13 @@ class FirestoreChatServiceImpl implements FirestoreChatService {
     return baseService.collectionStream<ChatMessageModel>(
       path: FirestorePaths.messages(groupChatId),
       builder: (data, documentId) => ChatMessageModel.fromJson(data),
-      queryBuilder: (query) => query.limit(limit),
-      sort: (left, right) => right.createdAtDateTime.compareTo(
-        left.createdAtDateTime,
-      ),
+      queryBuilder: (query) => query.limit(limit).orderBy(
+            'created_at',
+            descending: true,
+          ),
+      // sort: (left, right) => right.createdAtDateTime.compareTo(
+      //   left.createdAtDateTime,
+      // ),
     );
   }
 

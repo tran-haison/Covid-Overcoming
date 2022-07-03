@@ -1,7 +1,9 @@
 import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/core/error/error.dart';
+import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_chat_service.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_database_service.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
+import 'package:covid_overcoming/data/model/chat/chat_message_model.dart';
 import 'package:covid_overcoming/data/repository/utils/data_constants.dart';
 import 'package:covid_overcoming/domain/repository/remote/firebase/firebase_repository.dart';
 import 'package:either_dart/either.dart';
@@ -9,9 +11,13 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: FirebaseRepository)
 class FirebaseRepositoryImpl implements FirebaseRepository {
-  const FirebaseRepositoryImpl(this.fireStoreDatabase);
+  const FirebaseRepositoryImpl(
+    this.fireStoreDatabase,
+    this.fireStoreChatService,
+  );
 
   final FirestoreDatabaseService fireStoreDatabase;
+  final FirestoreChatService fireStoreChatService;
 
   @override
   Future<Either<Error, bool>> saveAccount({
@@ -54,6 +60,34 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
   @override
   Stream<List<AccountModel>> getAccountsStream() {
     return fireStoreDatabase.getAccountsStream();
+  }
+
+  @override
+  Stream<List<ChatMessageModel>> getChatMessagesStream({
+    required String groupChatId,
+    required int limit,
+  }) {
+    return fireStoreChatService.getChatMessagesStream(
+      groupChatId: groupChatId,
+      limit: limit,
+    );
+  }
+
+  @override
+  Future<Either<Error, bool>> sendChatMessage({
+    required String groupChatId,
+    required ChatMessageModel chatMessageModel,
+  }) {
+    return _firebaseMethodCall<bool>(
+      function: () async {
+        await fireStoreChatService.sendChatMessage(
+          groupChatId: groupChatId,
+          chatMessageModel: chatMessageModel,
+        );
+        return const Right(true);
+      },
+      errorMessage: DataConstants.errorSendChatMessage,
+    );
   }
 
   /// Generic function with error handling for firebase methods

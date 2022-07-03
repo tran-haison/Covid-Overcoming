@@ -17,33 +17,33 @@ import '../../data/datasource/remote/service/firebase/firestore/firestore_chat_s
     as _i7;
 import '../../data/datasource/remote/service/firebase/firestore/firestore_database_service.dart'
     as _i8;
-import '../../data/repository/auth/auth_repository_impl.dart' as _i17;
+import '../../data/repository/auth/auth_repository_impl.dart' as _i16;
 import '../../data/repository/local/local_cache_repository_impl.dart' as _i10;
 import '../../data/repository/local/local_database_repository_impl.dart'
     as _i12;
 import '../../data/repository/remote/firebase/firebase_repository_impl.dart'
-    as _i20;
-import '../../domain/repository/auth/auth_repository.dart' as _i16;
+    as _i18;
+import '../../domain/repository/auth/auth_repository.dart' as _i15;
 import '../../domain/repository/local/local_cache_repository.dart' as _i9;
 import '../../domain/repository/local/local_database_repository.dart' as _i11;
 import '../../domain/repository/remote/firebase/firebase_repository.dart'
-    as _i19;
-import '../../domain/usecase/auth/auth_action_usecase.dart' as _i27;
-import '../../domain/usecase/auth/auth_state_usecase.dart' as _i25;
-import '../../domain/usecase/auth/manage_user_usecase.dart' as _i23;
-import '../../domain/usecase/local/cache/cache_account_usecase.dart' as _i13;
-import '../../domain/usecase/local/cache/cache_data_usecase.dart' as _i18;
+    as _i17;
+import '../../domain/usecase/auth/auth_action_usecase.dart' as _i24;
+import '../../domain/usecase/auth/auth_state_usecase.dart' as _i23;
+import '../../domain/usecase/auth/manage_user_usecase.dart' as _i21;
 import '../../domain/usecase/local/database/get_all_stages_usecase.dart'
-    as _i22;
+    as _i20;
 import '../../domain/usecase/remote/firebase/firebase_account_usecase.dart'
-    as _i21;
-import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i28;
-import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i14;
-import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i15;
-import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i24;
-import '../../presentation/pages/main/schedule/bloc/schedule_bloc.dart' as _i26;
-import '../../presentation/pages/profile/bloc/profile_bloc.dart' as _i29;
-import 'app_module.dart' as _i30; // ignore_for_file: unnecessary_lambdas
+    as _i19;
+import '../../presentation/pages/auth/bloc/auth_bloc.dart' as _i25;
+import '../../presentation/pages/auth/signin/bloc/sign_in_bloc.dart' as _i13;
+import '../../presentation/pages/auth/signup/bloc/sign_up_bloc.dart' as _i14;
+import '../../presentation/pages/chat_detail/bloc/chat_detail_bloc.dart'
+    as _i27;
+import '../../presentation/pages/main/chat/bloc/chat_bloc.dart' as _i26;
+import '../../presentation/pages/main/home/bloc/home_bloc.dart' as _i22;
+import '../../presentation/pages/profile/bloc/profile_bloc.dart' as _i28;
+import 'app_module.dart' as _i29; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -64,59 +64,52 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i10.LocalCacheRepositoryImpl(get<_i4.AppPreferences>()));
   gh.lazySingleton<_i11.LocalDatabaseRepository>(
       () => _i12.LocalDatabaseRepositoryImpl(get<_i3.AppDatabase>()));
-  gh.factory<_i13.SaveLocalAccountUseCase>(
-      () => _i13.SaveLocalAccountUseCase(get<_i9.LocalCacheRepository>()));
-  gh.factory<_i14.SignInBloc>(() => _i14.SignInBloc());
-  gh.factory<_i15.SignUpBloc>(() => _i15.SignUpBloc());
-  gh.lazySingleton<_i16.AuthRepository>(
-      () => _i17.AuthRepositoryImpl(get<_i5.AuthService>()));
-  gh.factory<_i18.ClearCacheDataUseCase>(
-      () => _i18.ClearCacheDataUseCase(get<_i9.LocalCacheRepository>()));
-  gh.lazySingleton<_i19.FirebaseRepository>(
-      () => _i20.FirebaseRepositoryImpl(get<_i8.FirestoreDatabaseService>()));
-  gh.factory<_i21.GetAccountUseCase>(
-      () => _i21.GetAccountUseCase(get<_i19.FirebaseRepository>()));
-  gh.factory<_i22.GetAllStagesUseCase>(
-      () => _i22.GetAllStagesUseCase(get<_i11.LocalDatabaseRepository>()));
-  gh.factory<_i23.GetCurrentUserUseCase>(
-      () => _i23.GetCurrentUserUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i13.GetLocalAccountUseCase>(
-      () => _i13.GetLocalAccountUseCase(get<_i9.LocalCacheRepository>()));
-  gh.factory<_i24.HomeBloc>(() => _i24.HomeBloc(
-      get<_i22.GetAllStagesUseCase>(), get<_i13.GetLocalAccountUseCase>()));
-  gh.factory<_i25.OnAuthStateChangesUseCase>(
-      () => _i25.OnAuthStateChangesUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i21.SaveAccountUseCase>(
-      () => _i21.SaveAccountUseCase(get<_i19.FirebaseRepository>()));
-  gh.factory<_i26.ScheduleBloc>(
-      () => _i26.ScheduleBloc(get<_i19.FirebaseRepository>()));
-  gh.factory<_i27.SignInWithEmailAndPasswordUseCase>(
-      () => _i27.SignInWithEmailAndPasswordUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i27.SignInWithFacebookUseCase>(
-      () => _i27.SignInWithFacebookUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i27.SignInWithGoogleUseCase>(
-      () => _i27.SignInWithGoogleUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i27.SignOutUseCase>(
-      () => _i27.SignOutUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i27.SignUpWithEmailAndPasswordUseCase>(
-      () => _i27.SignUpWithEmailAndPasswordUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i28.AuthBloc>(() => _i28.AuthBloc(
-      get<_i23.GetCurrentUserUseCase>(),
-      get<_i27.SignInWithGoogleUseCase>(),
-      get<_i27.SignInWithFacebookUseCase>(),
-      get<_i27.SignInWithEmailAndPasswordUseCase>(),
-      get<_i27.SignUpWithEmailAndPasswordUseCase>(),
-      get<_i27.SignOutUseCase>(),
-      get<_i21.SaveAccountUseCase>(),
-      get<_i13.SaveLocalAccountUseCase>(),
-      get<_i18.ClearCacheDataUseCase>()));
-  gh.factory<_i21.CheckAccountExistsUseCase>(
-      () => _i21.CheckAccountExistsUseCase(get<_i19.FirebaseRepository>()));
-  gh.factory<_i29.ProfileBloc>(() => _i29.ProfileBloc(
-      get<_i13.GetLocalAccountUseCase>(),
-      get<_i27.SignOutUseCase>(),
-      get<_i18.ClearCacheDataUseCase>()));
+  gh.factory<_i13.SignInBloc>(() => _i13.SignInBloc());
+  gh.factory<_i14.SignUpBloc>(() => _i14.SignUpBloc());
+  gh.lazySingleton<_i15.AuthRepository>(
+      () => _i16.AuthRepositoryImpl(get<_i5.AuthService>()));
+  gh.lazySingleton<_i17.FirebaseRepository>(() => _i18.FirebaseRepositoryImpl(
+      get<_i8.FirestoreDatabaseService>(), get<_i7.FirestoreChatService>()));
+  gh.factory<_i19.GetAccountUseCase>(
+      () => _i19.GetAccountUseCase(get<_i17.FirebaseRepository>()));
+  gh.factory<_i20.GetAllStagesUseCase>(
+      () => _i20.GetAllStagesUseCase(get<_i11.LocalDatabaseRepository>()));
+  gh.factory<_i21.GetCurrentUserUseCase>(
+      () => _i21.GetCurrentUserUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i22.HomeBloc>(() => _i22.HomeBloc(
+      get<_i20.GetAllStagesUseCase>(), get<_i9.LocalCacheRepository>()));
+  gh.factory<_i23.OnAuthStateChangesUseCase>(
+      () => _i23.OnAuthStateChangesUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i19.SaveAccountUseCase>(
+      () => _i19.SaveAccountUseCase(get<_i17.FirebaseRepository>()));
+  gh.factory<_i24.SignInWithEmailAndPasswordUseCase>(
+      () => _i24.SignInWithEmailAndPasswordUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i24.SignInWithFacebookUseCase>(
+      () => _i24.SignInWithFacebookUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i24.SignInWithGoogleUseCase>(
+      () => _i24.SignInWithGoogleUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i24.SignOutUseCase>(
+      () => _i24.SignOutUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i24.SignUpWithEmailAndPasswordUseCase>(
+      () => _i24.SignUpWithEmailAndPasswordUseCase(get<_i15.AuthRepository>()));
+  gh.factory<_i25.AuthBloc>(() => _i25.AuthBloc(
+      get<_i21.GetCurrentUserUseCase>(),
+      get<_i24.SignInWithGoogleUseCase>(),
+      get<_i24.SignInWithFacebookUseCase>(),
+      get<_i24.SignInWithEmailAndPasswordUseCase>(),
+      get<_i24.SignUpWithEmailAndPasswordUseCase>(),
+      get<_i24.SignOutUseCase>(),
+      get<_i19.SaveAccountUseCase>(),
+      get<_i9.LocalCacheRepository>()));
+  gh.factory<_i26.ChatBloc>(() => _i26.ChatBloc(
+      get<_i17.FirebaseRepository>(), get<_i9.LocalCacheRepository>()));
+  gh.factory<_i27.ChatDetailBloc>(
+      () => _i27.ChatDetailBloc(get<_i17.FirebaseRepository>()));
+  gh.factory<_i19.CheckAccountExistsUseCase>(
+      () => _i19.CheckAccountExistsUseCase(get<_i17.FirebaseRepository>()));
+  gh.factory<_i28.ProfileBloc>(() => _i28.ProfileBloc(
+      get<_i24.SignOutUseCase>(), get<_i9.LocalCacheRepository>()));
   return get;
 }
 
-class _$AppModule extends _i30.AppModule {}
+class _$AppModule extends _i29.AppModule {}
