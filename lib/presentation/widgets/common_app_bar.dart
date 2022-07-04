@@ -12,6 +12,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor = colorWhite,
     this.centerTitle = true,
     this.actions,
+    this.elevation = 0,
   }) : super(key: key);
 
   final String title;
@@ -19,6 +20,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final bool centerTitle;
   final List<Widget>? actions;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: titleTextStyle,
+        textAlign: TextAlign.center,
       ),
       backgroundColor: backgroundColor,
-      elevation: 0,
+      elevation: elevation,
       centerTitle: centerTitle,
       leading: InkWell(
         borderRadius: BorderRadius.circular(Dimens.radius30),

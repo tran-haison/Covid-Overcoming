@@ -9,6 +9,8 @@ class AssetPaths {
   static const imgPhysicalProblem = 'assets/images/img_physical_problem.png';
   static const imgMentalProblem = 'assets/images/img_mental_problem.png';
   static const imgChakra = 'assets/images/img_chakra.png';
+  static const imgAnalytic = 'assets/images/img_analytic.png';
+  static const imgConversation = 'assets/images/img_conversation.png';
 
   /// Icons
   static const icContact = 'assets/icons/ic_contact.png';

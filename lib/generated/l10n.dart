@@ -689,6 +689,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Let's start your conversation...`
+  String get let_start_your_conversation {
+    return Intl.message(
+      'Let\'s start your conversation...',
+      name: 'let_start_your_conversation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type here...`
+  String get type_here {
+    return Intl.message(
+      'Type here...',
+      name: 'type_here',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

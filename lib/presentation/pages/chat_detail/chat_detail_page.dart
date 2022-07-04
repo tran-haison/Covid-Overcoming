@@ -2,6 +2,7 @@ import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/data/model/chat/chat_message_model.dart';
+import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/pages/chat_detail/bloc/chat_detail_bloc.dart';
 import 'package:covid_overcoming/presentation/widgets/common_app_bar.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
@@ -9,6 +10,7 @@ import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_form_field.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
 import 'package:covid_overcoming/utils/extension/date_extension.dart';
+import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +111,7 @@ class _ChatDetailPageState extends State<ChatDetailPage>
       backgroundColor: colorWhite,
       appBar: CommonAppBar(
         title: widget.accountOther.name,
+        elevation: 0.3,
       ),
       body: Column(
         children: <Widget>[
@@ -141,11 +144,20 @@ class _ChatDetailPageState extends State<ChatDetailPage>
               );
             }
 
-            return const Center(
-              child: Text(
-                'Let\'s start your conversation...',
-                style: textStyle16Medium,
-              ),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CommonAssetImage(
+                  imagePath: AssetPaths.imgConversation,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                ),
+                Text(
+                  S.current.let_start_your_conversation,
+                  style: textStyle16Medium,
+                ),
+                vGap50,
+              ],
             );
           }
           return const Center(child: CircularProgressIndicator());
@@ -216,7 +228,7 @@ class _ChatDetailPageState extends State<ChatDetailPage>
             Flexible(
               child: _buildMessageBubble(
                 message: chatMessage.message,
-                backgroundColor: colorLightGray2,
+                backgroundColor: colorGray100,
                 textColor: colorBlack,
               ),
             ),
@@ -258,17 +270,22 @@ class _ChatDetailPageState extends State<ChatDetailPage>
   Widget _buildMessageInput() {
     return Container(
       width: double.infinity,
-      color: colorGray200,
-      padding: const EdgeInsets.symmetric(
-        vertical: Dimens.dimen20,
-        horizontal: Dimens.dimen15,
+      decoration: const BoxDecoration(
+        color: colorWhite,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            color: colorGray200,
+          )
+        ]
       ),
       child: Row(
         children: <Widget>[
           Expanded(
             child: CommonTextFormField(
               controller: _messageController,
-              hintText: 'Type here...',
+              hintText: S.current.type_here,
+              backgroundColor: colorWhite,
               onChanged: (text) {
                 // No need to use
               },
@@ -277,19 +294,13 @@ class _ChatDetailPageState extends State<ChatDetailPage>
           hGap10,
           InkWell(
             onTap: _onSendMessage,
-            borderRadius: BorderRadius.circular(Dimens.radius10),
-            child: Container(
-              padding: const EdgeInsets.all(Dimens.dimen10),
-              decoration: BoxDecoration(
-                color: colorPrimary,
-                borderRadius: BorderRadius.circular(Dimens.radius10),
-              ),
-              child: const Icon(
-                Icons.send,
-                color: colorWhite,
-              ),
+            //splashColor: Colors.black12,
+            child: Icon(
+              Icons.send,
+              color: colorPrimary,
             ),
           ),
+          hGap10,
         ],
       ),
     );

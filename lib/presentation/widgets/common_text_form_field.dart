@@ -14,6 +14,7 @@ class CommonTextFormField extends StatefulWidget {
     this.validator,
     this.autoValidateMode,
     this.radius = Dimens.radius8,
+    this.backgroundColor = colorGray100,
   }) : super(key: key);
 
   final String hintText;
@@ -24,6 +25,7 @@ class CommonTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final AutovalidateMode? autoValidateMode;
   final double radius;
+  final Color? backgroundColor;
 
   @override
   _CommonTextFormFieldState createState() => _CommonTextFormFieldState();
@@ -37,7 +39,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.radius),
-        color: colorGray100,
+        color: widget.backgroundColor,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(

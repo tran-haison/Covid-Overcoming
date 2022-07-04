@@ -71,6 +71,7 @@ class _ProfilePageState extends State<ProfilePage>
     return Scaffold(
       appBar: CommonAppBar(
         title: S.current.profile,
+        elevation: 0.3,
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -67,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "how_do_you_feel_today":
             MessageLookupByLibrary.simpleMessage("How do you feel today?"),
         "invalid_email": MessageLookupByLibrary.simpleMessage("Invalid email"),
+        "let_start_your_conversation": MessageLookupByLibrary.simpleMessage(
+            "Let\'s start your conversation..."),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "mental": MessageLookupByLibrary.simpleMessage("Mental"),
         "mental_problems":
@@ -110,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "test_system_description": MessageLookupByLibrary.simpleMessage(
             "Various tests to quickly find out any problem with body system"),
         "tests_passed": MessageLookupByLibrary.simpleMessage("Tests passed"),
+        "type_here": MessageLookupByLibrary.simpleMessage("Type here..."),
         "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "we_will_send_a_link_to_your_email_to_reset_password":
