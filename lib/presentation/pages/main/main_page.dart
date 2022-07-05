@@ -33,13 +33,16 @@ class _MainPageState extends State<MainPage> {
 
   Widget _buildBody() {
     return SafeArea(
-      child: pages[_currentIndex],
+      child: IndexedStack(
+        index: _currentIndex,
+        children: pages,
+      ),
     );
   }
 
   Widget _buildBottomNavigationBar() {
     return Container(
-      decoration: const   BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
             blurRadius: 10,
