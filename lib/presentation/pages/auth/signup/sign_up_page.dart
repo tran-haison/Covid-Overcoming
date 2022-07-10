@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
+import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/config/route/utils/navigator_utils.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
@@ -64,6 +65,9 @@ class _SignUpPageState extends State<SignUpPage>
               context,
               S.current.success,
               S.current.sign_up_successfully,
+              firstButtonCallback: () {
+                AuthRouter.goSignIn(context);
+              },
             );
             return;
           }

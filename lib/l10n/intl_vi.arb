@@ -63,6 +63,9 @@
   "help": "Help",
   "chat": "Chat",
   "no_user_found": "No user found...",
+  "no_expert_found": "No expert found...",
   "let_start_your_conversation": "Let's start your conversation...",
-  "type_here": "Type here..."
+  "type_here": "Type here...",
+  "users": "Users",
+  "experts": "Experts"
 }

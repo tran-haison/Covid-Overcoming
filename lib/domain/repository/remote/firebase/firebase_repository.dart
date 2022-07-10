@@ -15,6 +15,8 @@ abstract class FirebaseRepository {
 
   Stream<List<AccountModel>> getAccountsStream();
 
+  Stream<List<AccountModel>> getAccountsStreamByRole(AccountRole role);
+
   Stream<List<ChatMessageModel>> getChatMessagesStream({
     required String groupChatId,
     required int limit,

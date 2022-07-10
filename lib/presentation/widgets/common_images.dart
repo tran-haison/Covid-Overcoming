@@ -72,6 +72,7 @@ class CommonAvatar extends StatelessWidget {
     this.height = 80,
     this.width = 80,
     this.padding = 0,
+    this.margin,
   }) : super(key: key);
 
   final String? photoUrl;
@@ -79,12 +80,14 @@ class CommonAvatar extends StatelessWidget {
   final double height;
   final double width;
   final double padding;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width,
+      margin: margin,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -101,10 +104,10 @@ class CommonAvatar extends StatelessWidget {
                 photoUrl!,
               )
             : null,
-        child: photoUrl == null
+        child: photoUrl == null || photoUrl!.isEmpty
             ? const CommonAssetIcon(
                 iconPath: AssetPaths.icUser,
-                color: colorBlack54,
+                color: colorLightGray2,
               )
             : null,
       ),

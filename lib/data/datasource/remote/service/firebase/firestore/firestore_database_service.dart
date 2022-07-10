@@ -11,6 +11,8 @@ abstract class FirestoreDatabaseService {
   Future<bool> checkAccountExists(String uid);
 
   Stream<List<AccountModel>> getAccountsStream();
+
+  Stream<List<AccountModel>> getAccountsStreamByRole(AccountRole role);
 }
 
 @LazySingleton(as: FirestoreDatabaseService)
@@ -46,6 +48,18 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
   Stream<List<AccountModel>> getAccountsStream() {
     return baseService.collectionStream(
       path: FirestorePaths.accounts(),
+      builder: (data, documentId) => AccountModel.fromJson(data),
+    );
+  }
+
+  @override
+  Stream<List<AccountModel>> getAccountsStreamByRole(AccountRole role) {
+    return baseService.collectionStream(
+      path: FirestorePaths.accounts(),
+      queryBuilder: (query) => query.where(
+        'role',
+        isEqualTo: role.toRoleString(),
+      ),
       builder: (data, documentId) => AccountModel.fromJson(data),
     );
   }

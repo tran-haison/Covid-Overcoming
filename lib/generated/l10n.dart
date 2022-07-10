@@ -690,6 +690,16 @@ class S {
     );
   }
 
+  /// `No expert found...`
+  String get no_expert_found {
+    return Intl.message(
+      'No expert found...',
+      name: 'no_expert_found',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Let's start your conversation...`
   String get let_start_your_conversation {
     return Intl.message(
@@ -705,6 +715,26 @@ class S {
     return Intl.message(
       'Type here...',
       name: 'type_here',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Users`
+  String get users {
+    return Intl.message(
+      'Users',
+      name: 'users',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Experts`
+  String get experts {
+    return Intl.message(
+      'Experts',
+      name: 'experts',
       desc: '',
       args: [],
     );

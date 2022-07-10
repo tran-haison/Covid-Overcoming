@@ -6,6 +6,8 @@ import 'package:covid_overcoming/presentation/pages/main/chat/bloc/chat_bloc.dar
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
 import 'package:covid_overcoming/presentation/widgets/common_text_styles.dart';
+import 'package:covid_overcoming/values/constant/asset_paths.dart';
+import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +24,10 @@ class _ChatPageState extends State<ChatPage>
   final _chatBloc = getIt<ChatBloc>();
   final _scrollController = ScrollController();
 
+  int _currentIndex = 0;
+  final expertsTabIndex = 0;
+  final usersTabIndex = 1;
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -36,21 +42,74 @@ class _ChatPageState extends State<ChatPage>
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: Text(
-                  S.current.chat,
-                  style: textStyle30Medium,
-                ),
-              ),
+              _buildPageHeader(),
+              vGap10,
+              _buildTabLayout(),
               vGap10,
               _buildListAccounts(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildPageHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: Text(
+        S.current.chat,
+        style: textStyle30Medium,
+      ),
+    );
+  }
+
+  Widget _buildTabLayout() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.dimen20),
+      child: Row(
+        children: <Widget>[
+          _buildSingleChoiceChip(
+            text: S.current.experts,
+            index: expertsTabIndex,
+          ),
+          hGap10,
+          _buildSingleChoiceChip(
+            text: S.current.users,
+            index: usersTabIndex,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSingleChoiceChip({
+    required String text,
+    required int index,
+  }) {
+    return ChoiceChip(
+      label: Text(text),
+      labelStyle: TextStyle(
+        color: _currentIndex == index ? colorWhite : colorPrimary,
+      ),
+      shape: _currentIndex != index
+          ? RoundedRectangleBorder(
+              side: const BorderSide(
+                width: 1.2,
+                color: colorGray200,
+              ),
+              borderRadius: BorderRadius.circular(Dimens.radius30),
+            )
+          : null,
+      selectedColor: colorPrimary,
+      backgroundColor: _currentIndex == index ? colorPrimary : colorWhite,
+      selected: _currentIndex == index,
+      onSelected: (isSelected) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
     );
   }
 
@@ -64,41 +123,72 @@ class _ChatPageState extends State<ChatPage>
           return empty;
         }
 
-        return StreamBuilder<List<AccountModel>>(
-          stream: _chatBloc.accountsStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final accounts = snapshot.data;
-              if (accounts != null && accounts.isNotEmpty) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: accounts.length,
-                  itemBuilder: (context, index) {
-                    final account = accounts[index];
+        return IndexedStack(
+          index: _currentIndex,
+          children: [
+            _buildAccountsByRole(
+              currentAccount: currentAccount,
+              role: AccountRole.expert,
+              textNotFound: S.current.no_expert_found,
+            ),
+            _buildAccountsByRole(
+              currentAccount: currentAccount,
+              role: AccountRole.user,
+              textNotFound: S.current.no_user_found,
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-                    if (currentAccount.uid == account.uid) {
-                      return empty;
-                    }
+  Widget _buildAccountsByRole({
+    required AccountModel currentAccount,
+    required AccountRole role,
+    required String textNotFound,
+  }) {
+    return StreamBuilder<List<AccountModel>>(
+      stream: _chatBloc.getAccountsStreamByRole(role),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final accounts = snapshot.data;
+          if (accounts != null && accounts.isNotEmpty) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: accounts.length,
+              itemBuilder: (context, index) {
+                final account = accounts[index];
 
-                    return _buildSingleAccountItem(
-                      otherAccount: account,
-                      currentAccount: currentAccount,
-                    );
-                  },
-                  controller: _scrollController,
+                if (currentAccount.uid == account.uid) {
+                  return empty;
+                }
+
+                return _buildSingleAccountItem(
+                  otherAccount: account,
+                  currentAccount: currentAccount,
                 );
-              }
-              return Center(
-                child: Text(
-                  S.current.no_user_found,
+              },
+              controller: _scrollController,
+            );
+          }
+          return Center(
+            child: Column(
+              children: <Widget>[
+                CommonAssetImage(
+                  imagePath: AssetPaths.imgEmpty,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                ),
+                Text(
+                  textNotFound,
                   style: textStyle16Medium,
                 ),
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+              ],
+            ),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
         );
       },
     );

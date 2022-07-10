@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Expert connection"),
         "expert_connection_description": MessageLookupByLibrary.simpleMessage(
             "Talk to expert and follow advice for best recovery"),
+        "experts": MessageLookupByLibrary.simpleMessage("Experts"),
         "features": MessageLookupByLibrary.simpleMessage("Features"),
         "features_description": MessageLookupByLibrary.simpleMessage(
             "We continuously improve our product to bring more value to people"),
@@ -74,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mental_problems":
             MessageLookupByLibrary.simpleMessage("Mental problems"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "no_expert_found":
+            MessageLookupByLibrary.simpleMessage("No expert found..."),
         "no_user_found":
             MessageLookupByLibrary.simpleMessage("No user found..."),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
@@ -114,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tests_passed": MessageLookupByLibrary.simpleMessage("Tests passed"),
         "type_here": MessageLookupByLibrary.simpleMessage("Type here..."),
         "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
+        "users": MessageLookupByLibrary.simpleMessage("Users"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "we_will_send_a_link_to_your_email_to_reset_password":
             MessageLookupByLibrary.simpleMessage(

@@ -62,6 +62,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
         suffixIcon: widget.isPassword
             ? IconButton(
                 splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 icon: Icon(
                   _passwordVisible ? Icons.visibility : Icons.visibility_off,
                 ),

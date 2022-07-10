@@ -11,6 +11,7 @@ class AssetPaths {
   static const imgChakra = 'assets/images/img_chakra.png';
   static const imgAnalytic = 'assets/images/img_analytic.png';
   static const imgConversation = 'assets/images/img_conversation.png';
+  static const imgEmpty = 'assets/images/img_empty.png';
 
   /// Icons
   static const icContact = 'assets/icons/ic_contact.png';

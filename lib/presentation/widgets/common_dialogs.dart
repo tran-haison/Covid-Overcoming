@@ -130,18 +130,20 @@ class CommonDialog extends StatelessWidget {
                   if (secondButtonText != null)
                     Expanded(
                       child: CommonElevatedButton(
-                        onPressed: () {
-                          secondButtonCallback ?? Navigator.of(context).pop();
-                        },
+                        onPressed: secondButtonCallback ??
+                            () {
+                              Navigator.of(context).pop();
+                            },
                         text: secondButtonText ?? '',
                       ),
                     ),
                   if (secondButtonText != null) const SizedBox(width: 10),
                   Expanded(
                     child: CommonElevatedButton(
-                      onPressed: () {
-                        firstButtonCallback ?? Navigator.of(context).pop();
-                      },
+                      onPressed: firstButtonCallback ??
+                          () {
+                            Navigator.of(context).pop();
+                          },
                       text: firstButtonText,
                       textColor: colorWhite,
                     ),

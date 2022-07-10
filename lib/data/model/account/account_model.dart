@@ -38,7 +38,9 @@ class AccountModel {
   @JsonKey(name: 'updated_at')
   final String updatedAt;
 
-  AccountRole get accountRole => AccountRoleExtension.toRoleAccount(role);
+  AccountRole get accountRole => AccountRoleExtension.toAccountRole(role);
+
+  AccountGender get accountGender => AccountGenderExtension.toAccountGender(gender);
 
   factory AccountModel.fromJson(Map<String, dynamic> json) =>
       _$AccountModelFromJson(json);
@@ -73,9 +75,30 @@ extension AccountRoleExtension on AccountRole {
     }
   }
 
-  static AccountRole toRoleAccount(String value) {
+  static AccountRole toAccountRole(String value) {
     return AccountRole.values.firstWhere(
       (role) => role.toRoleString() == value,
+    );
+  }
+}
+
+enum AccountGender { male, female, other }
+
+extension AccountGenderExtension on AccountGender {
+  String toGenderString() {
+    switch (this) {
+      case AccountGender.male:
+        return 'male';
+      case AccountGender.female:
+        return 'female';
+      case AccountGender.other:
+        return 'other';
+    }
+  }
+
+  static AccountGender toAccountGender(String value) {
+    return AccountGender.values.firstWhere(
+      (gender) => gender.toGenderString() == value,
     );
   }
 }

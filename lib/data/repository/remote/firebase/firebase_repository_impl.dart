@@ -63,6 +63,11 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
   }
 
   @override
+  Stream<List<AccountModel>> getAccountsStreamByRole(AccountRole role) {
+    return fireStoreDatabase.getAccountsStreamByRole(role);
+  }
+
+  @override
   Stream<List<ChatMessageModel>> getChatMessagesStream({
     required String groupChatId,
     required int limit,

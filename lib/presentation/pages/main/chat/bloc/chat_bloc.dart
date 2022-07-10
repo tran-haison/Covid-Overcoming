@@ -20,6 +20,18 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     return firebaseRepository.getAccountsStream();
   }
 
+  Stream<List<AccountModel>> getAccountsStreamByRole(AccountRole role) {
+    return firebaseRepository.getAccountsStreamByRole(role);
+  }
+
+  Stream<List<AccountModel>> get usersStream {
+    return firebaseRepository.getAccountsStreamByRole(AccountRole.user);
+  }
+
+  Stream<List<AccountModel>> get expertsStream {
+    return firebaseRepository.getAccountsStreamByRole(AccountRole.expert);
+  }
+
   Future<AccountModel> get account async {
     return await localCacheRepository.getAccount();
   }

@@ -112,6 +112,14 @@ class _ChatDetailPageState extends State<ChatDetailPage>
       appBar: CommonAppBar(
         title: widget.accountOther.name,
         elevation: 0.3,
+        actions: [
+          CommonAvatar(
+            photoUrl: widget.accountOther.photoUrl,
+            height: Dimens.dimen35,
+            width: Dimens.dimen35,
+            margin: const EdgeInsets.symmetric(horizontal: Dimens.dimen15),
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -294,8 +302,7 @@ class _ChatDetailPageState extends State<ChatDetailPage>
           hGap10,
           InkWell(
             onTap: _onSendMessage,
-            //splashColor: Colors.black12,
-            child: Icon(
+            child: const Icon(
               Icons.send,
               color: colorPrimary,
             ),

@@ -33,9 +33,6 @@ class FirestoreChatServiceImpl implements FirestoreChatService {
             'created_at',
             descending: true,
           ),
-      // sort: (left, right) => right.createdAtDateTime.compareTo(
-      //   left.createdAtDateTime,
-      // ),
     );
   }
 
