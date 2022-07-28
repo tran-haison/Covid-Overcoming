@@ -33,7 +33,9 @@ class _AuthPageState extends State<AuthPage> with BaseStateMixin<AuthPage> {
       bloc: _authBloc,
       builder: (context, state) {
         if (state is AuthGetCurrentUserFailedState) {
-          return const SignInPage();
+          // TODO: fake flow to pass sign in page
+          return const MainPage();
+          //return const SignInPage();
         }
         if (state is AuthGetCurrentUserSuccessState) {
           return const MainPage();

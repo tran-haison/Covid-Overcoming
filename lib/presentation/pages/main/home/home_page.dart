@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
+import 'package:covid_overcoming/config/route/router/examination_router.dart';
 import 'package:covid_overcoming/config/route/router/profile_router.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
@@ -6,6 +7,7 @@ import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_bloc.dar
 import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_event.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_state.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/widgets/home_card_problem.dart';
+import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_chips.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
@@ -42,24 +44,29 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
 
   Widget _buildPage() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(Dimens.dimen20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _buildHeader(context),
-            vGap30,
-            _buildCardCurrentStage(),
-            vGap20,
-            _buildCardProblems(),
-            vGap30,
-            _buildHealthStatus(),
-            vGap30,
-            _buildStages(),
-            vGap20,
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          _buildHeader(context),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Dimens.dimen15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildExamination(),
+                vGap20,
+                _buildCardCurrentStage(),
+                vGap20,
+                _buildCardProblems(),
+                vGap30,
+                _buildHealthStatus(),
+                vGap30,
+                _buildStages(),
+                vGap20,
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -69,44 +76,93 @@ class _HomePageState extends State<HomePage> with BaseStateMixin<HomePage> {
       buildWhen: (context, state) => state is HomeGetLocalAccountState,
       builder: (context, state) {
         final account = state.accountModel;
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    // TODO: implement greeting
-                    'Good afternoon,',
-                    style: textStyle14Gray,
+        return Material(
+          color: colorWhite,
+          elevation: 0.4,
+          child: Padding(
+            padding: const EdgeInsets.all(Dimens.dimen15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Welcome,',
+                        style: textStyle14Gray,
+                      ),
+                      vGap5,
+                      Text(
+                        account != null ? account.name : 'Anonymous',
+                        style: textStyle22Medium,
+                      ),
+                    ],
                   ),
-                  vGap5,
-                  Text(
-                    account != null ? account.name : '',
-                    style: textStyle26Medium.copyWith(height: 1),
+                ),
+                hGap10,
+                InkWell(
+                  onTap: () {
+                    ProfileRouter.goProfile(context);
+                  },
+                  borderRadius: BorderRadius.circular(Dimens.radius25),
+                  splashColor: colorBlack,
+                  highlightColor: colorBlack,
+                  child: CommonAvatar(
+                    photoUrl: account?.photoUrl,
+                    height: Dimens.dimen45,
+                    width: Dimens.dimen45,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            InkWell(
-              onTap: () {
-                ProfileRouter.goProfile(context);
-              },
-              borderRadius: BorderRadius.circular(Dimens.radius25),
-              splashColor: colorBlack,
-              highlightColor: colorBlack,
-              child: CommonAvatar(
-                photoUrl: account?.photoUrl,
-                height: Dimens.dimen50,
-                width: Dimens.dimen50,
-              ),
-            ),
-          ],
+          ),
         );
       },
+    );
+  }
+
+  Widget _buildExamination() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'COVID-19 health recovery assessment',
+                style: textStyle14Medium.copyWith(
+                  height: 1.2,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              vGap5,
+              CommonElevatedButton(
+                text: 'Start',
+                width: Dimens.dimen90,
+                height: Dimens.dimen35,
+                radius: Dimens.radius30,
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  ExaminationRouter.goExamination(context);
+                },
+              ),
+              vGap5,
+              const Text(
+                'Tap to start the assessment',
+                style: textStyle12Gray,
+              ),
+            ],
+          ),
+        ),
+        const CommonAssetImage(
+          imagePath: AssetPaths.imgTrackHistory,
+          width: 150,
+          height: 150,
+        ),
+      ],
     );
   }
 

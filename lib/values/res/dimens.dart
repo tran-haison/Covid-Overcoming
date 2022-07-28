@@ -10,8 +10,10 @@ class Dimens {
   static const double dimen30 = 30;
   static const double dimen35 = 35;
   static const double dimen40 = 40;
+  static const double dimen45 = 45;
   static const double dimen50 = 50;
   static const double dimen80 = 80;
+  static const double dimen90 = 90;
   static const double dimen100 = 100;
 
   /// Elevation

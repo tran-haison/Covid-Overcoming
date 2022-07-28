@@ -111,7 +111,6 @@ class _ChatDetailPageState extends State<ChatDetailPage>
       backgroundColor: colorWhite,
       appBar: CommonAppBar(
         title: widget.accountOther.name,
-        elevation: 0.3,
         actions: [
           CommonAvatar(
             photoUrl: widget.accountOther.photoUrl,

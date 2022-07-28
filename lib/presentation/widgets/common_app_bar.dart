@@ -8,36 +8,39 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
     Key? key,
     required this.title,
-    this.titleTextStyle = textStyle22Medium,
-    this.backgroundColor = colorWhite,
-    this.centerTitle = true,
+    this.titleTextStyle,
+    this.backgroundColor,
+    this.centerTitle,
     this.actions,
-    this.elevation = 0,
+    this.elevation,
+    this.onTap,
   }) : super(key: key);
 
   final String title;
-  final TextStyle titleTextStyle;
-  final Color backgroundColor;
-  final bool centerTitle;
+  final TextStyle? titleTextStyle;
+  final Color? backgroundColor;
+  final bool? centerTitle;
   final List<Widget>? actions;
-  final double elevation;
+  final double? elevation;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
         title,
-        style: titleTextStyle,
+        style: titleTextStyle ?? textStyle22Medium.copyWith(height: 1.5),
         textAlign: TextAlign.center,
       ),
-      backgroundColor: backgroundColor,
-      elevation: elevation,
-      centerTitle: centerTitle,
+      backgroundColor: backgroundColor ?? colorWhite,
+      elevation: elevation ?? 0.3,
+      centerTitle: centerTitle ?? true,
       leading: InkWell(
         borderRadius: BorderRadius.circular(Dimens.radius30),
-        onTap: () {
-          NavigatorUtils.goBack(context);
-        },
+        onTap: onTap ??
+            () {
+              NavigatorUtils.goBack(context);
+            },
         child: const Icon(
           Icons.arrow_back_ios_rounded,
           color: colorBlack,

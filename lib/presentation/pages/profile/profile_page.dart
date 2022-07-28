@@ -69,10 +69,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   Widget _buildPage() {
     return Scaffold(
-      appBar: CommonAppBar(
-        title: S.current.profile,
-        elevation: 0.3,
-      ),
+      appBar: CommonAppBar(title: S.current.profile),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(Dimens.dimen20),

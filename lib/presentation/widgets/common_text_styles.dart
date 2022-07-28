@@ -56,6 +56,13 @@ const textStyle22Medium = TextStyle(
   height: 1,
 );
 
+const textStyle20Medium = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w500,
+  color: Colors.black87,
+  height: 1,
+);
+
 const textStyle18Medium = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w500,
