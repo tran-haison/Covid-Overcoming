@@ -1,11 +1,10 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
+import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/config/route/ui/page_loading.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_bloc.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_event.dart';
 import 'package:covid_overcoming/presentation/pages/auth/bloc/auth_state.dart';
-import 'package:covid_overcoming/presentation/pages/auth/signin/sign_in_page.dart';
-import 'package:covid_overcoming/presentation/pages/main/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,17 +28,20 @@ class _AuthPageState extends State<AuthPage> with BaseStateMixin<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       bloc: _authBloc,
-      builder: (context, state) {
+      listener: (context, state) {
         if (state is AuthGetCurrentUserFailedState) {
           // TODO: fake flow to pass sign in page
-          return const MainPage();
-          //return const SignInPage();
+          MainRouter.goMain(context);
+          return;
         }
         if (state is AuthGetCurrentUserSuccessState) {
-          return const MainPage();
+          MainRouter.goMain(context);
+          return;
         }
+      },
+      builder: (context, state) {
         return const PageLoading();
       },
     );

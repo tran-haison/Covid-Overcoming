@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/config/route/router/examination_router.dart';
 import 'package:covid_overcoming/presentation/widgets/common_app_bar.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
@@ -28,18 +29,24 @@ class _ExaminationPageState extends State<ExaminationPage> {
   }
 
   Widget _buildPage() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(Dimens.dimen15),
-        child: Column(
-          children: <Widget>[
-            _buildProgressBar(),
-            vGap40,
-            _buildQuestionSection(),
-            vGap40,
-            _buildButtonNext(),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(Dimens.dimen15),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  _buildProgressBar(),
+                  vGap40,
+                  _buildQuestionSection(),
+                ],
+              ),
+            ),
+          ),
+          vGap15,
+          _buildButtonNext(),
+        ],
       ),
     );
   }
@@ -49,13 +56,13 @@ class _ExaminationPageState extends State<ExaminationPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const <Widget>[
         Text(
-          'Question: ',
+          'Question: 05/15',
           style: textStyle18Medium,
         ),
         vGap10,
         LinearProgressIndicator(
           backgroundColor: colorGray100,
-          value: 0.35,
+          value: 0.3,
         ),
       ],
     );
@@ -64,7 +71,7 @@ class _ExaminationPageState extends State<ExaminationPage> {
   Widget _buildQuestionSection() {
     return Column(
       children: <Widget>[
-        _buildQuestionText('Are you positive with COVID-19?'),
+        _buildQuestionText('Are you infected with COVID-19?'),
         vGap20,
         _buildListAnswers(),
       ],
@@ -80,7 +87,7 @@ class _ExaminationPageState extends State<ExaminationPage> {
   }
 
   Widget _buildListAnswers() {
-    final answers = ['A', 'B', 'C', 'D'];
+    final answers = ['A. Yes I am', 'B. No I am totally negative'];
     final listAnswers = answers
         .map(
           (answer) => _buildSingleAnswer(answer),
@@ -130,7 +137,9 @@ class _ExaminationPageState extends State<ExaminationPage> {
     return CommonElevatedButton(
       text: 'Next',
       radius: Dimens.radius30,
-      onPressed: () {},
+      onPressed: () {
+        ExaminationRouter.goExaminationResult(context);
+      },
     );
   }
 }

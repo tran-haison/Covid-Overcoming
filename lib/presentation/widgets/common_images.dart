@@ -45,12 +45,14 @@ class CommonAssetIcon extends StatelessWidget {
     this.height = 24,
     this.width = 24,
     this.color,
+    this.fit,
   }) : super(key: key);
 
   final String iconPath;
   final double height;
   final double width;
   final Color? color;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class CommonAssetIcon extends StatelessWidget {
       height: height,
       width: width,
       color: color,
-      fit: BoxFit.fill,
+      fit: fit ?? BoxFit.fill,
     );
   }
 }

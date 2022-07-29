@@ -12,6 +12,8 @@ class AssetPaths {
   static const imgAnalytic = 'assets/images/img_analytic.png';
   static const imgConversation = 'assets/images/img_conversation.png';
   static const imgEmpty = 'assets/images/img_empty.png';
+  static const imgSuccess = 'assets/images/img_success.png';
+  static const imgFailed = 'assets/images/img_failed.png';
 
   /// Icons
   static const icContact = 'assets/icons/ic_contact.png';
@@ -39,4 +41,6 @@ class AssetPaths {
   static const icVersion = 'assets/icons/ic_version.png';
   static const icArrowRight = 'assets/icons/ic_arrow_right.png';
   static const icEdit = 'assets/icons/ic_edit.png';
+  static const icShare = 'assets/icons/ic_share.png';
+  static const icSupport = 'assets/icons/ic_support.png';
 }
