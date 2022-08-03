@@ -8,7 +8,7 @@ class ExaminationQuestionModel {
   const ExaminationQuestionModel({
     required this.id,
     required this.question,
-    required this.rightAnswer,
+    required this.rightAnswerIds,
     required this.answers,
   });
 
@@ -16,8 +16,8 @@ class ExaminationQuestionModel {
 
   final String question;
 
-  @JsonKey(name: 'right_answer')
-  final ExaminationAnswerModel rightAnswer;
+  @JsonKey(name: 'right_answer_ids')
+  final List<String> rightAnswerIds;
 
   final List<ExaminationAnswerModel> answers;
 

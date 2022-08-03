@@ -11,8 +11,9 @@ ExaminationQuestionModel _$ExaminationQuestionModelFromJson(
     ExaminationQuestionModel(
       id: json['id'] as String,
       question: json['question'] as String,
-      rightAnswer: ExaminationAnswerModel.fromJson(
-          json['right_answer'] as Map<String, dynamic>),
+      rightAnswerIds: (json['right_answer_ids'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       answers: (json['answers'] as List<dynamic>)
           .map(
               (e) => ExaminationAnswerModel.fromJson(e as Map<String, dynamic>))
@@ -24,6 +25,6 @@ Map<String, dynamic> _$ExaminationQuestionModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'question': instance.question,
-      'right_answer': instance.rightAnswer,
+      'right_answer_ids': instance.rightAnswerIds,
       'answers': instance.answers,
     };
