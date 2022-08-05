@@ -11,13 +11,13 @@ class ExaminationInitial extends ExaminationState {}
 
 class ExaminationLoadingState extends ExaminationState {}
 
-class ExaminationGetNextQuestionState extends ExaminationState {
-  const ExaminationGetNextQuestionState(this.nextQuestion);
+class ExaminationGetQuestionSuccessState extends ExaminationState {
+  const ExaminationGetQuestionSuccessState(this.question);
 
-  final ExaminationQuestionModel nextQuestion;
+  final ExaminationQuestionModel question;
 
   @override
-  List<Object> get props => [nextQuestion];
+  List<Object> get props => [question];
 }
 
 class ExaminationShouldSubmitState extends ExaminationState {}

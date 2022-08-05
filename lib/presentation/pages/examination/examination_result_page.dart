@@ -10,14 +10,25 @@ import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 
 class ExaminationResultPage extends StatefulWidget {
-  const ExaminationResultPage({Key? key}) : super(key: key);
+  const ExaminationResultPage({
+    Key? key,
+    required this.isAssessmentPassed,
+  }) : super(key: key);
+
+  final bool isAssessmentPassed;
 
   @override
   State<ExaminationResultPage> createState() => _ExaminationResultPageState();
 }
 
 class _ExaminationResultPageState extends State<ExaminationResultPage> {
-  final isResultSuccess = false;
+  late bool isAssessmentPassed;
+
+  @override
+  void initState() {
+    super.initState();
+    isAssessmentPassed = widget.isAssessmentPassed;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +61,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
           ),
           vGap15,
           _buildButtonHome(),
+          vGap15,
         ],
       ),
     );
@@ -57,7 +69,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
 
   Widget _buildTextTitleResult() {
     return Text(
-      isResultSuccess ? 'CONGRATULATION' : 'SORRY',
+      isAssessmentPassed ? 'CONGRATULATION' : 'SORRY',
       style: textStyle18Medium.copyWith(letterSpacing: 2),
       textAlign: TextAlign.center,
     );
@@ -67,7 +79,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
     return CommonAssetImage(
       width: 250,
       height: 250,
-      imagePath: isResultSuccess ? AssetPaths.imgSuccess : AssetPaths.imgFailed,
+      imagePath: isAssessmentPassed ? AssetPaths.imgSuccess : AssetPaths.imgFailed,
     );
   }
 
@@ -75,7 +87,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Dimens.dimen15),
       child: Text(
-        isResultSuccess
+        isAssessmentPassed
             ? 'You have successfully passed the assessment! Now you can return to exercise'
             : 'You did not pass the assessment. Please contact a doctor for support and try again later',
         style: const TextStyle(
@@ -105,7 +117,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            isResultSuccess ? 'Share' : 'Request support',
+            isAssessmentPassed ? 'Share' : 'Request support',
           ),
           hGap10,
           CommonAssetIcon(
@@ -113,7 +125,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
             width: Dimens.dimen15,
             height: Dimens.dimen15,
             iconPath:
-                isResultSuccess ? AssetPaths.icShare : AssetPaths.icSupport,
+                isAssessmentPassed ? AssetPaths.icShare : AssetPaths.icSupport,
           ),
         ],
       ),

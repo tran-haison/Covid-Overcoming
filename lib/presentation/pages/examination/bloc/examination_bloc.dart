@@ -11,7 +11,8 @@ part 'examination_state.dart';
 @injectable
 class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
   ExaminationBloc() : super(ExaminationInitial()) {
-    on<ExaminationNextQuestionEvent>(_onExaminationNextQuestionEvent);
+    on<ExaminationGetFirstQuestionEvent>(_onExaminationGetFirstQuestionEvent);
+    on<ExaminationGetNextQuestionEvent>(_onExaminationGetNextQuestionEvent);
   }
 
   bool isAssessmentPassed = true;
@@ -20,26 +21,33 @@ class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
   int currentQuestionIndex = 0;
 
   final lastLowRiskQuestionIndex = MockData.lowRiskQuestions.length - 1;
+  final lowRiskQuestions = MockData.lowRiskQuestions;
   final highRiskQuestions = MockData.highRiskQuestions;
   final commonQuestions = MockData.commonQuestions;
 
-  List<ExaminationQuestionModel> questions = MockData.lowRiskQuestions;
+  List<ExaminationQuestionModel> questions = [];
 
-  Future<void> _onExaminationNextQuestionEvent(
-    ExaminationNextQuestionEvent event,
+  Future<void> _onExaminationGetFirstQuestionEvent(
+    ExaminationGetFirstQuestionEvent event,
     Emitter emit,
   ) async {
     emit(ExaminationLoadingState());
 
-    // Submit answer if this is the last question
-    if (isPassLowRiskQuestions && currentQuestionIndex >= questions.length) {
-      emit(ExaminationShouldSubmitState());
-      return;
-    }
+    questions.addAll(lowRiskQuestions);
+    final firstQuestion = questions[0];
+
+    emit(ExaminationGetQuestionSuccessState(firstQuestion));
+  }
+
+  Future<void> _onExaminationGetNextQuestionEvent(
+    ExaminationGetNextQuestionEvent event,
+    Emitter emit,
+  ) async {
+    emit(ExaminationLoadingState());
 
     // Add new questions based on evaluation of low risk
     if (!isPassLowRiskQuestions &&
-        currentQuestionIndex > lastLowRiskQuestionIndex) {
+        currentQuestionIndex >= lastLowRiskQuestionIndex) {
       isPassLowRiskQuestions = true;
       if (!isLowRisk) {
         questions.addAll(highRiskQuestions);
@@ -52,21 +60,24 @@ class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
     final currentQuestion = questions[currentQuestionIndex];
     final rightAnswerIds = currentQuestion.rightAnswerIds;
 
-    // Set isLowRisk to false if the answer does not match
-    if (currentQuestionIndex <= lastLowRiskQuestionIndex &&
-        !rightAnswerIds.contains(currentAnswerId)) {
-      isLowRisk = false;
-    }
-
-    // If 1 question fails -> the result will be failed
     if (!rightAnswerIds.contains(currentAnswerId)) {
-      isAssessmentPassed = false;
+      if (currentQuestionIndex <= lastLowRiskQuestionIndex) {
+        isLowRisk = false;
+      } else {
+        isAssessmentPassed = false;
+      }
     }
 
     currentQuestionIndex++;
 
+    // Submit answer if this is the last question
+    if (isPassLowRiskQuestions && currentQuestionIndex >= questions.length) {
+      emit(ExaminationShouldSubmitState());
+      return;
+    }
+
     final nextQuestion = questions[currentQuestionIndex];
 
-    emit(ExaminationGetNextQuestionState(nextQuestion));
+    emit(ExaminationGetQuestionSuccessState(nextQuestion));
   }
 }
