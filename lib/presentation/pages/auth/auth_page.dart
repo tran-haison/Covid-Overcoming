@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
+import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/config/route/router/main_router.dart';
 import 'package:covid_overcoming/config/route/ui/page_loading.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
@@ -32,8 +33,7 @@ class _AuthPageState extends State<AuthPage> with BaseStateMixin<AuthPage> {
       bloc: _authBloc,
       listener: (context, state) {
         if (state is AuthGetCurrentUserFailedState) {
-          // TODO: fake flow to pass sign in page
-          MainRouter.goMain(context);
+          AuthRouter.goSignIn(context);
           return;
         }
         if (state is AuthGetCurrentUserSuccessState) {

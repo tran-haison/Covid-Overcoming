@@ -1,3 +1,4 @@
+import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -50,7 +51,7 @@ const vGap200 = SizedBox(height: 200);
 /// Vertical line
 const vLine = SizedBox(
   child: DecoratedBox(
-    decoration: BoxDecoration(color: Colors.grey),
+    decoration: BoxDecoration(color: colorGray200),
   ),
   height: 1,
   width: double.infinity,
@@ -59,7 +60,7 @@ const vLine = SizedBox(
 /// Horizontal line
 const hLine = SizedBox(
   child: DecoratedBox(
-    decoration: BoxDecoration(color: Colors.grey),
+    decoration: BoxDecoration(color: colorGray200),
   ),
   height: double.infinity,
   width: 1,

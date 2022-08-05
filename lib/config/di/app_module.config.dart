@@ -102,6 +102,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i25.SignUpWithEmailAndPasswordUseCase>(),
       get<_i25.SignOutUseCase>(),
       get<_i20.SaveAccountUseCase>(),
+      get<_i20.GetAccountUseCase>(),
       get<_i10.LocalCacheRepository>()));
   gh.factory<_i27.ChatBloc>(() => _i27.ChatBloc(
       get<_i18.FirebaseRepository>(), get<_i10.LocalCacheRepository>()));
@@ -110,7 +111,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i20.CheckAccountExistsUseCase>(
       () => _i20.CheckAccountExistsUseCase(get<_i18.FirebaseRepository>()));
   gh.factory<_i29.ProfileBloc>(() => _i29.ProfileBloc(
-      get<_i25.SignOutUseCase>(), get<_i10.LocalCacheRepository>()));
+      get<_i20.SaveAccountUseCase>(),
+      get<_i25.SignOutUseCase>(),
+      get<_i10.LocalCacheRepository>()));
   return get;
 }
 

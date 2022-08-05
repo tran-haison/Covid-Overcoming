@@ -2,11 +2,13 @@ import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/data/datasource/mock/mock_data.dart';
+import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/generated/l10n.dart';
 import 'package:covid_overcoming/presentation/pages/profile/bloc/profile_bloc.dart';
 import 'package:covid_overcoming/presentation/pages/profile/bloc/profile_event.dart';
 import 'package:covid_overcoming/presentation/pages/profile/bloc/profile_state.dart';
 import 'package:covid_overcoming/presentation/widgets/common_app_bar.dart';
+import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_dialogs.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
 import 'package:covid_overcoming/presentation/widgets/common_images.dart';
@@ -69,6 +71,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   Widget _buildPage() {
     return Scaffold(
+      backgroundColor: colorGray100,
       appBar: CommonAppBar(title: S.current.profile),
       body: SingleChildScrollView(
         child: Padding(
@@ -77,8 +80,14 @@ class _ProfilePageState extends State<ProfilePage>
             children: <Widget>[
               vGap10,
               _buildAccountInfoHeader(),
+              vGap20,
+              _buildAccountStats(),
+              vGap20,
+              _buildExpertCertified(),
               vGap30,
-              _buildListActionItems(),
+              _buildSectionPersonal(),
+              vGap30,
+              _buildSectionHelp(),
               vGap30,
               _buildButtonSignOut(),
               vGap10,
@@ -100,57 +109,248 @@ class _ProfilePageState extends State<ProfilePage>
         }
 
         final account = state.accountModel;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            CommonAvatar(
-              photoUrl: account?.photoUrl,
-              height: Dimens.dimen100,
-              width: Dimens.dimen100,
-              padding: 5,
+        return _buildParentContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: Dimens.dimen20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                CommonAvatar(
+                  photoUrl: account?.photoUrl,
+                  height: Dimens.dimen100,
+                  width: Dimens.dimen100,
+                  padding: 5,
+                ),
+                vGap15,
+                Text(
+                  account?.name ?? S.current.name,
+                  style: textStyle26Bold,
+                ),
+                vGap5,
+                Text(
+                  account?.email ?? S.current.email,
+                  style: textStyle14Gray,
+                ),
+              ],
             ),
-            vGap15,
-            Text(
-              account?.name ?? S.current.name,
-              style: textStyle26Bold,
-            ),
-            vGap5,
-            Text(
-              account?.email ?? S.current.email,
-              style: textStyle14Gray,
-            ),
-            vGap30,
-            _buildAccountStats(),
-            vGap30,
-            _buildSingleActionItem(
-              iconPath: AssetPaths.icCheck,
-              text: S.current.expert_certified_title,
-              onTap: () {},
-            ),
-            //_buildExpertCertified(),
-          ],
+          ),
         );
       },
     );
   }
 
   Widget _buildAccountStats() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-          child: _buildAccountSingleStat(MockData.stage, S.current.stage),
+    return _buildParentContainer(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: Dimens.dimen15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: _buildAccountSingleStat(MockData.stage, S.current.stage),
+            ),
+            Expanded(
+              child: _buildAccountSingleStat(
+                MockData.testsPassed,
+                S.current.tests_passed,
+              ),
+            ),
+            Expanded(
+              child: _buildAccountSingleStat(MockData.day, S.current.days),
+            ),
+          ],
         ),
-        Expanded(
-          child: _buildAccountSingleStat(
-            MockData.testsPassed,
-            S.current.tests_passed,
+      ),
+    );
+  }
+
+  Widget _buildExpertCertified() {
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, state) {
+        final account = state.accountModel;
+        Widget widget;
+
+        switch (account?.accountExpertRequestStatus) {
+          case AccountExpertRequestStatus.none:
+            widget = CommonElevatedButton(
+              text: 'Request to become an expert',
+              onPressed: () {
+                _profileBloc.add(ProfileRequestToBecomeExpertEvent());
+              },
+            );
+            break;
+          case AccountExpertRequestStatus.pending:
+            widget = _buildParentContainer(
+              child: _buildSingleActionItem(
+                iconPath: AssetPaths.icCheck,
+                text: 'Please wait while your request is reviewed by admin',
+                trailingText: '',
+              ),
+            );
+            break;
+          case AccountExpertRequestStatus.approve:
+            widget = _buildParentContainer(
+              child: _buildSingleActionItem(
+                iconPath: AssetPaths.icCheck,
+                text: S.current.expert_certified_title,
+                trailingText: '',
+              ),
+            );
+            break;
+          case AccountExpertRequestStatus.reject:
+            widget = _buildParentContainer(
+              child: _buildSingleActionItem(
+                iconPath: AssetPaths.icCheck,
+                text: 'Your request has been rejected!',
+                trailingText: '',
+              ),
+            );
+            break;
+          default:
+            widget = empty;
+        }
+
+        return widget;
+      },
+    );
+  }
+
+  Widget _buildSectionPersonal() {
+    final items = <Widget>[
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icEdit,
+        text: S.current.edit_profile,
+        onTap: () {},
+      ),
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icPassword,
+        text: S.current.change_password,
+        onTap: () {},
+      ),
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icNotification,
+        text: S.current.notification,
+        onTap: () {},
+      ),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _buildTextSection(S.current.personal),
+        vGap10,
+        _buildParentContainer(
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: items.length,
+            itemBuilder: (_, index) {
+              return items[index];
+            },
+            separatorBuilder: (_, __) => vLine,
           ),
         ),
-        Expanded(
-          child: _buildAccountSingleStat(MockData.day, S.current.days),
+      ],
+    );
+  }
+
+  Widget _buildSectionHelp() {
+    final items = <Widget>[
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icSettings,
+        text: S.current.settings,
+        onTap: () {},
+      ),
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icFeedback,
+        text: S.current.feedback,
+        onTap: () {},
+      ),
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icPrivacy,
+        text: S.current.privacy_policy,
+        onTap: () {},
+      ),
+      _buildSingleActionItem(
+        iconPath: AssetPaths.icVersion,
+        text: S.current.version,
+        trailingText: '',
+        onTap: () {},
+      ),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _buildTextSection(S.current.help),
+        vGap10,
+        _buildParentContainer(
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: items.length,
+            itemBuilder: (_, index) {
+              return items[index];
+            },
+            separatorBuilder: (_, __) => vLine,
+          ),
         ),
       ],
+    );
+  }
+
+  Widget _buildButtonSignOut() {
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimens.radius30),
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.dimen30,
+          vertical: Dimens.dimen8,
+        ),
+        side: const BorderSide(
+          color: colorRed1,
+        ),
+      ),
+      onPressed: () {
+        _profileBloc.add(ProfileSignOutEvent());
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          const Icon(Icons.exit_to_app, color: colorRed1),
+          hGap5,
+          Text(
+            S.current.sign_out,
+            style: textStyle14Medium.copyWith(
+              color: colorRed1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildParentContainer({required Widget child}) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+        horizontal: Dimens.dimen20,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Dimens.radius10),
+        color: colorWhite,
+        boxShadow: const [
+          BoxShadow(
+            color: colorGray200,
+            blurRadius: 0,
+            spreadRadius: 0.5,
+          )
+        ],
+      ),
+      child: child,
     );
   }
 
@@ -171,59 +371,6 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-  Widget _buildListActionItems() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildTextSection(S.current.personal),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icEdit,
-          text: S.current.edit_profile,
-          onTap: () {},
-        ),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icPassword,
-          text: S.current.change_password,
-          onTap: () {},
-        ),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icNotification,
-          text: S.current.notification,
-          onTap: () {},
-        ),
-        vGap30,
-        _buildTextSection(S.current.help),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icSettings,
-          text: S.current.settings,
-          onTap: () {},
-        ),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icFeedback,
-          text: S.current.feedback,
-          onTap: () {},
-        ),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icPrivacy,
-          text: S.current.privacy_policy,
-          onTap: () {},
-        ),
-        vGap10,
-        _buildSingleActionItem(
-          iconPath: AssetPaths.icVersion,
-          text: S.current.version,
-          onTap: () {},
-        ),
-      ],
-    );
-  }
-
   Widget _buildTextSection(String text) {
     return Text(
       text,
@@ -234,95 +381,44 @@ class _ProfilePageState extends State<ProfilePage>
   Widget _buildSingleActionItem({
     required String iconPath,
     required String text,
-    required VoidCallback onTap,
+    VoidCallback? onTap,
     String? trailingText,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(Dimens.dimen15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimens.radius8),
-            //color: colorGray100,
-            border: Border.all(
-              color: colorGray200,
-              width: 1,
-            ),
-          ),
-          child: CommonAssetIcon(iconPath: iconPath),
-        ),
-        hGap10,
-        Expanded(
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(Dimens.radius8),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(Dimens.dimen15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimens.radius8),
-                // color: colorGray100,
-                border: Border.all(
-                  color: colorGray200,
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: textStyle16Medium,
-                    ),
-                  ),
-                  hGap10,
-                  if (trailingText != null && trailingText.isNotEmpty)
-                    Text(
-                      trailingText,
-                      style: textStyle16Medium,
-                    ),
-                  if (trailingText == null)
-                    const CommonAssetIcon(
-                      iconPath: AssetPaths.icArrowRight,
-                      color: colorDarkGray1,
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildButtonSignOut() {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimens.radius30),
-        ),
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: Dimens.dimen30,
-          vertical: Dimens.dimen8,
+          vertical: Dimens.dimen15,
         ),
-      ),
-      onPressed: () {
-        _profileBloc.add(ProfileSignOutEvent());
-      },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          const Icon(Icons.exit_to_app, color: colorRed1),
-          hGap5,
-          Text(
-            S.current.sign_out,
-            style: textStyle14Medium.copyWith(
-              color: colorRed1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            CommonAssetIcon(
+              iconPath: iconPath,
+              height: Dimens.dimen20,
+              width: Dimens.dimen20,
             ),
-          ),
-        ],
+            hGap15,
+            Expanded(
+              child: Text(
+                text,
+                style: textStyle16Medium.copyWith(height: 1.3),
+              ),
+            ),
+            hGap15,
+            if (trailingText != null)
+              Text(
+                trailingText,
+                style: textStyle16Medium,
+              ),
+            if (trailingText == null)
+              const CommonAssetIcon(
+                height: Dimens.dimen15,
+                width: Dimens.dimen15,
+                iconPath: AssetPaths.icArrowRight,
+              ),
+          ],
+        ),
       ),
     );
   }

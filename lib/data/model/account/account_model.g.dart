@@ -14,6 +14,7 @@ AccountModel _$AccountModelFromJson(Map<String, dynamic> json) => AccountModel(
       birthday: json['birthday'] as String,
       gender: json['gender'] as String,
       role: json['role'] as String,
+      expertRequestStatus: json['expert_request_status'] as String,
       createdAt: json['created_at'] as String,
       updatedAt: json['updated_at'] as String,
     );
@@ -27,6 +28,7 @@ Map<String, dynamic> _$AccountModelToJson(AccountModel instance) =>
       'birthday': instance.birthday,
       'gender': instance.gender,
       'role': instance.role,
+      'expert_request_status': instance.expertRequestStatus,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };

@@ -15,7 +15,7 @@ class PageLoading extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const CircularProgressIndicator(),
-            vGap10,
+            vGap20,
             Text(
               S.current.loading,
               style: textStyle16Medium,

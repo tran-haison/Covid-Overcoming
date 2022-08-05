@@ -13,6 +13,7 @@ class AccountModel {
     required this.birthday,
     required this.gender,
     required this.role,
+    required this.expertRequestStatus,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -32,6 +33,9 @@ class AccountModel {
 
   final String role;
 
+  @JsonKey(name: 'expert_request_status')
+  final String expertRequestStatus;
+
   @JsonKey(name: 'created_at')
   final String createdAt;
 
@@ -40,7 +44,13 @@ class AccountModel {
 
   AccountRole get accountRole => AccountRoleExtension.toAccountRole(role);
 
-  AccountGender get accountGender => AccountGenderExtension.toAccountGender(gender);
+  AccountGender get accountGender =>
+      AccountGenderExtension.toAccountGender(gender);
+
+  AccountExpertRequestStatus get accountExpertRequestStatus =>
+      AccountExpertRequestStatusExtension.toAccountExpertRequestStatus(
+        expertRequestStatus,
+      );
 
   factory AccountModel.fromJson(Map<String, dynamic> json) =>
       _$AccountModelFromJson(json);
@@ -54,11 +64,38 @@ class AccountModel {
       email: user.email ?? '',
       photoUrl: user.photoURL ?? '',
       birthday: '',
-      gender: '',
+      gender: AccountGender.male.toGenderString(),
       role: AccountRole.user.toRoleString(),
+      expertRequestStatus: AccountExpertRequestStatus.none.toStatusString(),
       createdAt: user.metadata.creationTime?.toIso8601String() ??
           DateTime.now().toIso8601String(),
       updatedAt: DateTime.now().toIso8601String(),
+    );
+  }
+
+  AccountModel copyWith({
+    String? uid,
+    String? name,
+    String? email,
+    String? photoUrl,
+    String? birthday,
+    String? gender,
+    String? role,
+    String? expertRequestStatus,
+    String? createdAt,
+    String? updatedAt,
+  }) {
+    return AccountModel(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      photoUrl: photoUrl ?? this.photoUrl,
+      birthday: birthday ?? this.birthday,
+      gender: gender ?? this.gender,
+      role: role ?? this.role,
+      expertRequestStatus: expertRequestStatus ?? this.expertRequestStatus,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 }
@@ -99,6 +136,29 @@ extension AccountGenderExtension on AccountGender {
   static AccountGender toAccountGender(String value) {
     return AccountGender.values.firstWhere(
       (gender) => gender.toGenderString() == value,
+    );
+  }
+}
+
+enum AccountExpertRequestStatus { none, pending, approve, reject }
+
+extension AccountExpertRequestStatusExtension on AccountExpertRequestStatus {
+  String toStatusString() {
+    switch (this) {
+      case AccountExpertRequestStatus.none:
+        return 'none';
+      case AccountExpertRequestStatus.pending:
+        return 'pending';
+      case AccountExpertRequestStatus.approve:
+        return 'approve';
+      case AccountExpertRequestStatus.reject:
+        return 'reject';
+    }
+  }
+
+  static AccountExpertRequestStatus toAccountExpertRequestStatus(String value) {
+    return AccountExpertRequestStatus.values.firstWhere(
+      (status) => status.toStatusString() == value,
     );
   }
 }

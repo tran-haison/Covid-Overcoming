@@ -21,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._signUpWithEmailAndPasswordUseCase,
     this._signOutUseCase,
     this._saveAccountUseCase,
+    this._getAccountUseCase,
     this._localCacheRepository,
   ) : super(AuthInitialState()) {
     on<AuthGetCurrentUserEvent>(_onGetCurrentUserEvent);
@@ -38,6 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpWithEmailAndPasswordUseCase _signUpWithEmailAndPasswordUseCase;
   final SignOutUseCase _signOutUseCase;
   final SaveAccountUseCase _saveAccountUseCase;
+  final GetAccountUseCase _getAccountUseCase;
   final LocalCacheRepository _localCacheRepository;
 
   Future<void> _onGetCurrentUserEvent(
@@ -46,9 +48,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthGetCurrentUserLoadingState());
 
-    // Get current user auth
     final res = await _getCurrentUserUseCase();
     if (res.isRight) {
+      final user = res.right;
+      final newAccount = AccountModel.fromUser(user);
+
+      // Get account on server and save to local
+      final resGetAccount = await _getAccountUseCase(user.uid);
+      if (resGetAccount.isRight) {
+        final currentAccount = resGetAccount.right;
+        await _saveLocalAccount(currentAccount);
+      } else {
+        await _saveLocalAccount(newAccount);
+      }
+
       emit(AuthGetCurrentUserSuccessState(res.right));
     } else {
       emit(AuthGetCurrentUserFailedState(res.left));
@@ -91,8 +104,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (res.isRight) {
       final user = res.right;
-      final accountModel = AccountModel.fromUser(user);
-      await _saveLocalAccount(accountModel);
+      final newAccount = AccountModel.fromUser(user);
+
+      // Get account on server and save to local
+      final resGetAccount = await _getAccountUseCase(user.uid);
+      if (resGetAccount.isRight) {
+        final currentAccount = resGetAccount.right;
+        await _saveLocalAccount(currentAccount);
+      } else {
+        await _saveLocalAccount(newAccount);
+      }
+
       emit(AuthSignInSuccessState(user));
     } else {
       emit(AuthSignInFailedState(res.left));
@@ -117,7 +139,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final user = res.right;
       final accountModel = AccountModel.fromUser(user);
 
-      // No need to handle the result, just call api
       await _saveFirebaseAccount(
         accountModel: accountModel,
         shouldReplace: true,
@@ -138,18 +159,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final res = await signInFunction();
     if (res.isRight) {
       final user = res.right;
-      final accountModel = AccountModel.fromUser(user);
+      final newAccount = AccountModel.fromUser(user);
 
-      // Should not overwrite user info
-      // Just save user info first time login
+      // Save new account if first time login with social
       // Eg: Google, Facebook, ...
-
-      // No need to handle the result, just call api here
       await _saveFirebaseAccount(
-        accountModel: accountModel,
+        accountModel: newAccount,
         shouldReplace: false,
       );
-      await _saveLocalAccount(accountModel);
+
+      // Get account on server and save to local
+      final resGetAccount = await _getAccountUseCase(user.uid);
+      if (resGetAccount.isRight) {
+        final currentAccount = resGetAccount.right;
+        await _saveLocalAccount(currentAccount);
+      } else {
+        await _saveLocalAccount(newAccount);
+      }
 
       emit(AuthSignInSuccessState(user));
     } else {

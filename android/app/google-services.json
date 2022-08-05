@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "714851979076-bo63g1vp2hlfhs1j6uct788tnrco0k94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vigour.covidovercoming.covid_overcoming",
+            "certificate_hash": "1305951e855c4d8c19201d2b9f0f79809116d6d0"
+          }
+        },
+        {
           "client_id": "714851979076-hius5hv4v23lg022rt7et50ikutlhar7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
