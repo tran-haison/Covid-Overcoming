@@ -43,5 +43,38 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+    <key>CFBundleURLTypes</key>
+    <array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+    			<string>com.googleusercontent.apps.714851979076-q4ib2qsop92lfu146srii5720o5abbqp</string>
+    		</array>
+    	</dict>
+    	<dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb756476998706116</string>
+            </array>
+        </dict>
+    </array>
+
+    <key>FacebookAppID</key>
+    <string>756476998706116</string>
+    <key>FacebookClientToken</key>
+    <string>ae05f763a1a538e986cf461264885ef7</string>
+    <key>FacebookDisplayName</key>
+    <string>Covid-Overcoming</string>
+
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+    </array>
+
 </dict>
 </plist>

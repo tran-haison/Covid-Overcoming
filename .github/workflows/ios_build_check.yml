@@ -1,0 +1,23 @@
+name: Build Check Workflow ~ IOS
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    name: Build Check Workflow
+    runs-on: macos-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.10.1'
+      - name: Clean project
+        run: flutter clean
+      - name: Get flutter dependencies.
+        run: flutter pub get
+      - name: iOS Build Check
+        run: flutter build ios --release --no-codesign

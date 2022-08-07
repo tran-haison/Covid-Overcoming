@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Covid Overcoming</string>
+    <string name="facebook_app_id">756476998706116</string>
+    <string name="fb_login_protocol_scheme">fb756476998706116</string>
+    <string name="facebook_client_token">ae05f763a1a538e986cf461264885ef7</string>
+</resources>
