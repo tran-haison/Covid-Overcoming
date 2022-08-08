@@ -1,5 +1,6 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/examination_router.dart';
+import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/data/model/examination/examination_answer_model.dart';
 import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
 import 'package:covid_overcoming/presentation/pages/examination/bloc/examination_bloc.dart';
@@ -19,7 +20,8 @@ class ExaminationPage extends StatefulWidget {
   State<ExaminationPage> createState() => _ExaminationPageState();
 }
 
-class _ExaminationPageState extends State<ExaminationPage> {
+class _ExaminationPageState extends State<ExaminationPage>
+    with BaseStateMixin<ExaminationPage> {
   String _currentAnswerId = '';
 
   final _examinationBloc = getIt<ExaminationBloc>();

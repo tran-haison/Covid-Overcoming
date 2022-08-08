@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/config/route/router/main_router.dart';
+import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/presentation/widgets/common_app_bar.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
@@ -21,7 +22,8 @@ class ExaminationResultPage extends StatefulWidget {
   State<ExaminationResultPage> createState() => _ExaminationResultPageState();
 }
 
-class _ExaminationResultPageState extends State<ExaminationResultPage> {
+class _ExaminationResultPageState extends State<ExaminationResultPage>
+    with BaseStateMixin<ExaminationResultPage> {
   late bool isAssessmentPassed;
 
   @override
@@ -79,7 +81,8 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
     return CommonAssetImage(
       width: 250,
       height: 250,
-      imagePath: isAssessmentPassed ? AssetPaths.imgSuccess : AssetPaths.imgFailed,
+      imagePath:
+          isAssessmentPassed ? AssetPaths.imgSuccess : AssetPaths.imgFailed,
     );
   }
 

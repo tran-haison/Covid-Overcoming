@@ -194,6 +194,7 @@ class _ProfilePageState extends State<ProfilePage>
                 iconPath: AssetPaths.icCheck,
                 text: S.current.expert_certified_title,
                 trailingText: '',
+                onTap: () {},
               ),
             );
             break;
