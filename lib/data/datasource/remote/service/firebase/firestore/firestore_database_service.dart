@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_base_service.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_paths.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
+import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class FirestoreDatabaseService {
@@ -13,6 +14,11 @@ abstract class FirestoreDatabaseService {
   Stream<List<AccountModel>> getAccountsStream();
 
   Stream<List<AccountModel>> getAccountsStreamByRole(AccountRole role);
+
+  Future<List<ExaminationQuestionModel>> getExaminationQuestions({
+    required String id,
+    required String questionType,
+  });
 }
 
 @LazySingleton(as: FirestoreDatabaseService)
@@ -61,6 +67,18 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
         isEqualTo: role.toRoleString(),
       ),
       builder: (data, documentId) => AccountModel.fromJson(data),
+    );
+  }
+
+  @override
+  Future<List<ExaminationQuestionModel>> getExaminationQuestions({
+    required String id,
+    required String questionType,
+  }) {
+
+    return baseService.getListData<ExaminationQuestionModel>(
+      path: '${FirestorePaths.examination(id)}/$questionType',
+      builder: (data, documentId) => ExaminationQuestionModel.fromJson(data),
     );
   }
 }

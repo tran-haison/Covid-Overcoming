@@ -78,8 +78,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i21.GetAllStagesUseCase(get<_i12.LocalDatabaseRepository>()));
   gh.factory<_i22.GetCurrentUserUseCase>(
       () => _i22.GetCurrentUserUseCase(get<_i16.AuthRepository>()));
-  gh.factory<_i23.HomeBloc>(() => _i23.HomeBloc(
-      get<_i21.GetAllStagesUseCase>(), get<_i10.LocalCacheRepository>()));
+  gh.factory<_i23.HomeBloc>(() => _i23.HomeBloc(get<_i21.GetAllStagesUseCase>(),
+      get<_i10.LocalCacheRepository>(), get<_i18.FirebaseRepository>()));
   gh.factory<_i24.OnAuthStateChangesUseCase>(
       () => _i24.OnAuthStateChangesUseCase(get<_i16.AuthRepository>()));
   gh.factory<_i20.SaveAccountUseCase>(

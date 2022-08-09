@@ -34,6 +34,23 @@ class FirestoreBaseService {
     return data;
   }
 
+  Future<List<T>> getListData<T>({
+    required String path,
+    required T Function(Map<String, dynamic> data, String documentId) builder,
+    Query Function(Query query)? queryBuilder,
+  }) async {
+    final reference = _firebaseFirestore.collection(path);
+    final snapshot = await reference.get();
+    final data = snapshot.docs
+        .map((snapshot) => builder(
+              snapshot.data(),
+              snapshot.id,
+            ))
+        .toList();
+    Log.d('$path: $data');
+    return data;
+  }
+
   Future<void> deleteData({
     required String path,
   }) async {

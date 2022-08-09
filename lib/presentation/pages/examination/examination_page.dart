@@ -135,7 +135,7 @@ class _ExaminationPageState extends State<ExaminationPage>
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: answers.length,
+      itemCount: answers!.length,
       itemBuilder: (_, index) {
         final answer = answers[index];
         return _buildSingleAnswer(answer);

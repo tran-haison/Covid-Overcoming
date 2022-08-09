@@ -8,4 +8,8 @@ class FirestorePaths {
 
   static String message(String groupChatId, String createdAt) =>
       'messages/$groupChatId/$groupChatId/$createdAt';
+
+  static String examinations() => 'examinations';
+
+  static String examination(String id) => 'examinations/$id';
 }
