@@ -3,6 +3,9 @@ import 'package:covid_overcoming/data/datasource/remote/service/firebase/firesto
 import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/data/model/examination/examination_answer_model.dart';
 import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
+import 'package:covid_overcoming/data/model/knowledge/knowledge_model.dart';
+import 'package:covid_overcoming/data/model/rule/rule_model.dart';
+import 'package:covid_overcoming/data/model/rule/sub_rule_model.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class FirestoreDatabaseService {
@@ -20,6 +23,8 @@ abstract class FirestoreDatabaseService {
     required String id,
     required String questionType,
   });
+
+  Future<RuleModel> getRule(String id);
 }
 
 @LazySingleton(as: FirestoreDatabaseService)
@@ -96,5 +101,25 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
     }
 
     return newQuestions;
+  }
+
+  @override
+  Future<RuleModel> getRule(String id) async {
+    final knowledges = await baseService.getListData<KnowledgeModel>(
+      path: FirestorePaths.ruleKnowledges(id),
+      builder: (data, documentId) => KnowledgeModel.fromJson(data),
+    );
+
+    final subRules = await baseService.getListData<SubRuleModel>(
+      path: FirestorePaths.ruleSubRules(id),
+      builder: (data, documentId) => SubRuleModel.fromJson(data),
+    );
+
+    final json = await baseService.getData(path: FirestorePaths.rule(id));
+
+    return RuleModel.fromJson(json).copyWith(
+      knowledges: knowledges,
+      subRules: subRules,
+    );
   }
 }

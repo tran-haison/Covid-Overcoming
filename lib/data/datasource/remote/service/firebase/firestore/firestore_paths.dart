@@ -12,4 +12,10 @@ class FirestorePaths {
   static String examinations() => 'examinations';
 
   static String examination(String id) => 'examinations/$id';
+
+  static String rule(String id) => 'rules/$id';
+
+  static String ruleKnowledges(String ruleId) => 'rules/$ruleId/knowledges';
+
+  static String ruleSubRules(String ruleId) => 'rules/$ruleId/sub-rules';
 }

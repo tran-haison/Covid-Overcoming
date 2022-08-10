@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:covid_overcoming/config/log/logger.dart';
 import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
+import 'package:covid_overcoming/data/model/rule/rule_model.dart';
 import 'package:covid_overcoming/domain/repository/remote/firebase/firebase_repository.dart';
+import 'package:covid_overcoming/utils/forward_chaining/forward_chaining.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -20,6 +23,7 @@ class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
   final FirebaseRepository _firebaseRepository;
 
   // Constants
+  final ruleId = '1';
   final examinationId = 'CmcGsiT2Q1DjCc2VkShZ';
   final commonQuestionsParam = 'common-questions';
   final lowRiskQuestionsParam = 'low-risk-questions';
@@ -30,6 +34,7 @@ class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
   bool isPassLowRiskQuestions = false;
   int currentQuestionIndex = 0;
 
+  late RuleModel rule;
   late int lastLowRiskQuestionIndex;
   late List<ExaminationQuestionModel> commonQuestions;
   late List<ExaminationQuestionModel> lowRiskQuestions;
@@ -93,11 +98,19 @@ class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
   }
 
   Future<void> init() async {
+    rule = await getRule();
     commonQuestions = await getCommonQuestions();
     lowRiskQuestions = await getLowRiskQuestions();
     highRiskQuestions = await getHighRiskQuestions();
     lastLowRiskQuestionIndex = lowRiskQuestions.length - 1;
     questions.addAll(lowRiskQuestions);
+
+    // TODO: test
+    executeForwardChaining(rule);
+  }
+
+  Future<RuleModel> getRule() {
+    return _firebaseRepository.getRule(ruleId);
   }
 
   Future<List<ExaminationQuestionModel>> getCommonQuestions() {
@@ -119,5 +132,12 @@ class ExaminationBloc extends Bloc<ExaminationEvent, ExaminationState> {
       id: examinationId,
       questionType: highRiskQuestionsParam,
     );
+  }
+
+  // TODO: test forward chaining
+  void executeForwardChaining(RuleModel ruleModel) {
+    final agenda = ['B', 'D', 'E', 'F', 'G', 'H', 'U', 'V', 'W', 'X', 'Y', 'S'];
+    final result = ForwardChaining().entails(ruleModel, agenda);
+    Log.d('RESULT: $result');
   }
 }

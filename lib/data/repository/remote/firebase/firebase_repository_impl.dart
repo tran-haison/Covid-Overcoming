@@ -5,6 +5,7 @@ import 'package:covid_overcoming/data/datasource/remote/service/firebase/firesto
 import 'package:covid_overcoming/data/model/account/account_model.dart';
 import 'package:covid_overcoming/data/model/chat/chat_message_model.dart';
 import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
+import 'package:covid_overcoming/data/model/rule/rule_model.dart';
 import 'package:covid_overcoming/data/repository/utils/data_constants.dart';
 import 'package:covid_overcoming/domain/repository/remote/firebase/firebase_repository.dart';
 import 'package:either_dart/either.dart';
@@ -77,6 +78,11 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
       id: id,
       questionType: questionType,
     );
+  }
+
+  @override
+  Future<RuleModel> getRule(String id) async {
+    return fireStoreDatabase.getRule(id);
   }
 
   @override
