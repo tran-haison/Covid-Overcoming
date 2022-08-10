@@ -9,6 +9,7 @@ import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_actions/external/platform_check/platform_check.dart';
 
 class ExaminationResultPage extends StatefulWidget {
   const ExaminationResultPage({
@@ -63,7 +64,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage>
           ),
           vGap15,
           _buildButtonHome(),
-          vGap15,
+          _buildBottomGap(),
         ],
       ),
     );
@@ -143,5 +144,12 @@ class _ExaminationResultPageState extends State<ExaminationResultPage>
         MainRouter.popUntilMain(context);
       },
     );
+  }
+
+  Widget _buildBottomGap() {
+    if (PlatformCheck.isIOS) {
+      return vGap15;
+    }
+    return empty;
   }
 }

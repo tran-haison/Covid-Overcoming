@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_base_service.dart';
 import 'package:covid_overcoming/data/datasource/remote/service/firebase/firestore/firestore_paths.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
+import 'package:covid_overcoming/data/model/examination/examination_answer_model.dart';
 import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
 import 'package:injectable/injectable.dart';
 
@@ -74,11 +75,26 @@ class FirestoreDatabaseServiceImpl implements FirestoreDatabaseService {
   Future<List<ExaminationQuestionModel>> getExaminationQuestions({
     required String id,
     required String questionType,
-  }) {
-
-    return baseService.getListData<ExaminationQuestionModel>(
+  }) async {
+    // Get list of initial questions with no answers
+    final questions = await baseService.getListData<ExaminationQuestionModel>(
       path: '${FirestorePaths.examination(id)}/$questionType',
       builder: (data, documentId) => ExaminationQuestionModel.fromJson(data),
     );
+
+    // Convert list of initial questions to list of new questions with answers
+    List<ExaminationQuestionModel> newQuestions = [];
+    for (var question in questions) {
+      final answers = await baseService.getListData<ExaminationAnswerModel>(
+        path:
+            '${FirestorePaths.examination(id)}/$questionType/${question.id}/answers',
+        builder: (data, documentId) => ExaminationAnswerModel.fromJson(data),
+        queryBuilder: (query) => query.orderBy('literal'),
+      );
+      final newQuestion = question.copyWith(answers: answers);
+      newQuestions.add(newQuestion);
+    }
+
+    return newQuestions;
   }
 }

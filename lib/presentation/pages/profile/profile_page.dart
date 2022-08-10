@@ -1,5 +1,6 @@
 import 'package:covid_overcoming/config/di/app_module.dart';
 import 'package:covid_overcoming/config/route/router/auth_router.dart';
+import 'package:covid_overcoming/config/route/router/examination_router.dart';
 import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/data/datasource/mock/mock_data.dart';
 import 'package:covid_overcoming/data/model/account/account_model.dart';
@@ -182,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage>
           case AccountExpertRequestStatus.pending:
             widget = _buildParentContainer(
               child: _buildSingleActionItem(
-                iconPath: AssetPaths.icCheck,
+                iconPath: AssetPaths.icClock,
                 text: 'Please wait while your request is reviewed by admin',
                 trailingText: '',
               ),
@@ -192,16 +193,17 @@ class _ProfilePageState extends State<ProfilePage>
             widget = _buildParentContainer(
               child: _buildSingleActionItem(
                 iconPath: AssetPaths.icCheck,
-                text: S.current.expert_certified_title,
-                trailingText: '',
-                onTap: () {},
+                text: 'Expert certified',
+                onTap: () {
+                  ExaminationRouter.goExaminationEdit(context);
+                },
               ),
             );
             break;
           case AccountExpertRequestStatus.reject:
             widget = _buildParentContainer(
               child: _buildSingleActionItem(
-                iconPath: AssetPaths.icCheck,
+                iconPath: AssetPaths.icRejected,
                 text: 'Your request has been rejected!',
                 trailingText: '',
               ),

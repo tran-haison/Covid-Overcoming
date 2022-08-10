@@ -12,6 +12,7 @@ import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_actions/external/platform_check/platform_check.dart';
 
 class ExaminationPage extends StatefulWidget {
   const ExaminationPage({Key? key}) : super(key: key);
@@ -65,8 +66,8 @@ class _ExaminationPageState extends State<ExaminationPage>
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  _buildProgressBar(),
-                  vGap40,
+                  //_buildProgressBar(),
+                  //vGap40,
                   _buildQuestionSection(),
                 ],
               ),
@@ -74,7 +75,7 @@ class _ExaminationPageState extends State<ExaminationPage>
           ),
           vGap15,
           _buildButtonNext(),
-          vGap15,
+          _buildBottomGap(),
         ],
       ),
     );
@@ -109,8 +110,9 @@ class _ExaminationPageState extends State<ExaminationPage>
         if (state is ExaminationGetQuestionSuccessState) {
           final question = state.question;
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _buildQuestion(question),
+              _buildQuestionText(question),
               vGap20,
               _buildListAnswers(question),
             ],
@@ -122,11 +124,10 @@ class _ExaminationPageState extends State<ExaminationPage>
     );
   }
 
-  Widget _buildQuestion(ExaminationQuestionModel questionModel) {
+  Widget _buildQuestionText(ExaminationQuestionModel questionModel) {
     return Text(
       questionModel.question,
       style: textStyle20Medium.copyWith(height: 1.3, letterSpacing: 1.2),
-      textAlign: TextAlign.center,
     );
   }
 
@@ -186,5 +187,12 @@ class _ExaminationPageState extends State<ExaminationPage>
         _currentAnswerId = '';
       },
     );
+  }
+
+  Widget _buildBottomGap() {
+    if (PlatformCheck.isIOS) {
+      return vGap15;
+    }
+    return empty;
   }
 }

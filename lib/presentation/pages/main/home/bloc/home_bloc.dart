@@ -1,7 +1,4 @@
-import 'package:covid_overcoming/config/log/logger.dart';
-import 'package:covid_overcoming/data/model/examination/examination_question_model.dart';
 import 'package:covid_overcoming/domain/repository/local/local_cache_repository.dart';
-import 'package:covid_overcoming/domain/repository/remote/firebase/firebase_repository.dart';
 import 'package:covid_overcoming/domain/usecase/local/database/get_all_stages_usecase.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_event.dart';
 import 'package:covid_overcoming/presentation/pages/main/home/bloc/home_state.dart';
@@ -13,7 +10,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(
     this._getAllStagesUseCase,
     this._localCacheRepository,
-    this._firebaseRepository,
   ) : super(HomeInitialState()) {
     on<HomeGetAllStagesEvent>(_onHomeGetAllStagesEvent);
     on<HomeGetLocalAccountEvent>(_onHomeGetLocalAccountEvent);
@@ -21,7 +17,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final GetAllStagesUseCase _getAllStagesUseCase;
   final LocalCacheRepository _localCacheRepository;
-  final FirebaseRepository _firebaseRepository;
 
   Future<void> _onHomeGetAllStagesEvent(
     HomeGetAllStagesEvent event,
@@ -49,15 +44,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       oldState: state,
       accountModel: account,
     ));
-
-    final result = await getExaminationQuestions();
-    Log.d(result[0].toString());
-  }
-
-  Future<List<ExaminationQuestionModel>> getExaminationQuestions() {
-    return _firebaseRepository.getExaminationQuestions(
-      id: 'CmcGsiT2Q1DjCc2VkShZ',
-      questionType: 'common-questions',
-    );
   }
 }
