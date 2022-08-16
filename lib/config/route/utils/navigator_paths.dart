@@ -21,6 +21,7 @@ class NavigatorPaths {
   /// Examination route
   static const examination = '/examination';
   static const examinationResult = '/examination-result';
+  static const examinationEdit = '/examination-edit';
 
   /// Loading route
   static const loading = '/loading';

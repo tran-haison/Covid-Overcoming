@@ -1,6 +1,7 @@
 import 'package:covid_overcoming/config/route/router/router_provider.dart';
 import 'package:covid_overcoming/config/route/utils/navigator_paths.dart';
 import 'package:covid_overcoming/config/route/utils/navigator_utils.dart';
+import 'package:covid_overcoming/presentation/pages/examination/examination_edit_page.dart';
 import 'package:covid_overcoming/presentation/pages/examination/examination_page.dart';
 import 'package:covid_overcoming/presentation/pages/examination/examination_result_page.dart';
 import 'package:fluro/fluro.dart';
@@ -22,6 +23,10 @@ class ExaminationRouter implements IRouterProvider {
     );
   }
 
+  static void goExaminationEdit(BuildContext context) {
+    NavigatorUtils.push(context, NavigatorPaths.examinationEdit);
+  }
+
   @override
   void defineRoutes(FluroRouter router) {
     // Examination page
@@ -40,6 +45,14 @@ class ExaminationRouter implements IRouterProvider {
         return ExaminationResultPage(
           isAssessmentPassed: isAssessmentPassed,
         );
+      }),
+    );
+
+    // ExaminationEdit page
+    router.define(
+      NavigatorPaths.examinationEdit,
+      handler: Handler(handlerFunc: (_, __) {
+        return const ExaminationEditPage();
       }),
     );
   }

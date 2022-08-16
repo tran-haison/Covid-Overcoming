@@ -20,4 +20,9 @@ class ExaminationAnswerModel {
       _$ExaminationAnswerModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ExaminationAnswerModelToJson(this);
+
+  @override
+  String toString() {
+    return 'ID: $id - Literal: $literal - Answer: $answer';
+  }
 }

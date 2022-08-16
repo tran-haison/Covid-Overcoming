@@ -1,4 +1,5 @@
 import 'package:covid_overcoming/config/route/router/main_router.dart';
+import 'package:covid_overcoming/core/base/base_state_mixin.dart';
 import 'package:covid_overcoming/presentation/widgets/common_app_bar.dart';
 import 'package:covid_overcoming/presentation/widgets/common_buttons.dart';
 import 'package:covid_overcoming/presentation/widgets/common_gaps.dart';
@@ -8,6 +9,7 @@ import 'package:covid_overcoming/values/constant/asset_paths.dart';
 import 'package:covid_overcoming/values/res/colors.dart';
 import 'package:covid_overcoming/values/res/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_actions/external/platform_check/platform_check.dart';
 
 class ExaminationResultPage extends StatefulWidget {
   const ExaminationResultPage({
@@ -21,7 +23,8 @@ class ExaminationResultPage extends StatefulWidget {
   State<ExaminationResultPage> createState() => _ExaminationResultPageState();
 }
 
-class _ExaminationResultPageState extends State<ExaminationResultPage> {
+class _ExaminationResultPageState extends State<ExaminationResultPage>
+    with BaseStateMixin<ExaminationResultPage> {
   late bool isAssessmentPassed;
 
   @override
@@ -61,7 +64,7 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
           ),
           vGap15,
           _buildButtonHome(),
-          vGap15,
+          _buildBottomGap(),
         ],
       ),
     );
@@ -79,7 +82,8 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
     return CommonAssetImage(
       width: 250,
       height: 250,
-      imagePath: isAssessmentPassed ? AssetPaths.imgSuccess : AssetPaths.imgFailed,
+      imagePath:
+          isAssessmentPassed ? AssetPaths.imgSuccess : AssetPaths.imgFailed,
     );
   }
 
@@ -140,5 +144,12 @@ class _ExaminationResultPageState extends State<ExaminationResultPage> {
         MainRouter.popUntilMain(context);
       },
     );
+  }
+
+  Widget _buildBottomGap() {
+    if (PlatformCheck.isIOS) {
+      return vGap15;
+    }
+    return empty;
   }
 }

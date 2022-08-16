@@ -14,8 +14,8 @@ ExaminationQuestionModel _$ExaminationQuestionModelFromJson(
       rightAnswerIds: (json['right_answer_ids'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      answers: (json['answers'] as List<dynamic>)
-          .map(
+      answers: (json['answers'] as List<dynamic>?)
+          ?.map(
               (e) => ExaminationAnswerModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

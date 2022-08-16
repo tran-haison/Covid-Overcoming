@@ -43,4 +43,6 @@ class AssetPaths {
   static const icEdit = 'assets/icons/ic_edit.png';
   static const icShare = 'assets/icons/ic_share.png';
   static const icSupport = 'assets/icons/ic_support.png';
+  static const icClock = 'assets/icons/ic_clock.png';
+  static const icRejected = 'assets/icons/ic_rejected.png';
 }

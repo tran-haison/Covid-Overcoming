@@ -20,4 +20,9 @@ class KnowledgeModel {
       _$KnowledgeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$KnowledgeModelToJson(this);
+
+  @override
+  String toString() {
+    return 'ID: $id - Literal: $literal - Sentence: $sentence';
+  }
 }
